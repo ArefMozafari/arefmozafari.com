@@ -1,6 +1,6 @@
 /// The colour-scheme switch. The choice lives in localStorage under THEME_KEY; nothing
 /// stored means "follow the system". A tiny inline script in the page head applies the
-/// stored choice before first paint; this module wires the switch and keeps it in step.
+/// stored choice before first paint; this module wires the switches and keeps them in step.
 
 export const THEME_KEY = 'theme';
 
@@ -10,13 +10,7 @@ export type ThemeSetting = ThemeChoice | null;
 const SWITCH_SELECTOR = '[data-theme-switch]';
 const OPTION_SELECTOR = '[data-theme-option]';
 
-const LABELS: Record<'system' | ThemeChoice, string> = {
-  system: 'Colour scheme: follows the system. Click to change.',
-  light: 'Colour scheme: light. Click to change.',
-  dark: 'Colour scheme: dark. Click to change.',
-};
-
-function isThemeChoice(value: string | null): value is ThemeChoice {
+function isThemeChoice(value: string | null | undefined): value is ThemeChoice {
   return value === 'light' || value === 'dark';
 }
 
@@ -28,18 +22,14 @@ export function resolveTheme(stored: string | null, systemPrefersDark: boolean):
   return systemPrefersDark ? 'dark' : 'light';
 }
 
-/// The switch cycles system → light → dark → system.
-export function nextTheme(current: ThemeSetting): ThemeSetting {
-  if (current === null) {
-    return 'light';
-  }
-  return current === 'light' ? 'dark' : null;
+/// Each option sets the scheme directly; "system" and anything unknown clear the choice.
+export function settingFromOption(option: string | undefined): ThemeSetting {
+  return isThemeChoice(option) ? option : null;
 }
 
 function readStored(): ThemeSetting {
   try {
-    const value = localStorage.getItem(THEME_KEY);
-    return isThemeChoice(value) ? value : null;
+    return settingFromOption(localStorage.getItem(THEME_KEY) ?? undefined);
   } catch {
     return null;
   }
@@ -66,32 +56,28 @@ function applyToDocument(setting: ThemeSetting): void {
   }
 }
 
-/// Marks the current option on one switch and updates its spoken label.
-function reflect(switchElement: HTMLElement, setting: ThemeSetting): void {
+/// Presses the current option on every switch on the page.
+function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
   const current = setting ?? 'system';
-  for (const option of switchElement.querySelectorAll<HTMLElement>(OPTION_SELECTOR)) {
-    if (option.dataset.themeOption === current) {
-      option.setAttribute('aria-current', 'true');
-    } else {
-      option.removeAttribute('aria-current');
+  for (const switchElement of switches) {
+    for (const option of switchElement.querySelectorAll<HTMLElement>(OPTION_SELECTOR)) {
+      option.setAttribute('aria-pressed', String(option.dataset.themeOption === current));
     }
   }
-  switchElement.setAttribute('aria-label', LABELS[current]);
 }
 
 function wireSwitches(): void {
   const switches = [...document.querySelectorAll<HTMLElement>(SWITCH_SELECTOR)];
-  let setting = readStored();
+  reflect(switches, readStored());
   for (const switchElement of switches) {
-    reflect(switchElement, setting);
-    switchElement.addEventListener('click', () => {
-      setting = nextTheme(setting);
-      writeStored(setting);
-      applyToDocument(setting);
-      for (const other of switches) {
-        reflect(other, setting);
-      }
-    });
+    for (const option of switchElement.querySelectorAll<HTMLElement>(OPTION_SELECTOR)) {
+      option.addEventListener('click', () => {
+        const setting = settingFromOption(option.dataset.themeOption);
+        writeStored(setting);
+        applyToDocument(setting);
+        reflect(switches, setting);
+      });
+    }
   }
 }
 

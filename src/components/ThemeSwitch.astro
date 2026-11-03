@@ -1,43 +1,62 @@
 ---
-/// A three-state colour-scheme switch: system, light, dark. One button that cycles; the
-/// current state is marked for sighted and assistive readers alike. Wired by scripts/theme.ts.
+/// The colour-scheme switch: three buttons, system, light, dark, each setting its scheme
+/// directly. The pressed one is marked for sighted and assistive readers alike. Wired by
+/// scripts/theme.ts.
+const OPTIONS = [
+  { id: 'system', label: 'System' },
+  { id: 'light', label: 'Light' },
+  { id: 'dark', label: 'Dark' },
+] as const;
 ---
 
-<button
-  type="button"
-  class="switch mono"
-  data-theme-switch
-  aria-label="Colour scheme: follows the system. Click to change."
->
-  <span data-theme-option="system" aria-current="true">
-    System
-  </span>
-  <span data-theme-option="light">Light</span>
-  <span data-theme-option="dark">Dark</span>
-</button>
+<fieldset class="switch mono" data-theme-switch>
+  <legend class="legend">Colour scheme</legend>
+  {OPTIONS.map((option) => (
+    <button
+      type="button"
+      data-theme-option={option.id}
+      aria-pressed={option.id === 'system' ? 'true' : 'false'}
+    >
+      {option.label}
+    </button>
+  ))}
+</fieldset>
 
 <style>
   .switch {
     display: inline-flex;
     gap: var(--space-1);
+    margin: 0;
     padding: 0;
     border: 0;
+  }
+
+  /* Read by assistive technology, not drawn. */
+  .legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .switch button {
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
     background: none;
+    font: inherit;
     font-size: var(--text-label);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--color-ink-muted);
     cursor: pointer;
-  }
-
-  .switch span {
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-pill);
     transition: color var(--motion-fast) var(--motion-ease);
   }
 
-  .switch span[aria-current='true'] {
+  .switch button[aria-pressed='true'] {
     color: var(--color-ink);
-    border: 1px solid var(--color-ink);
+    border-color: var(--color-ink);
   }
 </style>

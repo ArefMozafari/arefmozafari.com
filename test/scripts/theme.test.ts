@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { nextTheme, resolveTheme, THEME_KEY } from '../../src/scripts/theme';
+import { resolveTheme, settingFromOption, THEME_KEY } from '../../src/scripts/theme';
 
 describe('resolveTheme', () => {
   it('should follow the system when nothing is stored', () => {
@@ -17,11 +17,15 @@ describe('resolveTheme', () => {
   });
 });
 
-describe('nextTheme', () => {
-  it('should cycle system to light to dark and back to system', () => {
-    expect(nextTheme(null)).toBe('light');
-    expect(nextTheme('light')).toBe('dark');
-    expect(nextTheme('dark')).toBeNull();
+describe('settingFromOption', () => {
+  it('should map the option the visitor pressed straight to a setting', () => {
+    expect(settingFromOption('system')).toBeNull();
+    expect(settingFromOption('light')).toBe('light');
+    expect(settingFromOption('dark')).toBe('dark');
+  });
+
+  it('should treat an unknown option as system', () => {
+    expect(settingFromOption('sepia')).toBeNull();
   });
 });
 

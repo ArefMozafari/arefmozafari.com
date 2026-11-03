@@ -3,19 +3,19 @@ import ThemeSwitch from '../../src/components/ThemeSwitch.astro';
 import { render } from '../helpers/render';
 
 describe('ThemeSwitch', () => {
-  it('should be a button that names its job for assistive technology', async () => {
+  it('should offer one button per scheme inside a labelled group', async () => {
     const html = await render(ThemeSwitch);
 
-    expect(html).toMatch(/<button[^>]*type="button"[^>]*data-theme-switch/);
-    expect(html).toMatch(/aria-label="Colour scheme: follows the system\. Click to change\."/);
+    expect(html).toMatch(/<fieldset[^>]*data-theme-switch/);
+    expect(html).toMatch(/<legend[^>]*>Colour scheme<\/legend>/);
+    expect(html.match(/<button[^>]*data-theme-option=/g)?.length).toBe(3);
   });
 
-  it('should show the three states, with system marked current by default', async () => {
+  it('should mark system as the pressed option by default', async () => {
     const html = await render(ThemeSwitch);
 
-    expect(html).toContain('>System<');
-    expect(html).toContain('>Light<');
-    expect(html).toContain('>Dark<');
-    expect(html).toMatch(/data-theme-option="system"[^>]*aria-current="true"/);
+    expect(html).toMatch(/data-theme-option="system"[^>]*aria-pressed="true"/);
+    expect(html).toMatch(/data-theme-option="light"[^>]*aria-pressed="false"/);
+    expect(html).toMatch(/data-theme-option="dark"[^>]*aria-pressed="false"/);
   });
 });
