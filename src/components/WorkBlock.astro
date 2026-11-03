@@ -1,0 +1,211 @@
+---
+import { Image } from 'astro:assets';
+import type { z } from 'astro/zod';
+import type { workSchema } from '../content/schemas';
+import DemoFrame from './DemoFrame.astro';
+import DesktopFrame from './DesktopFrame.astro';
+import PhoneFrame from './PhoneFrame.astro';
+
+type Work = z.infer<ReturnType<typeof workSchema>>;
+
+/// One homepage block: halftone image with the product name as the big word,
+/// then the caption row with the description (default slot) and the receipts.
+interface Props {
+  work: Work;
+  index: number;
+}
+
+const { work, index } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const isDemo = work.artifact.kind === 'demo';
+const isTwoLines = work.word.length === 2;
+---
+
+<article class="work">
+  <div class:list={['block', { 'block--cream': isDemo, 'sign-spark': index === 0 }]}>
+    {work.tag && <span class="tag mono">{work.tag}</span>}
+    <p class:list={['word', { 'word--two': isTwoLines }]}>
+      <small class="kicker mono">{work.kicker}</small>
+      {work.word.map((line, lineIndex) => (
+        <>
+          {lineIndex > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </p>
+    {
+      work.artifact.kind === 'phone' && work.artifact.image && (
+        <PhoneFrame>
+          <Image src={work.artifact.image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
+        </PhoneFrame>
+      )
+    }
+    {
+      work.artifact.kind === 'desktop' && work.artifact.image && (
+        <DesktopFrame>
+          <Image src={work.artifact.image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
+        </DesktopFrame>
+      )
+    }
+    {isDemo && <DemoFrame fallbackAlt={work.artifact.alt} />}
+  </div>
+
+  <div class="caption">
+    <span class="number">{number}</span>
+    <div>
+      <h3 class="name">{work.name}</h3>
+      <p class="description muted">
+        <slot />
+        {work.hint && <b class="hint">{work.hint}</b>}
+      </p>
+    </div>
+    <ul class="receipts mono">
+      {
+        work.receipts.map((receipt) => (
+          <li>
+            <a href={receipt.url} target="_blank" rel="noopener">
+              {receipt.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  .work {
+    margin-bottom: var(--space-7);
+  }
+
+  .block {
+    position: relative;
+    height: var(--block-height);
+    overflow: hidden;
+    background-color: var(--color-block);
+    background-image: radial-gradient(
+      var(--halftone-gold) var(--halftone-dot),
+      transparent calc(var(--halftone-dot) + 0.2px)
+    );
+    background-size: var(--halftone-size) var(--halftone-size);
+    color: var(--color-block-ink);
+  }
+
+  .block--cream {
+    background-image: radial-gradient(
+      var(--halftone-cream) var(--halftone-dot),
+      transparent calc(var(--halftone-dot) + 0.2px)
+    );
+  }
+
+  .tag {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid rgba(224, 185, 92, 0.5);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-block-gold);
+  }
+
+  .sign-spark .tag {
+    right: var(--space-7);
+  }
+
+  .word {
+    position: absolute;
+    left: var(--space-5);
+    bottom: var(--space-4);
+    font-size: var(--text-word);
+    font-weight: 800;
+    letter-spacing: var(--tracking-word);
+    line-height: 1;
+  }
+
+  .word--two {
+    font-size: var(--text-word-two-lines);
+    line-height: 0.95;
+  }
+
+  .kicker {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-size: var(--text-kicker);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-block-gold);
+  }
+
+  .caption {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding: var(--space-4) 0;
+    border-bottom: var(--rule-strong);
+    font-size: var(--text-caption);
+  }
+
+  .number {
+    font-weight: 800;
+  }
+
+  .name {
+    font-size: var(--text-caption);
+    font-weight: 500;
+  }
+
+  .description {
+    margin-top: var(--space-1);
+    font-size: var(--text-note);
+    line-height: var(--leading-body);
+  }
+
+  .hint {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .receipts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-note);
+    line-height: 1.7;
+    text-align: right;
+  }
+
+  @media (max-width: 767px) {
+    .block {
+      height: var(--block-height-phone);
+    }
+
+    /* The phone frame sits at the right edge, so the word keeps to the left 58%. */
+    .word,
+    .word--two {
+      max-width: 58%;
+      font-size: var(--text-word-phone);
+    }
+
+    .tag,
+    .sign-spark .tag {
+      top: var(--space-4);
+      right: auto;
+      left: var(--space-4);
+    }
+
+    .caption {
+      grid-template-columns: 30px 1fr;
+      font-size: var(--text-body);
+    }
+
+    .receipts {
+      grid-column: 2;
+      text-align: left;
+    }
+  }
+</style>

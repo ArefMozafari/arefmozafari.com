@@ -1,0 +1,39 @@
+---
+/// A mono, uppercase section label with an optional quiet note on the right.
+interface Props {
+  title: string;
+  note?: string;
+  sign?: boolean;
+}
+
+const { title, note, sign = false } = Astro.props;
+---
+
+<h2 class:list={['label', 'section-label', { 'sign-dot': sign }]}>
+  <span>{title}</span>
+  {note && <span class="note">{note}</span>}
+</h2>
+
+<style>
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin: var(--space-9) 0 var(--space-3);
+    font-weight: 500;
+  }
+
+  .note {
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  @media (max-width: 767px) {
+    .section-label {
+      flex-direction: column;
+      gap: var(--space-1);
+      margin-top: var(--space-8);
+    }
+  }
+</style>

@@ -7,7 +7,7 @@ const LINKEDIN_FEED_UPDATE = 'https://www.linkedin.com/feed/update/urn:li:activi
 /// A link where a visitor can verify a claim: a store listing, a repository, a package page.
 const receiptSchema = z.object({
   label: z.string().min(1),
-  url: z.string().url(),
+  url: z.url(),
 });
 
 /// One of the three homepage blocks. The body of the entry is its description.
@@ -42,7 +42,7 @@ export const repoSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   description: z.string().min(1),
-  url: z.string().url(),
+  url: z.url(),
   github: z
     .string()
     .regex(/^[\w.-]+\/[\w.-]+$/)
@@ -54,9 +54,10 @@ export const repoSchema = z.object({
 /// Earlier work listed under "Also shipped". A row without a url renders as plain text.
 export const alsoShippedSchema = z.object({
   id: z.string().min(1),
+  order: z.number().int().positive(),
   name: z.string().min(1),
   note: z.string().min(1),
-  url: z.string().url().optional(),
+  url: z.url().optional(),
 });
 
 /// Builds the public URL of a LinkedIn post from its activity id.

@@ -1,16 +1,38 @@
 ---
+import { getCollection, render } from 'astro:content';
+import AlsoShipped from '../components/AlsoShipped.astro';
+import Lead from '../components/Lead.astro';
+import SectionLabel from '../components/SectionLabel.astro';
 import Shell from '../components/Shell.astro';
+import WorkBlock from '../components/WorkBlock.astro';
 import Base from '../layouts/Base.astro';
 import { yearsSince } from '../lib/years';
 import { SITE } from '../site';
 
 const years = yearsSince(SITE.careerStart, new Date());
+
+const works = (await getCollection('works')).sort((first, second) => first.data.order - second.data.order);
+const worksWithContent = await Promise.all(
+  works.map(async (work) => ({ work, Content: (await render(work)).Content })),
+);
+const alsoShipped = (await getCollection('alsoShipped'))
+  .map((entry) => entry.data)
+  .sort((first, second) => first.order - second.order);
 ---
 
 <Base title={`${SITE.name} · ${SITE.title}`} description={SITE.description}>
   <Shell years={years}>
-    <section id="work">
-      <p class="lead">Three things I shipped that you can open right now.</p>
+    <section id="work" aria-label="Work">
+      <Lead />
+      {
+        worksWithContent.map(({ work, Content }, index) => (
+          <WorkBlock work={work.data} index={index}>
+            <Content />
+          </WorkBlock>
+        ))
+      }
+      <SectionLabel title="Also shipped" note="earlier work, links where they exist" />
+      <AlsoShipped items={alsoShipped} />
     </section>
   </Shell>
 </Base>

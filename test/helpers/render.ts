@@ -7,7 +7,8 @@ let container: AstroContainer | undefined;
 export async function render(
   component: AstroComponentFactory,
   props: Record<string, unknown> = {},
+  slots: Record<string, string> = {},
 ): Promise<string> {
   container ??= await AstroContainer.create();
-  return container.renderToString(component, { props });
+  return container.renderToString(component, { props, slots });
 }

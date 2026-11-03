@@ -39,7 +39,7 @@
   --text-name-fa: 25px;
   --text-word: 84px;
   --text-word-two-lines: 72px;
-  --text-word-phone: 56px;
+  --text-word-phone: clamp(32px, 10.5vw, 44px);
   --text-lead: 32px;
   --text-lead-phone: 24px;
   --text-contact: 64px;

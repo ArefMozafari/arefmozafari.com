@@ -1,0 +1,30 @@
+---
+/// The two sentences that open the page. The underline is this section's gold sign.
+---
+
+<p class="lead">Three things I shipped that you can open right now.</p>
+<p class="lead-sub muted">
+  No internal metrics on this page. Every claim links to a store listing, a repository, or a
+  published package. <u class="sign-underline">If you can't check it, it isn't here.</u>
+</p>
+
+<style>
+  .lead {
+    max-width: var(--measure-lead);
+    font-size: var(--text-lead);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+  }
+
+  .lead-sub {
+    max-width: var(--measure-lead);
+    margin: var(--space-3) 0 var(--space-7);
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 767px) {
+    .lead {
+      font-size: var(--text-lead-phone);
+    }
+  }
+</style>

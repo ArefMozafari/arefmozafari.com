@@ -1,0 +1,60 @@
+import { describe, expect, it } from 'vitest';
+import corepassImage from '../../src/assets/works/corepass.png';
+import WorkBlock from '../../src/components/WorkBlock.astro';
+import { render } from '../helpers/render';
+
+const corepass = {
+  name: 'CorePass',
+  order: 1,
+  kicker: 'Blockchain identity & wallet',
+  tag: 'Live on both stores',
+  word: ['CorePass'],
+  artifact: { kind: 'phone', image: corepassImage, alt: 'CorePass on an iPhone' },
+  receipts: [
+    { label: 'App Store ↗', url: 'https://apps.apple.com/app/corepass-id/id1644928641' },
+    {
+      label: 'Google Play ↗',
+      url: 'https://play.google.com/store/apps/details?id=net.corepass.app',
+    },
+  ],
+};
+
+describe('WorkBlock', () => {
+  it('should render every receipt as an external link', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    for (const receipt of corepass.receipts) {
+      expect(html).toContain(`href="${receipt.url}"`);
+    }
+    expect(html).toMatch(/rel="noopener/);
+  });
+
+  it('should not link the work title in unit 1', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).not.toMatch(/<a[^>]*>\s*CorePass\s*<\/a>/);
+  });
+
+  it('should zero-pad the index', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).toContain('>01<');
+  });
+
+  it('should render the hint in bold when the work has one', async () => {
+    const demo = {
+      ...corepass,
+      name: 'Flutter Password Validator',
+      word: ['Password', 'Validator'],
+      artifact: { kind: 'demo', alt: 'The widget' },
+      hint: 'The phone is the real widget compiled to web. Type in it.',
+    };
+
+    const html = await render(WorkBlock, { work: demo, index: 2 }, { default: 'desc' });
+
+    expect(html).toMatch(
+      /<b[^>]*>The phone is the real widget compiled to web\. Type in it\.<\/b>/,
+    );
+    expect(html).toContain('>03<');
+  });
+});
