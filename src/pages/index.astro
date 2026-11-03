@@ -41,15 +41,15 @@ const posts = await getCollection('posts');
           <Content />
         </WorkBlock>
       ))}
-      <SectionLabel title="Also shipped" note="earlier work, links where they exist" />
+      <SectionLabel title="Also shipped" note="earlier work" />
       <AlsoShipped items={alsoShipped} />
     </section>
     <section id="open-source" aria-label="Open source">
-      <SectionLabel title="Open source" note="counts from GitHub and pub.dev at build time" />
+      <SectionLabel title="Open source" />
       <OpenSource rows={openSourceRows} />
     </section>
     <section id="posts" aria-label="Posts">
-      <SectionLabel title="Posts" note="what I write on LinkedIn, kept here too" sign />
+      <SectionLabel title="Posts" sign />
       <Posts posts={posts} />
     </section>
     <section id="contact" aria-label="Contact">

@@ -4,7 +4,7 @@ import type { alsoShippedSchema } from '../content/schemas';
 
 type Item = z.infer<typeof alsoShippedSchema>;
 
-/// Earlier work as a hairline index. A row without a url is plain text, marked internal.
+/// Earlier work as a hairline index. A row links out when there is somewhere to link.
 interface Props {
   items: Item[];
 }
@@ -19,12 +19,10 @@ const { items } = Astro.props;
         <span class="name">{item.name}</span>
         <small class="note muted">{item.note}</small>
       </div>
-      {item.url ? (
+      {item.url && (
         <a class="mono" href={item.url} target="_blank" rel="noopener">
           {item.url.includes('github.com') ? 'GitHub ↗' : 'Listing ↗'}
         </a>
-      ) : (
-        <span class="mono muted">internal</span>
       )}
     </li>
   ))}
@@ -53,8 +51,7 @@ const { items } = Astro.props;
     font-size: var(--text-note);
   }
 
-  .row a,
-  .row span.mono {
+  .row a {
     font-size: var(--text-note);
     white-space: nowrap;
   }
