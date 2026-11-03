@@ -6,7 +6,7 @@ graphic: ./graphic.png
 alt: 'Portrait card listing the stack: 9Router, CodeGraph, Cline, Hermes'
 ---
 
-I rebuilt my AI coding setup from scratch, and the result surprised me: 20 to 40% fewer tokens per request, plus an agent that actually understands my codebase.
+The result: 20 to 40% fewer tokens per request, plus an agent that actually understands my codebase.
 
 The stack, all open source:
 

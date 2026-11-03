@@ -6,7 +6,7 @@ graphic: ./graphic.png
 alt: 'Portrait glossary card: Token, Context window, CLAUDE.md, AGENTS.md, Skills, Agent Mode, MCP'
 ---
 
-18 months ago, half of these words didn't exist. Now they run my daily workflow, and one is already in 60,000+ repos.
+Now they run my daily workflow, and one is already in 60,000+ repos.
 
 A field guide to the new developer vocabulary:
 

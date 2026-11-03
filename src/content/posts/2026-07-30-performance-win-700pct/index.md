@@ -6,8 +6,6 @@ graphic: ./graphic.png
 alt: 'Gold on charcoal card: 700% faster hashing, the Rust and Flutter Rust Bridge story'
 ---
 
-I made hashing in one of my Flutter apps 700% faster.
-
 The trick wasn't Dart. It was leaving it.
 
 For a crypto wallet, the encryption was CPU-heavy, and pure Dart couldn't keep up.

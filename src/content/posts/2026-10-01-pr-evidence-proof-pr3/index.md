@@ -6,10 +6,6 @@ graphic: ./graphic.png
 alt: 'Screenshot of an agent session capturing the before state of an app for a pull request'
 ---
 
-My agent builds the old version of the app first.
-
-Not as a backup. To photograph it.
-
 That's the first rule of pr-evidence, the skill I published last week: capture the before while the base branch is still checked out. Grab it later and you pay for a second build.
 
 Once the change is built, it shoots the after: same screen, same state, same emulator. Both go side by side in the pull request, so the reviewer sees what moved without opening the diff.

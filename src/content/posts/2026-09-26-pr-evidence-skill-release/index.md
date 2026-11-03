@@ -6,8 +6,6 @@ graphic: ./graphic.png
 alt: 'Code card showing the pr-evidence skill file and its install command'
 ---
 
-GitHub has no API for attaching an image to a pull request.
-
 The drag-and-drop upload is browser-session only, so gh can't reach it. An agent that opens the PR for you opens one with no screenshots in it.
 
 There's a second trap behind it: GitHub proxies images through a cache. Replace a screenshot at a path that has already rendered, and reviewers keep seeing the old one.
