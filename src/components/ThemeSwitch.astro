@@ -43,8 +43,7 @@ const OPTIONS = [
 
   .switch button {
     padding: var(--space-1) var(--space-2);
-    border: 1px solid transparent;
-    border-radius: var(--radius-pill);
+    border: 0;
     background: none;
     font: inherit;
     font-size: var(--text-label);
@@ -55,8 +54,8 @@ const OPTIONS = [
     transition: color var(--motion-fast) var(--motion-ease);
   }
 
+  /* The pressed option is marked the way the nav marks the active section: gold ink, no box. */
   .switch button[aria-pressed='true'] {
-    color: var(--color-ink);
-    border-color: var(--color-ink);
+    color: var(--color-gold-deep);
   }
 </style>
