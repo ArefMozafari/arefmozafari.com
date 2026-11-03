@@ -20,7 +20,7 @@ describe('OpenSource', () => {
     expect(html).not.toMatch(/★|likes/);
   });
 
-  it('should prefer GitHub counts over the pub.dev score', async () => {
+  it('should combine stars and pub.dev likes when both exist', async () => {
     const html = await render(OpenSource, {
       rows: [
         {
@@ -33,8 +33,40 @@ describe('OpenSource', () => {
       ],
     });
 
-    expect(html).toContain('33 ★ · 46 forks');
-    expect(html).not.toContain('likes');
+    expect(html).toContain('33 ★ · 176 likes');
+    expect(html).not.toContain('forks');
+  });
+
+  it('should show stars and forks when only GitHub counts exist', async () => {
+    const html = await render(OpenSource, {
+      rows: [
+        {
+          name: 'n',
+          description: 'd',
+          url: 'https://x.y',
+          counts: { stars: 19, forks: 1 },
+          score: null,
+        },
+      ],
+    });
+
+    expect(html).toContain('19 ★ · 1 forks');
+  });
+
+  it('should show nothing for a repo nobody has starred yet', async () => {
+    const html = await render(OpenSource, {
+      rows: [
+        {
+          name: 'n',
+          description: 'd',
+          url: 'https://x.y',
+          counts: { stars: 0, forks: 0 },
+          score: null,
+        },
+      ],
+    });
+
+    expect(html).not.toMatch(/0 ★|forks/);
   });
 
   it('should show the pub.dev score when GitHub counts are missing', async () => {

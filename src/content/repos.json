@@ -1,6 +1,7 @@
 [
   {
     "id": "flutter_pw_validator",
+    "order": 1,
     "name": "flutter_pw_validator",
     "description": "Password validation widget for Flutter: a progress bar and the rules still unmet, under any TextField",
     "url": "https://github.com/ArefMozafari/flutter_pw_validator",
@@ -9,6 +10,7 @@
   },
   {
     "id": "password_rules",
+    "order": 2,
     "name": "password_rules",
     "description": "Password policy as a plain Dart value: counted rules, a NIST preset, a common-password blocklist and a generator",
     "url": "https://github.com/ArefMozafari/password_rules",
@@ -17,6 +19,7 @@
   },
   {
     "id": "pr-evidence",
+    "order": 3,
     "name": "pr-evidence",
     "description": "Agent skill: every pull request shows its change instead of describing it",
     "url": "https://github.com/ArefMozafari/pr-evidence",
@@ -24,6 +27,7 @@
   },
   {
     "id": "review-findings",
+    "order": 4,
     "name": "review-findings",
     "description": "Agent skill: every code review finding in one fixed shape, with a comment ready to paste",
     "url": "https://github.com/ArefMozafari/review-findings",
@@ -31,6 +35,7 @@
   },
   {
     "id": "review-replies",
+    "order": 5,
     "name": "review-replies",
     "description": "Agent skill: answers review comments on your own pull request one thread at a time, checked against the code",
     "url": "https://github.com/ArefMozafari/review-replies",
@@ -38,6 +43,7 @@
   },
   {
     "id": "post-merge-cleanup",
+    "order": 6,
     "name": "post-merge-cleanup",
     "description": "Agent skill: cleans up branches, worktrees and stale notes once your pull request has merged",
     "url": "https://github.com/ArefMozafari/post-merge-cleanup",
@@ -45,9 +51,11 @@
   },
   {
     "id": "dart-lang-ai",
+    "order": 7,
     "name": "dart-lang/ai",
     "description": "Upstream contribution: a link command for local skill directories in the Dart skills tooling",
     "url": "https://github.com/dart-lang/ai/pull/731",
-    "note": "PR #731 · in review"
+    "pullRequest": "dart-lang/ai#731",
+    "note": "PR #731"
   }
 ]

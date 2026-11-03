@@ -40,6 +40,7 @@ export const postSchema = ({ image }: SchemaContext) =>
 /// An open-source row. `github` enables the stars count, `pub` the pub.dev score.
 export const repoSchema = z.object({
   id: z.string().min(1),
+  order: z.number().int().positive(),
   name: z.string().min(1),
   description: z.string().min(1),
   url: z.url(),
@@ -48,8 +49,19 @@ export const repoSchema = z.object({
     .regex(/^[\w.-]+\/[\w.-]+$/)
     .optional(),
   pub: z.string().min(1).optional(),
+  /// `owner/repo#number`; the row shows the pull request's live state when set.
+  pullRequest: z
+    .string()
+    .regex(/^[\w.-]+\/[\w.-]+#\d+$/)
+    .optional(),
   note: z.string().optional(),
 });
+
+/// Splits `owner/repo#number` into its parts.
+export function parsePullRequest(reference: string): { fullName: string; number: number } {
+  const [fullName, number] = reference.split('#');
+  return { fullName, number: Number(number) };
+}
 
 /// Earlier work listed under "Also shipped". A row without a url renders as plain text.
 export const alsoShippedSchema = z.object({

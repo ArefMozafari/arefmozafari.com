@@ -17,10 +17,16 @@ interface Props {
 
 const { rows } = Astro.props;
 
-/// GitHub counts win; pub.dev score is the fallback; a note is the last resort.
+/// Stars and likes together for a published package, stars and forks for a repo,
+/// likes and points when only pub.dev answered, the note when nothing else applies.
+/// A repo nobody has starred yet shows no count at all.
 function countText(row: OpenSourceRow): string {
-  if (row.counts) {
-    return `${row.counts.stars} ★ · ${row.counts.forks} forks`;
+  const hasStars = row.counts !== null && row.counts.stars > 0;
+  if (hasStars && row.score) {
+    return `${row.counts!.stars} ★ · ${row.score.likes} likes`;
+  }
+  if (hasStars) {
+    return `${row.counts!.stars} ★ · ${row.counts!.forks} forks`;
   }
   if (row.score) {
     return `${row.score.likes} likes · ${row.score.points} pts`;
@@ -30,19 +36,17 @@ function countText(row: OpenSourceRow): string {
 ---
 
 <ul class="repos">
-  {
-    rows.map((row) => (
-      <li class="repo">
-        <div>
-          <a class="mono name" href={row.url} target="_blank" rel="noopener">
-            {row.name}
-          </a>
-          <p class="muted description">{row.description}</p>
-        </div>
-        <span class="mono muted count">{countText(row)}</span>
-      </li>
-    ))
-  }
+  {rows.map((row) => (
+    <li class="repo">
+      <div>
+        <a class="mono name" href={row.url} target="_blank" rel="noopener">
+          {row.name}
+        </a>
+        <p class="muted description">{row.description}</p>
+      </div>
+      <span class="mono muted count">{countText(row)}</span>
+    </li>
+  ))}
 </ul>
 
 <style>

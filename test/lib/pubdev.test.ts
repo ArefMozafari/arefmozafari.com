@@ -22,6 +22,24 @@ describe('fetchPackageScore', () => {
     expect(await fetchPackageScore('x', fetchStub as typeof fetch)).toBeNull();
   });
 
+  it('should fetch each package once per process and reuse the answer', async () => {
+    let calls = 0;
+    const fetchStub = async () => {
+      calls += 1;
+      return new Response(
+        JSON.stringify({ grantedPoints: 1, likeCount: 2, downloadCount30Days: 3 }),
+        {
+          status: 200,
+        },
+      );
+    };
+
+    await fetchPackageScore('memo_package', fetchStub as typeof fetch);
+    await fetchPackageScore('memo_package', fetchStub as typeof fetch);
+
+    expect(calls).toBe(1);
+  });
+
   it('should return null when pub.dev answers with an error status', async () => {
     const fetchStub = async () => new Response('not found', { status: 404 });
 

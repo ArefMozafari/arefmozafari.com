@@ -7,8 +7,11 @@ Flutter web demo of [flutter_pw_validator](https://pub.dev/packages/flutter_pw_v
 
 ```sh
 npm install
-npm run dev
+GITHUB_TOKEN="$(gh auth token)" npm run dev
 ```
+
+The token is optional. Without it GitHub's anonymous rate limit runs out quickly and the
+open-source rows fall back to links without counts.
 
 The demo phone on the homepage embeds `public/demo/`, which is a Flutter web build. Build it
 once with a Flutter SDK installed:

@@ -40,4 +40,18 @@ describe('fetchRepoCounts', () => {
 
     expect(seenAuthorization).toBe('Bearer token');
   });
+
+  it('should fetch each repo once per process and reuse the answer', async () => {
+    let calls = 0;
+    const fetchStub = async () => {
+      calls += 1;
+      return new Response(JSON.stringify({ stargazers_count: 1, forks_count: 2 }), { status: 200 });
+    };
+
+    const first = await fetchRepoCounts('memo/repo', fetchStub as typeof fetch, undefined);
+    const second = await fetchRepoCounts('memo/repo', fetchStub as typeof fetch, undefined);
+
+    expect(calls).toBe(1);
+    expect(second).toEqual(first);
+  });
 });

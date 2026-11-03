@@ -1,20 +1,30 @@
+import { memoizeAsync } from './memo';
+
 export type RepoCounts = { stars: number; forks: number };
 
 const GITHUB_API = 'https://api.github.com/repos/';
 
-/// Fetches stars and forks for `owner/repo`. Returns null on any failure so a
-/// rate-limited or offline build renders the row without a count.
-export async function fetchRepoCounts(
-  fullName: string,
-  fetchImplementation: typeof fetch = fetch,
-  token: string | undefined = process.env.GITHUB_TOKEN,
-): Promise<RepoCounts | null> {
-  const headers: Record<string, string> = { Accept: 'application/vnd.github+json' };
+/// Headers GitHub expects; the token lifts the anonymous rate limit in CI.
+export function githubHeaders(token: string | undefined): Record<string, string> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'arefmozafari.com-build',
+  };
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
+  return headers;
+}
+
+async function loadRepoCounts(
+  fullName: string,
+  fetchImplementation: typeof fetch,
+  token: string | undefined,
+): Promise<RepoCounts | null> {
   try {
-    const response = await fetchImplementation(`${GITHUB_API}${fullName}`, { headers });
+    const response = await fetchImplementation(`${GITHUB_API}${fullName}`, {
+      headers: githubHeaders(token),
+    });
     if (!response.ok) {
       return null;
     }
@@ -26,4 +36,16 @@ export async function fetchRepoCounts(
   } catch {
     return null;
   }
+}
+
+const memoizedRepoCounts = memoizeAsync(loadRepoCounts);
+
+/// Fetches stars and forks for `owner/repo`, once per process. Returns null on any
+/// failure so a rate-limited or offline build renders the row without a count.
+export function fetchRepoCounts(
+  fullName: string,
+  fetchImplementation: typeof fetch = fetch,
+  token: string | undefined = process.env.GITHUB_TOKEN,
+): Promise<RepoCounts | null> {
+  return memoizedRepoCounts(fullName, fetchImplementation, token);
 }
