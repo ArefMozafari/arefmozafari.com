@@ -5,11 +5,13 @@ import type { workSchema } from '../content/schemas';
 import DemoFrame from './DemoFrame.astro';
 import DesktopFrame from './DesktopFrame.astro';
 import PhoneFrame from './PhoneFrame.astro';
+import PosterFrame from './PosterFrame.astro';
 
 type Work = z.infer<ReturnType<typeof workSchema>>;
 
-/// One homepage block: halftone image with the product name as the big word,
-/// then the caption row with the description (default slot) and the receipts.
+/// One homepage block: halftone image with the product name as the big word (and the
+/// block's heading), one real artifact, then a caption row with the description
+/// (default slot) and the receipts.
 interface Props {
   work: Work;
   index: number;
@@ -19,11 +21,12 @@ const { work, index } = Astro.props;
 const number = String(index + 1).padStart(2, '0');
 const isDemo = work.artifact.kind === 'demo';
 const isTwoLines = work.word.length === 2;
+const image = work.artifact.image;
 ---
 
 <article class="work">
-  <div class:list={['block', { 'block--cream': isDemo, 'sign-spark': index === 0 }]}>
-    <p class:list={['word', { 'word--two': isTwoLines }]}>
+  <div class:list={['block', { 'block--cream': isDemo }]}>
+    <h3 class:list={['word', { 'word--two': isTwoLines }]}>
       <small class="kicker mono">{work.kicker}</small>
       {work.word.map((line, lineIndex) => (
         <>
@@ -31,15 +34,20 @@ const isTwoLines = work.word.length === 2;
           {line}
         </>
       ))}
-    </p>
-    {work.artifact.kind === 'phone' && work.artifact.image && (
+    </h3>
+    {work.artifact.kind === 'poster' && image && (
+      <PosterFrame>
+        <Image src={image} alt={work.artifact.alt} width={600} densities={[1, 2]} />
+      </PosterFrame>
+    )}
+    {work.artifact.kind === 'phone' && image && (
       <PhoneFrame>
-        <Image src={work.artifact.image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
+        <Image src={image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
       </PhoneFrame>
     )}
-    {work.artifact.kind === 'desktop' && work.artifact.image && (
+    {work.artifact.kind === 'desktop' && image && (
       <DesktopFrame>
-        <Image src={work.artifact.image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
+        <Image src={image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
       </DesktopFrame>
     )}
     {isDemo && <DemoFrame fallbackAlt={work.artifact.alt} />}
@@ -47,12 +55,9 @@ const isTwoLines = work.word.length === 2;
 
   <div class="caption">
     <span class="number">{number}</span>
-    <div>
-      <h3 class="name">{work.name}</h3>
-      <p class="description muted">
-        <slot />
-        {work.hint && <b class="hint">{work.hint}</b>}
-      </p>
+    <div class="description muted">
+      <slot />
+      {work.hint && <b class="hint">{work.hint}</b>}
     </div>
     <ul class="receipts mono">
       {work.receipts.map((receipt) => (
@@ -75,6 +80,7 @@ const isTwoLines = work.word.length === 2;
     position: relative;
     height: var(--block-height);
     overflow: hidden;
+    border-radius: var(--radius-block);
     background-color: var(--color-block);
     background-image: radial-gradient(
       var(--halftone-gold) var(--halftone-dot),
@@ -136,15 +142,13 @@ const isTwoLines = work.word.length === 2;
     font-weight: 800;
   }
 
-  .name {
-    font-size: var(--text-caption);
-    font-weight: 500;
+  .description {
+    font-size: var(--text-small);
+    line-height: var(--leading-body);
   }
 
-  .description {
-    margin-top: var(--space-1);
-    font-size: var(--text-note);
-    line-height: var(--leading-body);
+  .description :global(p) {
+    display: inline;
   }
 
   .hint {

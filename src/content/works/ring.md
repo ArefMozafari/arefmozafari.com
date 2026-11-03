@@ -4,9 +4,9 @@ order: 2
 kicker: Classifieds marketplace · Mobile Engineer, 2026 –
 word: [Ring]
 artifact:
-  kind: phone
+  kind: poster
   image: ../../assets/works/ring.png
-  alt: The Ring home screen with its category grid, cropped from the Cafe Bazaar listing
+  alt: 'Ring Cafe Bazaar card: whatever you want, you find it here, with the home screen and its category grid'
 receipts:
   - label: Cafe Bazaar ↗
     url: https://cafebazaar.ir/app/com.ads.ring

@@ -4,9 +4,9 @@ order: 1
 kicker: Blockchain identity & wallet · live on both stores
 word: [CorePass]
 artifact:
-  kind: phone
+  kind: poster
   image: ../../assets/works/corepass.png
-  alt: The CorePass log-in screen with a QR code, cropped from the App Store listing
+  alt: 'CorePass App Store card: no forms, no usernames, no passwords for website login, with the QR log-in screen'
 receipts:
   - label: App Store ↗
     url: https://apps.apple.com/app/corepass-id/id1644928641

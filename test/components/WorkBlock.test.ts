@@ -8,7 +8,7 @@ const corepass = {
   order: 1,
   kicker: 'Blockchain identity & wallet',
   word: ['CorePass'],
-  artifact: { kind: 'phone', image: corepassImage, alt: 'CorePass on an iPhone' },
+  artifact: { kind: 'poster', image: corepassImage, alt: 'The store card of the identity app' },
   receipts: [
     { label: 'App Store ↗', url: 'https://apps.apple.com/app/corepass-id/id1644928641' },
     {
@@ -28,10 +28,20 @@ describe('WorkBlock', () => {
     expect(html).toMatch(/rel="noopener/);
   });
 
-  it('should not link the work title in unit 1', async () => {
+  it('should name the work once, as the heading inside the block', async () => {
     const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
 
+    expect(html.match(/CorePass/g)?.length).toBe(1);
+    expect(html).toMatch(/<h3[^>]*>[\s\S]*CorePass[\s\S]*<\/h3>/);
     expect(html).not.toMatch(/<a[^>]*>\s*CorePass\s*<\/a>/);
+  });
+
+  it('should render a poster artifact as a plain image, with no phone chrome', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).toMatch(/class="[^"]*poster[^"]*"/);
+    expect(html).not.toMatch(/class="[^"]*phone[^"]*"/);
+    expect(html).toContain('alt="The store card of the identity app"');
   });
 
   it('should zero-pad the index', async () => {

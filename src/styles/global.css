@@ -75,15 +75,6 @@ img {
   text-underline-offset: 3px;
 }
 
-.sign-spark::after {
-  content: '✦';
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
-  color: var(--color-block-gold);
-  font-size: var(--text-kicker);
-}
-
 .sign-dot::before {
   content: '';
   display: inline-block;
