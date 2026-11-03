@@ -31,10 +31,12 @@ class DemoPage extends StatefulWidget {
 class _DemoPageState extends State<DemoPage> {
   static const double _pagePadding = 12;
   static const double _fieldGap = 10;
-  static const double _ruleSpacing = 8;
-  static const double _barThickness = 3;
-  static const double _ruleFontSize = 11;
-  static const double _fieldFontSize = 13;
+  static const double _ruleSpacing = 6;
+  static const double _barThickness = 2;
+  // The phone frame shows the demo at roughly half size, so the type runs smaller than the
+  // page's own small text to sit level with the screenshots in the other frames.
+  static const double _ruleFontSize = 9;
+  static const double _fieldFontSize = 11;
 
   final TextEditingController _controller = TextEditingController();
 
