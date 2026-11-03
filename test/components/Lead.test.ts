@@ -5,15 +5,20 @@ import { render } from '../helpers/render';
 describe('Lead', () => {
   it('should be the second-level heading that opens the work section', async () => {
     const html = await render(Lead);
+    const text = html
+      .replace(/<[^>]+>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
 
-    expect(html).toMatch(/<h2[^>]*>Three things I shipped that you can open right now\.<\/h2>/);
+    expect(html).toMatch(/<h2\b/);
+    expect(text).toBe('Three things I shipped that you can open right now.');
   });
 
-  it('should carry the receipts rule with the underline sign', async () => {
-    const html = await render(Lead);
+  it('should carry the gold underline sign on one phrase', async () => {
+    expect(await render(Lead)).toMatch(/<u class="sign-underline"[^>]*>open right now<\/u>/);
+  });
 
-    expect(html).toMatch(
-      /<u class="sign-underline"[^>]*>If you can't check it, it isn't here\.<\/u>/,
-    );
+  it('should not carry the receipts disclaimer', async () => {
+    expect(await render(Lead)).not.toMatch(/internal metrics/i);
   });
 });

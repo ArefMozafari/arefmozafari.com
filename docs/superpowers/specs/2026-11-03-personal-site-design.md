@@ -89,9 +89,9 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
 
 ### Homepage sections, in order
 
-1. Lead: "Three things I shipped that you can open right now." Sub-line states the rule:
-   "No internal metrics on this page. Every claim links to a store listing, a repository, or
-   a published package. If you can't check it, it isn't here."
+1. Lead: "Three things I shipped that you can open right now.", with the gold underline sign
+   on "open right now". (A sub-line that stated the receipts rule was removed on 2026-11-03 at
+   the owner's request: the links make the point without a disclaimer.)
 2. Three case blocks. Each: a 320px halftone block with a small gold kicker, the product
    name as the big word, one real artifact (phone screenshot, desktop screenshot, or the live
    demo), then a caption row: number, name, two-sentence description, and the receipts
