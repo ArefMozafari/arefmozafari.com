@@ -25,7 +25,7 @@ const image = work.artifact.image;
 ---
 
 <article class="work">
-  <div class:list={['block', { 'block--cream': isDemo }]}>
+  <div class="block">
     <h3 class:list={['word', { 'word--two': isTwoLines }]}>
       <small class="kicker mono">{work.kicker}</small>
       {work.word.map((line, lineIndex) => (
@@ -84,18 +84,11 @@ const image = work.artifact.image;
     border-radius: var(--radius-block);
     background-color: var(--color-block);
     background-image: radial-gradient(
-      var(--halftone-gold) var(--halftone-dot),
+      var(--halftone-cream) var(--halftone-dot),
       transparent calc(var(--halftone-dot) + 0.2px)
     );
     background-size: var(--halftone-size) var(--halftone-size);
     color: var(--color-block-ink);
-  }
-
-  .block--cream {
-    background-image: radial-gradient(
-      var(--halftone-cream) var(--halftone-dot),
-      transparent calc(var(--halftone-dot) + 0.2px)
-    );
   }
 
   /* The word and kicker keep to the left so a wide poster at the right never sits under them. */
