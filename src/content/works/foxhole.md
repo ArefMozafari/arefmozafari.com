@@ -2,7 +2,7 @@
 name: Foxhole Artillery
 order: 3
 kicker: Community tool · open source, 2019
-word: [Foxhole]
+word: [Foxhole, Artillery]
 artifact:
   kind: phone
   image: ../../assets/works/foxhole.png
