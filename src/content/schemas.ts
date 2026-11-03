@@ -18,7 +18,7 @@ export const workSchema = ({ image }: SchemaContext) =>
     kicker: z.string().min(1),
     word: z.array(z.string().min(1)).min(1).max(2),
     artifact: z.object({
-      kind: z.enum(['phone', 'desktop', 'demo']),
+      kind: z.enum(['phone', 'desktop', 'poster', 'demo']),
       image: image().optional(),
       alt: z.string().min(1),
     }),
@@ -36,18 +36,13 @@ export const postSchema = ({ image }: SchemaContext) =>
     alt: z.string().min(1),
   });
 
-/// An open-source row. `github` enables the stars count, `pub` the pub.dev score.
+/// An open-source row: a name, one line on what it is, and a link.
 export const repoSchema = z.object({
   id: z.string().min(1),
   order: z.number().int().positive(),
   name: z.string().min(1),
   description: z.string().min(1),
   url: z.url(),
-  github: z
-    .string()
-    .regex(/^[\w.-]+\/[\w.-]+$/)
-    .optional(),
-  pub: z.string().min(1).optional(),
   /// `owner/repo#number`; the row shows the pull request's live state when set.
   pullRequest: z
     .string()

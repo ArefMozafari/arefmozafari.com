@@ -4,50 +4,42 @@
     "order": 1,
     "name": "flutter_pw_validator",
     "description": "Password validation widget for Flutter: a progress bar and the rules still unmet, under any TextField",
-    "url": "https://github.com/ArefMozafari/flutter_pw_validator",
-    "github": "ArefMozafari/flutter_pw_validator",
-    "pub": "flutter_pw_validator"
+    "url": "https://github.com/ArefMozafari/flutter_pw_validator"
   },
   {
     "id": "password_rules",
     "order": 2,
     "name": "password_rules",
     "description": "Password policy as a plain Dart value: counted rules, a NIST preset, a common-password blocklist and a generator",
-    "url": "https://github.com/ArefMozafari/password_rules",
-    "github": "ArefMozafari/password_rules",
-    "pub": "password_rules"
+    "url": "https://github.com/ArefMozafari/password_rules"
   },
   {
     "id": "pr-evidence",
     "order": 3,
     "name": "pr-evidence",
     "description": "Agent skill: every pull request shows its change instead of describing it",
-    "url": "https://github.com/ArefMozafari/pr-evidence",
-    "github": "ArefMozafari/pr-evidence"
+    "url": "https://github.com/ArefMozafari/pr-evidence"
   },
   {
     "id": "review-findings",
     "order": 4,
     "name": "review-findings",
     "description": "Agent skill: every code review finding in one fixed shape, with a comment ready to paste",
-    "url": "https://github.com/ArefMozafari/review-findings",
-    "github": "ArefMozafari/review-findings"
+    "url": "https://github.com/ArefMozafari/review-findings"
   },
   {
     "id": "review-replies",
     "order": 5,
     "name": "review-replies",
     "description": "Agent skill: answers review comments on your own pull request one thread at a time, checked against the code",
-    "url": "https://github.com/ArefMozafari/review-replies",
-    "github": "ArefMozafari/review-replies"
+    "url": "https://github.com/ArefMozafari/review-replies"
   },
   {
     "id": "post-merge-cleanup",
     "order": 6,
     "name": "post-merge-cleanup",
     "description": "Agent skill: cleans up branches, worktrees and stale notes once your pull request has merged",
-    "url": "https://github.com/ArefMozafari/post-merge-cleanup",
-    "github": "ArefMozafari/post-merge-cleanup"
+    "url": "https://github.com/ArefMozafari/post-merge-cleanup"
   },
   {
     "id": "dart-lang-ai",

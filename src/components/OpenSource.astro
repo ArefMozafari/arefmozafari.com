@@ -1,100 +1,76 @@
 ---
-import type { RepoCounts } from '../lib/github';
-import type { PackageScore } from '../lib/pubdev';
-
 export type OpenSourceRow = {
   name: string;
   description: string;
   url: string;
-  counts: RepoCounts | null;
-  score: PackageScore | null;
   note?: string;
 };
 
+/// A compact two-column grid of the open-source work: the name, one line on what it is,
+/// and a note where one applies (the live state of an upstream pull request).
 interface Props {
   rows: OpenSourceRow[];
 }
 
 const { rows } = Astro.props;
-
-/// "1 fork", "46 forks": the unit agrees with the count.
-function plural(count: number, unit: string): string {
-  return `${count} ${unit}${count === 1 ? '' : 's'}`;
-}
-
-/// Stars and likes together for a published package, stars and forks for a repo,
-/// likes and points when only pub.dev answered, the note when nothing else applies.
-/// A repo nobody has starred yet shows no count at all.
-function countText(row: OpenSourceRow): string {
-  const hasStars = row.counts !== null && row.counts.stars > 0;
-  if (hasStars && row.score) {
-    return `${row.counts!.stars} ★ · ${plural(row.score.likes, 'like')}`;
-  }
-  if (hasStars) {
-    return `${row.counts!.stars} ★ · ${plural(row.counts!.forks, 'fork')}`;
-  }
-  if (row.score) {
-    return `${plural(row.score.likes, 'like')} · ${plural(row.score.points, 'pt')}`;
-  }
-  return row.note ?? '';
-}
 ---
 
 <ul class="repos">
   {rows.map((row) => (
     <li class="repo">
-      <div>
-        <a class="mono name" href={row.url} target="_blank" rel="noopener">
-          {row.name}
-        </a>
-        <p class="muted description">{row.description}</p>
-      </div>
-      <span class="mono muted count">{countText(row)}</span>
+      <a class="mono name" href={row.url} target="_blank" rel="noopener">
+        {row.name}
+      </a>
+      <p class="muted description">{row.description}</p>
+      {row.note && <span class="mono muted note">{row.note}</span>}
     </li>
   ))}
 </ul>
 
 <style>
   .repos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
     list-style: none;
     margin: 0;
     padding: 0;
-    border-bottom: var(--hairline);
   }
 
   .repo {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-4);
-    padding: var(--space-3) 0;
-    border-top: var(--hairline);
-    font-size: var(--text-small);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: var(--hairline);
+    border-radius: var(--radius-card);
   }
 
   .name {
+    width: max-content;
+    max-width: 100%;
     font-size: var(--text-note);
     font-weight: 500;
+    text-decoration: none;
+  }
+
+  .name:hover {
+    text-decoration: underline;
   }
 
   .description {
-    margin-top: var(--space-1);
     font-size: var(--text-note);
+    line-height: 1.45;
   }
 
-  .count {
-    font-size: var(--text-note);
-    white-space: nowrap;
-    text-align: right;
+  .note {
+    margin-top: var(--space-1);
+    font-size: var(--text-label);
   }
 
   @media (max-width: 767px) {
-    .repo {
+    .repos {
       grid-template-columns: 1fr;
-      gap: var(--space-1);
-    }
-
-    .count {
-      text-align: left;
     }
   }
 </style>

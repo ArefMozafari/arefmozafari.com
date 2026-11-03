@@ -1,9 +1,20 @@
-import { githubHeaders } from './github';
 import { memoizeAsync } from './memo';
 
 export type PullRequestState = 'open' | 'merged' | 'closed';
 
 const GITHUB_API = 'https://api.github.com/repos/';
+
+/// Headers GitHub expects; the token lifts the anonymous rate limit in CI.
+function githubHeaders(token: string | undefined): Record<string, string> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'arefmozafari.com-build',
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
+}
 
 async function loadPullRequestState(
   reference: string,

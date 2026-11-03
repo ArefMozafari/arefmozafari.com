@@ -2,120 +2,36 @@ import { describe, expect, it } from 'vitest';
 import OpenSource from '../../src/components/OpenSource.astro';
 import { render } from '../helpers/render';
 
+const rows = [
+  {
+    name: 'flutter_pw_validator',
+    description: 'Password validation widget for Flutter',
+    url: 'https://github.com/ArefMozafari/flutter_pw_validator',
+  },
+  {
+    name: 'dart-lang/ai',
+    description: 'Upstream contribution',
+    url: 'https://github.com/dart-lang/ai/pull/731',
+    note: 'PR #731 · in review',
+  },
+];
+
 describe('OpenSource', () => {
-  it('should render the repo link without a count when both sources are null', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'pr-evidence',
-          description: 'd',
-          url: 'https://github.com/ArefMozafari/pr-evidence',
-          counts: null,
-          score: null,
-        },
-      ],
-    });
+  it('should link each repo by name and show its one-line description', async () => {
+    const html = await render(OpenSource, { rows });
 
-    expect(html).toContain('href="https://github.com/ArefMozafari/pr-evidence"');
-    expect(html).not.toMatch(/★|likes/);
+    expect(html).toContain('href="https://github.com/ArefMozafari/flutter_pw_validator"');
+    expect(html).toContain('Password validation widget for Flutter');
   });
 
-  it('should combine stars and pub.dev likes when both exist', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'n',
-          description: 'd',
-          url: 'https://x.y',
-          counts: { stars: 33, forks: 46 },
-          score: { points: 160, likes: 176, downloads30Days: 1 },
-        },
-      ],
-    });
-
-    expect(html).toContain('33 ★ · 176 likes');
-    expect(html).not.toContain('forks');
-  });
-
-  it('should show stars and forks when only GitHub counts exist', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'n',
-          description: 'd',
-          url: 'https://x.y',
-          counts: { stars: 19, forks: 1 },
-          score: null,
-        },
-      ],
-    });
-
-    expect(html).toContain('19 ★ · 1 fork');
-    expect(html).not.toContain('1 forks');
-  });
-
-  it('should use singular words for a count of one', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'n',
-          description: 'd',
-          url: 'https://x.y',
-          counts: null,
-          score: { points: 1, likes: 1, downloads30Days: 1 },
-        },
-      ],
-    });
-
-    expect(html).toContain('1 like · 1 pt');
-  });
-
-  it('should show nothing for a repo nobody has starred yet', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'n',
-          description: 'd',
-          url: 'https://x.y',
-          counts: { stars: 0, forks: 0 },
-          score: null,
-        },
-      ],
-    });
-
-    expect(html).not.toMatch(/0 ★|forks/);
-  });
-
-  it('should show the pub.dev score when GitHub counts are missing', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'n',
-          description: 'd',
-          url: 'https://x.y',
-          counts: null,
-          score: { points: 160, likes: 176, downloads30Days: 1 },
-        },
-      ],
-    });
-
-    expect(html).toContain('176 likes · 160 pts');
-  });
-
-  it('should show the note when there is nothing to count', async () => {
-    const html = await render(OpenSource, {
-      rows: [
-        {
-          name: 'dart-lang/ai',
-          description: 'd',
-          url: 'https://github.com/dart-lang/ai/pull/731',
-          counts: null,
-          score: null,
-          note: 'PR #731 · in review',
-        },
-      ],
-    });
+  it('should show a note only on the rows that have one', async () => {
+    const html = await render(OpenSource, { rows });
 
     expect(html).toContain('PR #731 · in review');
+    expect(html.match(/in review/g)?.length).toBe(1);
+  });
+
+  it('should carry no counts', async () => {
+    expect(await render(OpenSource, { rows })).not.toMatch(/★|likes|forks|pts/);
   });
 });
