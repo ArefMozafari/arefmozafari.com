@@ -1,0 +1,6 @@
+# Preview and project hosts serve the same HTML as the domain; keep them out of the index.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:branch.arefmozafari-com.pages.dev/*
+  X-Robots-Tag: noindex

@@ -1,10 +1,17 @@
 // @ts-check
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { lastModified } from './src/lib/sitemap-lastmod.ts';
+
+const built = new Date();
 
 export default defineConfig({
   site: 'https://arefmozafari.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      serialize: (item) => ({ ...item, lastmod: lastModified(item.url, built) }),
+    }),
+  ],
   fonts: [
     {
       provider: fontProviders.google(),
@@ -12,13 +19,6 @@ export default defineConfig({
       cssVariable: '--font-display',
       weights: [400, 500, 800],
       subsets: ['latin'],
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Vazirmatn',
-      cssVariable: '--font-fa',
-      weights: [800],
-      subsets: ['arabic'],
     },
   ],
 });
