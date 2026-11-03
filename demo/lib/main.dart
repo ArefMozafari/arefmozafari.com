@@ -63,7 +63,6 @@ class _DemoPageState extends State<DemoPage> {
           children: [
             TextField(
               controller: _controller,
-              autofocus: true,
               autocorrect: false,
               enableSuggestions: false,
               style: const TextStyle(fontSize: _fieldFontSize),

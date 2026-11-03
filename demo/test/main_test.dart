@@ -14,6 +14,22 @@ void main() {
       expect(find.byType(FlutterPwValidator), findsOneWidget);
     });
 
+    testWidgets('should not take keyboard focus on load', (tester) async {
+      await tester.pumpWidget(const DemoApp());
+      await tester.pump();
+
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.autofocus, isFalse);
+      expect(
+        tester
+            .state<EditableTextState>(find.byType(EditableText))
+            .widget
+            .focusNode
+            .hasFocus,
+        isFalse,
+      );
+    });
+
     testWidgets('should list the five rules the demo enforces', (tester) async {
       await tester.pumpWidget(const DemoApp());
 
