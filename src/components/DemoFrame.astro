@@ -8,7 +8,8 @@ interface Props {
 }
 
 const { fallbackAlt } = Astro.props;
-const DEMO_PATH = '/demo/';
+// The explicit file name works on the dev server too, which does not resolve directory URLs.
+const DEMO_PATH = '/demo/index.html';
 const FALLBACK_PATH = '/demo-fallback.png';
 ---
 

@@ -16,7 +16,8 @@
     "verify": "npm run check && npm run test && npm run build",
     "astro": "astro",
     "prebuild": "node tools/check-assets.mjs",
-    "check:assets": "node tools/check-assets.mjs"
+    "check:assets": "node tools/check-assets.mjs",
+    "build:demo": "cd demo && flutter build web --release --base-href=/demo/ --no-web-resources-cdn && rm -rf ../public/demo && cp -r build/web ../public/demo"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
