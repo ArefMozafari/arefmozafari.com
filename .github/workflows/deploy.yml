@@ -1,0 +1,66 @@
+# Builds the Flutter demo and the Astro site, verifies both, and deploys to Cloudflare Pages.
+# Pushes to main deploy production; pull requests deploy a preview under the branch alias;
+# the weekly run refreshes the GitHub and pub.dev counts without a code change.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build, verify and deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      CI: 'true'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v6
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify the demo
+        working-directory: demo
+        run: |
+          flutter pub get
+          flutter analyze
+          flutter test
+
+      - name: Build the demo
+        run: npm run build:demo
+
+      - name: Verify and build the site
+        run: npm run verify
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy dist --project-name=arefmozafari-com --branch=${{ github.head_ref || github.ref_name }}
