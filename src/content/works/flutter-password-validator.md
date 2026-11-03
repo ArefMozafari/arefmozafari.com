@@ -1,6 +1,6 @@
 ---
 name: Flutter Password Validator
-order: 3
+order: 4
 kicker: Open source · pub.dev
 word: [Password, Validator]
 artifact:

@@ -100,10 +100,10 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
 
 ### Homepage sections, in order
 
-1. Lead: "Three things I shipped that you can open right now.", with the gold underline sign
+1. Lead: "Four things I shipped that you can open right now.", with the gold underline sign
    on "open right now". (A sub-line that stated the receipts rule was removed on 2026-11-03 at
    the owner's request: the links make the point without a disclaimer.)
-2. Three case blocks. Each: a rounded 320px halftone block with a small gold kicker on a
+2. Four case blocks. Each: a rounded 320px halftone block with a small gold kicker on a
    charcoal strip, the product name as the big word (the block's `h3`, named nowhere else in
    the block), one real artifact (a store card shown as a rounded poster, a phone or desktop
    screenshot, or the live demo), then a caption row: number, two-sentence description, and
@@ -115,14 +115,17 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
      (On 2026-11-03 the owner removed the corner tags into the kickers, then chose the branded
      store cards over cropped screens; the cards appear as themselves, never inside the site's
      own phone frame, so there is no phone inside a phone.)
-   - 03 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
+   - 03 Foxhole Artillery. Kicker "Community tool · open source, 2019". Phone frame with one
+     of the app's own Google Play screenshots (the listing itself is gone; the shots survive
+     on Google's image host and in the repo README). Receipt: GitHub. Added 2026-11-03.
+   - 04 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
      Validator" on two lines. The phone frame holds the real widget compiled to web, with a
      focused input and no label on the block; the caption carries one bold sentence: "The
      phone is the real widget compiled to web. Type in it." Receipts: pub.dev, GitHub,
      password_rules.
-3. "Also shipped" (label note "earlier work"): a hairline index of earlier work with a link
-   where one exists (Foxhole artillery calculator) and plain text where none does (Ting &
-   Heyo, Bfrest, Fediverse video app). No numbers, no filler word.
+3. "Also shipped" (label note "earlier work"): a hairline index of earlier work, plain text
+   where there is nothing public to link (Ting & Heyo, Bfrest, Fediverse video app). No
+   numbers, no filler word.
 4. "Open source": a compact two-column grid of small cards, each the repo name, one line on
    what it is, and a link. No counts (owner's decision 2026-11-03: the numbers are not large
    enough to carry weight). The upstream contribution row carries the pull request's live

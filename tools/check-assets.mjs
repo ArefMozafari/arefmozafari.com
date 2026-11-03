@@ -9,6 +9,7 @@ export const REQUIRED_ASSETS = [
   'src/assets/portrait.jpg',
   'src/assets/works/corepass.png',
   'src/assets/works/ring.png',
+  'src/assets/works/foxhole.png',
   'public/og.png',
   'public/Aref-Mozafari-Senior-Mobile-Engineer.pdf',
   'public/demo-fallback.png',

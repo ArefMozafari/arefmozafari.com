@@ -12,15 +12,8 @@
     "note": "fintech money transfer, Atifer, led delivery"
   },
   {
-    "id": "foxhole-artillery",
-    "order": 3,
-    "name": "Foxhole artillery calculator",
-    "note": "community tool, 2019, open source",
-    "url": "https://github.com/ArefMozafari/FoxholeArtillery-mobile"
-  },
-  {
     "id": "fediverse-video",
-    "order": 4,
+    "order": 3,
     "name": "Fediverse video app",
     "note": "torrent-based delivery, CoDeTech"
   }

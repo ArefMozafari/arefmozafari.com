@@ -11,7 +11,7 @@ describe('Lead', () => {
       .trim();
 
     expect(html).toMatch(/<h2\b/);
-    expect(text).toBe('Three things I shipped that you can open right now.');
+    expect(text).toBe('Four things I shipped that you can open right now.');
   });
 
   it('should carry the gold underline sign on one phrase', async () => {
