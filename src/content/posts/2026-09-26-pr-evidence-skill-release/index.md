@@ -3,7 +3,7 @@ title: GitHub has no API for attaching an image to a pull request.
 date: 2026-09-26
 linkedinActivityId: '7509697354250383360'
 graphic: ./graphic.png
-alt: 'Code card showing the pr-evidence skill file and its install command'
+alt: 'The pr-evidence skill file and its install command'
 ---
 
 The drag-and-drop upload is browser-session only, so gh can't reach it. An agent that opens the PR for you opens one with no screenshots in it.

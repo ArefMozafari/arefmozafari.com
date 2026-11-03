@@ -3,7 +3,7 @@ title: I removed try/catch from most of our Flutter codebase. The code got more 
 date: 2026-07-31
 linkedinActivityId: '7489749364047986688'
 graphic: ./graphic.png
-alt: 'Gold on charcoal card with a Dart signature returning Either<Failure, User> and three results'
+alt: 'A Dart signature returning Either<Failure, User>: failure as a value, not a surprise'
 ---
 
 The problem: scattered try/catch hides which functions can actually fail, until production tells you the hard way.

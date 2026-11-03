@@ -3,7 +3,7 @@ title: Claude can now drive a real Android phone. No root. No custom app. Just p
 date: 2026-07-30
 linkedinActivityId: '7488409354807754752'
 graphic: ./graphic.png
-alt: 'Gold on charcoal card about Ghost in the Droid, an MCP server that drives Android through the accessibility tree'
+alt: 'Ghost in the Droid, an MCP server that drives Android through the accessibility tree'
 ---
 
 "Ghost in the Droid" is an open-source MCP server for Claude Code. It sees the screen through screenshots and a compacted accessibility tree. Sixty-plus tools: launch apps, tap, swipe, type, run batch flows. Exploratory QA, regression runs, bug repros, described in plain English.

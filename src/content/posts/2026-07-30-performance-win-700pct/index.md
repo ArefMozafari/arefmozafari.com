@@ -3,7 +3,7 @@ title: I made hashing in one of my Flutter apps 700% faster.
 date: 2026-07-30
 linkedinActivityId: '7486157038834782208'
 graphic: ./graphic.png
-alt: 'Gold on charcoal card: 700% faster hashing, the Rust and Flutter Rust Bridge story'
+alt: '700% faster hashing in Flutter with Rust and Flutter Rust Bridge'
 ---
 
 The trick wasn't Dart. It was leaving it.

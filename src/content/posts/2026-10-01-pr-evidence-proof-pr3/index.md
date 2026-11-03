@@ -3,7 +3,7 @@ title: My agent builds the old version of the app first. Not as a backup. To pho
 date: 2026-10-01
 linkedinActivityId: '7511429879624527873'
 graphic: ./graphic.png
-alt: 'Screenshot of an agent session capturing the before state of an app for a pull request'
+alt: 'An agent session capturing the before state of an app for a pull request'
 ---
 
 That's the first rule of pr-evidence, the skill I published last week: capture the before while the base branch is still checked out. Grab it later and you pay for a second build.
