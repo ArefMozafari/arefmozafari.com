@@ -7,14 +7,17 @@ import { SITE } from '../site';
 interface Props {
   years: number;
   sections: readonly Section[];
+  /// The homepage owns the h1; inner pages render the name as plain text.
+  nameAsHeading?: boolean;
 }
 
-const { years, sections } = Astro.props;
+const { years, sections, nameAsHeading = true } = Astro.props;
 const careerStart = SITE.careerStart.toISOString().slice(0, 10);
+const NameTag = nameAsHeading ? 'h1' : 'p';
 ---
 
 <div class="sidebar">
-  <h1 class="name">Aref<br />Mozafari</h1>
+  <NameTag class="name">Aref<br />Mozafari</NameTag>
   <p class="name-fa" lang="fa" dir="rtl">{SITE.nameFa}</p>
 
   <figure class="portrait">
@@ -31,7 +34,7 @@ const careerStart = SITE.careerStart.toISOString().slice(0, 10);
   <p class="avail"><i aria-hidden="true"></i>Open to remote roles</p>
 
   <nav class="nav" aria-label="Sections">
-    {sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
+    {sections.map((section) => <a href={`/#${section.id}`}>{section.label}</a>)}
   </nav>
 
   <address class="contact muted">

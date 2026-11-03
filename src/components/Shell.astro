@@ -6,15 +6,16 @@ import Sidebar from './Sidebar.astro';
 
 interface Props {
   years: number;
+  nameAsHeading?: boolean;
 }
 
-const { years } = Astro.props;
+const { years, nameAsHeading = true } = Astro.props;
 ---
 
 <div class="shell" id="top">
   <MobileHeader sections={SECTIONS} />
   <aside class="aside">
-    <Sidebar years={years} sections={SECTIONS} />
+    <Sidebar years={years} sections={SECTIONS} nameAsHeading={nameAsHeading} />
   </aside>
   <main class="main">
     <slot />

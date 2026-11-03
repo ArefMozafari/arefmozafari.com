@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Shell from '../../components/Shell.astro';
+import { linkedinUrl } from '../../content/schemas';
+import Base from '../../layouts/Base.astro';
+import { yearsSince } from '../../lib/years';
+import { SITE } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const years = yearsSince(SITE.careerStart, new Date());
+const dateFormat = new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' });
+const date = dateFormat.format(post.data.date);
+---
+
+<Base title={`${post.data.title} · ${SITE.name}`} description={post.data.title}>
+  <Shell years={years} nameAsHeading={false}>
+    <article class="post">
+      <a class="back mono muted" href="/#posts">← Posts</a>
+      <h1 class="title">{post.data.title}</h1>
+      <p class="meta mono muted">
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
+        ·
+        <a href={linkedinUrl(post.data.linkedinActivityId)} target="_blank" rel="noopener">
+          the original on LinkedIn ↗
+        </a>
+      </p>
+      <Image
+        class="graphic"
+        src={post.data.graphic}
+        alt={post.data.alt}
+        widths={[640, 1200]}
+        sizes="(min-width: 1024px) 640px, 100vw"
+        loading="eager"
+      />
+      <div class="body">
+        <Content />
+      </div>
+    </article>
+  </Shell>
+</Base>
+
+<style>
+  .post {
+    max-width: 640px;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: var(--space-5);
+    font-size: var(--text-label);
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: var(--text-lead);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+  }
+
+  .meta {
+    margin: var(--space-3) 0 var(--space-5);
+    font-size: var(--text-label);
+  }
+
+  .graphic {
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--space-6);
+    background: var(--color-block);
+  }
+
+  .body {
+    font-size: var(--text-caption);
+    line-height: 1.55;
+  }
+
+  .body :global(p) {
+    margin: 0 0 var(--space-4);
+  }
+
+  .body :global(ul) {
+    padding-left: var(--space-5);
+  }
+
+  .body :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import type { z } from 'astro/zod';
+import { linkedinUrl, type postSchema } from '../content/schemas';
+
+type PostData = z.infer<ReturnType<typeof postSchema>>;
+
+/// One post in the grid: the real graphic at its own aspect ratio, the hook line,
+/// the month, and a link to the LinkedIn original.
+interface Props {
+  post: { id: string; data: PostData };
+}
+
+const { post } = Astro.props;
+const monthFormat = new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' });
+const month = monthFormat.format(post.data.date);
+const pagePath = `/posts/${post.id}/`;
+---
+
+<article class="post">
+  <a href={pagePath} class="graphic-link">
+    <Image
+      src={post.data.graphic}
+      alt={post.data.alt}
+      widths={[480, 960]}
+      sizes="(min-width: 768px) 440px, 100vw"
+      loading="lazy"
+    />
+  </a>
+  <h3 class="title"><a href={pagePath}>{post.data.title}</a></h3>
+  <p class="meta mono muted">
+    <time datetime={post.data.date.toISOString().slice(0, 10)}>{month}</time>
+    <a href={linkedinUrl(post.data.linkedinActivityId)} target="_blank" rel="noopener">
+      on LinkedIn ↗
+    </a>
+  </p>
+</article>
+
+<style>
+  .post {
+    padding-top: var(--space-4);
+    border-top: var(--hairline);
+  }
+
+  .graphic-link {
+    display: block;
+    background: var(--color-block);
+  }
+
+  .graphic-link :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .title {
+    margin: var(--space-3) 0 var(--space-2);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .title a {
+    text-decoration: none;
+  }
+
+  .title a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-label);
+  }
+</style>

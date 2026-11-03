@@ -28,7 +28,7 @@ describe('Sidebar', () => {
     const html = await render(Sidebar, { years: 8, sections });
 
     for (const section of sections) {
-      expect(html).toContain(`href="#${section.id}"`);
+      expect(html).toContain(`href="/#${section.id}"`);
     }
   });
 
