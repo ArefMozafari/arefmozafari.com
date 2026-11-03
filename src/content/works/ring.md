@@ -6,7 +6,7 @@ word: [Ring]
 artifact:
   kind: phone
   image: ../../assets/works/ring.png
-  alt: A Ring listing page on Android, from the app's Cafe Bazaar screenshots
+  alt: The Ring home screen with its category grid, cropped from the Cafe Bazaar listing
 receipts:
   - label: Cafe Bazaar ↗
     url: https://cafebazaar.ir/app/com.ads.ring

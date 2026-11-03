@@ -6,7 +6,7 @@ word: [CorePass]
 artifact:
   kind: phone
   image: ../../assets/works/corepass.png
-  alt: CorePass ID on an iPhone, the identity screen from the App Store listing
+  alt: The CorePass log-in screen with a QR code, cropped from the App Store listing
 receipts:
   - label: App Store ↗
     url: https://apps.apple.com/app/corepass-id/id1644928641
