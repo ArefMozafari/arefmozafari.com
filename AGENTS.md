@@ -27,8 +27,9 @@ visible: it holds the design decisions and the content rules.
 
 ## Content rules that are enforced by review, not by code
 
-- No internal metric on the homepage. Numbers are computed (years) or fetched (GitHub,
-  pub.dev) at build. A fetch that fails renders the link without a number.
+- No internal metric on the homepage, and no counts at all. The only numbers are the computed
+  years and the footer year; the one fetched value is the upstream pull request's state, and
+  a failed fetch leaves the plain note.
 - Every claim links to where a stranger can check it.
 - Nothing unbuilt is reachable in a production build. `tools/check-assets.mjs` fails a CI
   build when a required image is missing.
