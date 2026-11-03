@@ -1,0 +1,14 @@
+# Build output
+dist/
+.astro/
+node_modules/
+
+# Flutter demo build output, produced by `npm run build:demo`
+public/demo/
+
+# Executor scratch
+.superpowers/
+
+# OS and editor
+.DS_Store
+*.log
