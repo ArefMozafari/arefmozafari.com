@@ -155,8 +155,8 @@ item colour change under 200ms; link underline colour on hover. Everything respe
   still shows the right number.
 - Every number on the homepage is fetched or linked. If a source disappears, the row shows
   the link without the number rather than a stale number.
-- Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years: wallets, call SDKs,
-  marketplaces."
+- Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
+  apps." (Generalised from a list of domains on 2026-11-03 at the owner's request.)
 - Availability pill: "Open to remote roles". The owner cannot relocate; never "open to
   relocation".
 - Links open the real thing: store listings, pub.dev, GitHub, LinkedIn post. No dead

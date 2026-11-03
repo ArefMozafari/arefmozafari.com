@@ -15,7 +15,7 @@
 - No raw colour, size, radius, spacing or duration in a component: tokens live in `src/styles/tokens.css` only.
 - No internal metric on the homepage. The only numbers rendered are computed (years) or fetched (GitHub, pub.dev). A failed fetch renders the row without a number and never fails the build.
 - Every external claim is a link to its receipt (store listing, repo, package page, LinkedIn post).
-- Copy fixed by the spec is used verbatim: lead "Three things I shipped that you can open right now."; sub-line "No internal metrics on this page. Every claim links to a store listing, a repository, or a published package. If you can't check it, it isn't here."; role line "Senior Mobile Engineer. Flutter, iOS & Android. {N} years: wallets, call SDKs, marketplaces."; pill "Open to remote roles"; demo hint "The phone is the real widget compiled to web. Type in it."; contact heading "Let's talk."; footer "Built by hand · source on GitHub".
+- Copy fixed by the spec is used verbatim: lead "Three things I shipped that you can open right now."; sub-line "No internal metrics on this page. Every claim links to a store listing, a repository, or a published package. If you can't check it, it isn't here."; role line "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production apps."; pill "Open to remote roles"; demo hint "The phone is the real widget compiled to web. Type in it."; contact heading "Let's talk."; footer "Built by hand · source on GitHub".
 - Years: `round((now − 2018-12-01) / 365.25 days)`, computed at build, corrected on the client.
 - Tokens from the spec: canvas `#EFE9DC`, ink `#15120C`, muted `#5A5244`, deep gold `#8A6F3C`, block `#1A160F`, block ink `#F5F1E8`, block gold `#E0B95C`, green `#3F8A4C`, hairline `rgba(21,18,12,.2)`, strong rule `1.5px #15120C`, halftone dot gold `rgba(224,185,92,.55)` / cream `rgba(245,241,232,.35)` on a 9px grid.
 - Type: Bricolage Grotesque 400/500/800 (Google provider, self-hosted by Astro's fonts API); mono stack `"SF Mono", Menlo, monospace`; Persian name in Vazirmatn 800 (Google provider, `cssVariable: '--font-fa'`), element marked `lang="fa" dir="rtl"`. IranSansX is not shipped: its licence requires a registered web licence for server hosting (spec, Type section).
@@ -77,9 +77,11 @@ arefmozafari.com/
 ### Task 1: Scaffold, tokens, verify command
 
 **Files:**
+
 - Create: `package.json`, `astro.config.mjs`, `tsconfig.json`, `vitest.config.ts`, `.prettierrc`, `.gitignore`, `AGENTS.md`, `README.md`, `src/site.ts`, `src/styles/tokens.css`, `src/styles/global.css`, `src/pages/index.astro` (placeholder "Aref Mozafari" h1 only), `test/lib/.gitkeep`
 
 **Interfaces:**
+
 - Produces: `SITE` in `src/site.ts`:
   `export const SITE = { name: 'Aref Mozafari', domain: 'https://arefmozafari.com', email: 'me@arefmozafari.com', linkedin: 'https://www.linkedin.com/in/aref-mozafari', github: 'https://github.com/arefmozafari', repo: 'https://github.com/ArefMozafari/arefmozafari.com', careerStart: new Date('2018-12-01'), title: 'Senior Mobile Engineer' } as const`
 - Produces: CSS custom properties in `tokens.css`, named `--color-canvas`, `--color-ink`, `--color-ink-muted`, `--color-gold-deep`, `--color-block`, `--color-block-ink`, `--color-block-gold`, `--color-green`, `--hairline`, `--rule-strong`, `--halftone-gold`, `--halftone-cream`, `--halftone-size: 9px`, `--font-display` (from Astro `cssVariable`), `--font-mono`, `--font-fa`, type scale `--text-name: 72px` … , spacing `--space-1..8`, `--radius-pill`, `--motion-fast: 150ms`, breakpoints as documented comments (CSS cannot hold them in vars).
@@ -97,10 +99,12 @@ arefmozafari.com/
 ### Task 2: Years since career start
 
 **Files:**
+
 - Create: `src/lib/years.ts`, `src/scripts/years-client.ts`
 - Test: `test/lib/years.test.ts`, `test/scripts/years-client.test.ts`
 
 **Interfaces:**
+
 - Produces: `export function yearsSince(start: Date, now: Date): number` (rounded to nearest whole year using 365.25-day years).
 - Produces: `export function correctYears(element: { textContent: string | null }, start: Date, now: Date): boolean` returns `true` only when it changed the text. `years-client.ts` also has a default side effect: on `DOMContentLoaded` it finds `[data-years][data-career-start]` and calls `correctYears` with the ISO date from the attribute.
 
@@ -109,13 +113,27 @@ arefmozafari.com/
 ```ts
 describe('yearsSince', () => {
   const start = new Date('2018-12-01');
-  it('should round down before the half year', () => { expect(yearsSince(start, new Date('2026-11-03'))).toBe(8); expect(yearsSince(start, new Date('2027-05-31'))).toBe(8); });
-  it('should round up after the half year', () => { expect(yearsSince(start, new Date('2027-06-02'))).toBe(9); });
-  it('should return zero inside the first half year', () => { expect(yearsSince(start, new Date('2019-03-01'))).toBe(0); });
+  it('should round down before the half year', () => {
+    expect(yearsSince(start, new Date('2026-11-03'))).toBe(8);
+    expect(yearsSince(start, new Date('2027-05-31'))).toBe(8);
+  });
+  it('should round up after the half year', () => {
+    expect(yearsSince(start, new Date('2027-06-02'))).toBe(9);
+  });
+  it('should return zero inside the first half year', () => {
+    expect(yearsSince(start, new Date('2019-03-01'))).toBe(0);
+  });
 });
 describe('correctYears', () => {
-  it('should replace the text when the build-time value is stale', () => { const element = { textContent: '7' }; expect(correctYears(element, new Date('2018-12-01'), new Date('2026-11-03'))).toBe(true); expect(element.textContent).toBe('8'); });
-  it('should leave the text alone when it already matches', () => { const element = { textContent: '8' }; expect(correctYears(element, new Date('2018-12-01'), new Date('2026-11-03'))).toBe(false); });
+  it('should replace the text when the build-time value is stale', () => {
+    const element = { textContent: '7' };
+    expect(correctYears(element, new Date('2018-12-01'), new Date('2026-11-03'))).toBe(true);
+    expect(element.textContent).toBe('8');
+  });
+  it('should leave the text alone when it already matches', () => {
+    const element = { textContent: '8' };
+    expect(correctYears(element, new Date('2018-12-01'), new Date('2026-11-03'))).toBe(false);
+  });
 });
 ```
 
@@ -129,10 +147,12 @@ describe('correctYears', () => {
 ### Task 3: Content schemas and seed content
 
 **Files:**
+
 - Create: `src/content/schemas.ts`, `src/content.config.ts`, `src/content/works/{corepass,ring,flutter-password-validator}.md`, `src/content/repos.json`, `src/content/also-shipped.json`, `src/content/posts/<slug>/index.md` + graphic for each shipped post, `src/assets/works/` screenshots (staged per Task 8)
 - Test: `test/content/schemas.test.ts`
 
 **Interfaces:**
+
 - Produces, in `schemas.ts` (all take `image` from `SchemaContext` where noted):
   - `workSchema({ image })`: `{ name: string, order: number, kicker: string, tag?: string, word: string[] (1–2 lines), artifact: { kind: 'phone' | 'desktop' | 'demo', image?: image(), alt: string }, receipts: { label: string, url: string.url() }[] (min 1), hint?: string }`; body = description.
   - `postSchema({ image })`: `{ title: string, date: coerce.date, linkedinActivityId: string.regex(/^\d{19}$/), graphic: image(), alt: string }`; body = post text. Add `export function linkedinUrl(activityId: string): string` → `https://www.linkedin.com/feed/update/urn:li:activity:${activityId}`.
@@ -144,15 +164,26 @@ describe('correctYears', () => {
 
 ```ts
 describe('workSchema', () => {
-  it('should reject a work with no receipts', () => expect(() => parse(workSchema, { ...validWork, receipts: [] })).toThrow());
-  it('should reject a receipt whose url is not absolute', () => expect(() => parse(workSchema, { ...validWork, receipts: [{ label: 'x', url: '/local' }] })).toThrow());
-  it('should accept the demo kind without an image', () => expect(parse(workSchema, { ...validWork, artifact: { kind: 'demo', alt: 'a' } }).artifact.kind).toBe('demo'));
+  it('should reject a work with no receipts', () =>
+    expect(() => parse(workSchema, { ...validWork, receipts: [] })).toThrow());
+  it('should reject a receipt whose url is not absolute', () =>
+    expect(() =>
+      parse(workSchema, { ...validWork, receipts: [{ label: 'x', url: '/local' }] }),
+    ).toThrow());
+  it('should accept the demo kind without an image', () =>
+    expect(
+      parse(workSchema, { ...validWork, artifact: { kind: 'demo', alt: 'a' } }).artifact.kind,
+    ).toBe('demo'));
 });
 describe('postSchema', () => {
-  it('should reject an activity id that is not nineteen digits', () => expect(() => parse(postSchema, { ...validPost, linkedinActivityId: '123' })).toThrow());
+  it('should reject an activity id that is not nineteen digits', () =>
+    expect(() => parse(postSchema, { ...validPost, linkedinActivityId: '123' })).toThrow());
 });
 describe('linkedinUrl', () => {
-  it('should build the feed update url from the activity id', () => expect(linkedinUrl('7486157038834782208')).toBe('https://www.linkedin.com/feed/update/urn:li:activity:7486157038834782208'));
+  it('should build the feed update url from the activity id', () =>
+    expect(linkedinUrl('7486157038834782208')).toBe(
+      'https://www.linkedin.com/feed/update/urn:li:activity:7486157038834782208',
+    ));
 });
 ```
 
@@ -167,10 +198,12 @@ describe('linkedinUrl', () => {
 ### Task 4: Build-time counts from GitHub and pub.dev
 
 **Files:**
+
 - Create: `src/lib/github.ts`, `src/lib/pubdev.ts`, `src/components/OpenSource.astro`
 - Test: `test/lib/github.test.ts`, `test/lib/pubdev.test.ts`, `test/components/OpenSource.test.ts`
 
 **Interfaces:**
+
 - `export type RepoCounts = { stars: number; forks: number }`; `export async function fetchRepoCounts(fullName: string, fetchImplementation: typeof fetch = fetch, token: string | undefined = process.env.GITHUB_TOKEN): Promise<RepoCounts | null>`; GET `https://api.github.com/repos/${fullName}`, header `Accept: application/vnd.github+json`, `Authorization: Bearer ${token}` when set; `null` on non-2xx or thrown error (never throws).
 - `export type PackageScore = { points: number; likes: number; downloads30Days: number }`; `export async function fetchPackageScore(name: string, fetchImplementation: typeof fetch = fetch): Promise<PackageScore | null>`; GET `https://pub.dev/api/packages/${name}/score`, maps `grantedPoints`, `likeCount`, `downloadCount30Days`.
 - `OpenSource.astro` props: `{ rows: { name: string; description: string; url: string; counts: RepoCounts | null; score: PackageScore | null; note?: string }[] }`. Renders the count cell as `"{stars} ★ · {forks} forks"`, or `"{likes} likes · {points} pts"` when only `score`, or `note`, or nothing.
@@ -179,18 +212,91 @@ describe('linkedinUrl', () => {
 
 ```ts
 describe('fetchRepoCounts', () => {
-  it('should map stargazers and forks from the repo payload', async () => { const fetchStub = async () => new Response(JSON.stringify({ stargazers_count: 33, forks_count: 46 }), { status: 200 }); expect(await fetchRepoCounts('ArefMozafari/flutter_pw_validator', fetchStub as typeof fetch, undefined)).toEqual({ stars: 33, forks: 46 }); });
-  it('should return null when the API answers with an error status', async () => { const fetchStub = async () => new Response('rate limited', { status: 403 }); expect(await fetchRepoCounts('a/b', fetchStub as typeof fetch, undefined)).toBeNull(); });
-  it('should return null when the network throws', async () => { const fetchStub = async () => { throw new Error('offline'); }; expect(await fetchRepoCounts('a/b', fetchStub as typeof fetch, undefined)).toBeNull(); });
-  it('should send the bearer token when one is given', async () => { let seenAuthorization = ''; const fetchStub = async (_url: string, init?: RequestInit) => { seenAuthorization = new Headers(init?.headers).get('authorization') ?? ''; return new Response('{}', { status: 200 }); }; await fetchRepoCounts('a/b', fetchStub as typeof fetch, 'token'); expect(seenAuthorization).toBe('Bearer token'); });
+  it('should map stargazers and forks from the repo payload', async () => {
+    const fetchStub = async () =>
+      new Response(JSON.stringify({ stargazers_count: 33, forks_count: 46 }), { status: 200 });
+    expect(
+      await fetchRepoCounts(
+        'ArefMozafari/flutter_pw_validator',
+        fetchStub as typeof fetch,
+        undefined,
+      ),
+    ).toEqual({ stars: 33, forks: 46 });
+  });
+  it('should return null when the API answers with an error status', async () => {
+    const fetchStub = async () => new Response('rate limited', { status: 403 });
+    expect(await fetchRepoCounts('a/b', fetchStub as typeof fetch, undefined)).toBeNull();
+  });
+  it('should return null when the network throws', async () => {
+    const fetchStub = async () => {
+      throw new Error('offline');
+    };
+    expect(await fetchRepoCounts('a/b', fetchStub as typeof fetch, undefined)).toBeNull();
+  });
+  it('should send the bearer token when one is given', async () => {
+    let seenAuthorization = '';
+    const fetchStub = async (_url: string, init?: RequestInit) => {
+      seenAuthorization = new Headers(init?.headers).get('authorization') ?? '';
+      return new Response('{}', { status: 200 });
+    };
+    await fetchRepoCounts('a/b', fetchStub as typeof fetch, 'token');
+    expect(seenAuthorization).toBe('Bearer token');
+  });
 });
 describe('fetchPackageScore', () => {
-  it('should map points, likes and downloads from the score payload', async () => { const fetchStub = async () => new Response(JSON.stringify({ grantedPoints: 160, likeCount: 176, downloadCount30Days: 2864 }), { status: 200 }); expect(await fetchPackageScore('flutter_pw_validator', fetchStub as typeof fetch)).toEqual({ points: 160, likes: 176, downloads30Days: 2864 }); });
-  it('should return null when pub.dev is unreachable', async () => { const fetchStub = async () => { throw new Error('blocked'); }; expect(await fetchPackageScore('x', fetchStub as typeof fetch)).toBeNull(); });
+  it('should map points, likes and downloads from the score payload', async () => {
+    const fetchStub = async () =>
+      new Response(
+        JSON.stringify({ grantedPoints: 160, likeCount: 176, downloadCount30Days: 2864 }),
+        { status: 200 },
+      );
+    expect(await fetchPackageScore('flutter_pw_validator', fetchStub as typeof fetch)).toEqual({
+      points: 160,
+      likes: 176,
+      downloads30Days: 2864,
+    });
+  });
+  it('should return null when pub.dev is unreachable', async () => {
+    const fetchStub = async () => {
+      throw new Error('blocked');
+    };
+    expect(await fetchPackageScore('x', fetchStub as typeof fetch)).toBeNull();
+  });
 });
 describe('OpenSource', () => {
-  it('should render the repo link without a count when both sources are null', async () => { const html = await container.renderToString(OpenSource, { props: { rows: [{ name: 'pr-evidence', description: 'd', url: 'https://github.com/ArefMozafari/pr-evidence', counts: null, score: null }] } }); expect(html).toContain('href="https://github.com/ArefMozafari/pr-evidence"'); expect(html).not.toMatch(/★|likes/); });
-  it('should prefer GitHub counts over the pub.dev score', async () => { const html = await container.renderToString(OpenSource, { props: { rows: [{ name: 'n', description: 'd', url: 'https://x.y', counts: { stars: 33, forks: 46 }, score: { points: 160, likes: 176, downloads30Days: 1 } }] } }); expect(html).toContain('33 ★ · 46 forks'); });
+  it('should render the repo link without a count when both sources are null', async () => {
+    const html = await container.renderToString(OpenSource, {
+      props: {
+        rows: [
+          {
+            name: 'pr-evidence',
+            description: 'd',
+            url: 'https://github.com/ArefMozafari/pr-evidence',
+            counts: null,
+            score: null,
+          },
+        ],
+      },
+    });
+    expect(html).toContain('href="https://github.com/ArefMozafari/pr-evidence"');
+    expect(html).not.toMatch(/★|likes/);
+  });
+  it('should prefer GitHub counts over the pub.dev score', async () => {
+    const html = await container.renderToString(OpenSource, {
+      props: {
+        rows: [
+          {
+            name: 'n',
+            description: 'd',
+            url: 'https://x.y',
+            counts: { stars: 33, forks: 46 },
+            score: { points: 160, likes: 176, downloads30Days: 1 },
+          },
+        ],
+      },
+    });
+    expect(html).toContain('33 ★ · 46 forks');
+  });
 });
 ```
 
@@ -204,11 +310,13 @@ describe('OpenSource', () => {
 ### Task 5: Shell, sidebar, mobile header, base layout
 
 **Files:**
+
 - Create: `src/layouts/Base.astro`, `src/components/Shell.astro`, `src/components/Sidebar.astro`, `src/components/MobileHeader.astro`, `src/components/BottomBar.astro`, `src/scripts/active-nav.ts`, `src/assets/portrait.jpg` (owner-supplied; dev placeholder allowed, see Task 8)
 - Modify: `src/pages/index.astro` (use Base + Shell)
 - Test: `test/components/Sidebar.test.ts`, `test/layouts/Base.test.ts`
 
 **Interfaces:**
+
 - `Base.astro` props: `{ title: string; description: string; ogImage?: string }`; emits `<title>`, meta description, canonical from `Astro.url`, OG + Twitter card tags, JSON-LD `Person` `{ name: SITE.name, jobTitle: SITE.title, url: SITE.domain, sameAs: [SITE.linkedin, SITE.github] }`, `<Font cssVariable="--font-display" preload />`, `<Font cssVariable="--font-fa" />`, imports tokens and global CSS.
 - `Shell.astro`: renders `<MobileHeader />`, `<aside><Sidebar /></aside>`, `<main><slot /></main>`, `<BottomBar />`; grid `320px 1fr` at `>= 1024px`, single column below.
 - `Sidebar.astro` props: `{ years: number; sections: { id: string; label: string }[] }`; nav items are `<a href="#id">`; years rendered as `<span data-years data-career-start="2018-12-01">{years}</span>`; Persian name `<p lang="fa" dir="rtl" class="name-fa">عارف مظفری</p>`; portrait `<Image>` with alt `"Aref Mozafari"` wrapped in `.portrait` (duotone via CSS `filter: grayscale(1) contrast(1.1)` + gold `mix-blend-mode` overlay, builder's exact recipe); pill text "Open to remote roles"; contact links from `SITE`.
@@ -219,14 +327,34 @@ describe('OpenSource', () => {
 
 ```ts
 describe('Sidebar', () => {
-  it('should mark the Persian name as right-to-left Persian', async () => { const html = await render(Sidebar, { years: 8, sections }); expect(html).toMatch(/<p[^>]*lang="fa"[^>]*dir="rtl"/); expect(html).toContain('عارف مظفری'); });
-  it('should render the role line with the computed years', async () => { const html = await render(Sidebar, { years: 8, sections }); expect(html).toContain('data-career-start="2018-12-01"'); expect(html).toMatch(/8<\/span> years: wallets, call SDKs, marketplaces\./); });
-  it('should link every section with a plain anchor', async () => { const html = await render(Sidebar, { years: 8, sections }); for (const section of sections) expect(html).toContain(`href="#${section.id}"`); });
-  it('should never say relocation', async () => { expect(await render(Sidebar, { years: 8, sections })).not.toMatch(/relocat/i); });
+  it('should mark the Persian name as right-to-left Persian', async () => {
+    const html = await render(Sidebar, { years: 8, sections });
+    expect(html).toMatch(/<p[^>]*lang="fa"[^>]*dir="rtl"/);
+    expect(html).toContain('عارف مظفری');
+  });
+  it('should render the role line with the computed years', async () => {
+    const html = await render(Sidebar, { years: 8, sections });
+    expect(html).toContain('data-career-start="2018-12-01"');
+    expect(html).toMatch(/8<\/span> years shipping production apps\./);
+  });
+  it('should link every section with a plain anchor', async () => {
+    const html = await render(Sidebar, { years: 8, sections });
+    for (const section of sections) expect(html).toContain(`href="#${section.id}"`);
+  });
+  it('should never say relocation', async () => {
+    expect(await render(Sidebar, { years: 8, sections })).not.toMatch(/relocat/i);
+  });
 });
 describe('Base', () => {
-  it('should emit a Person JSON-LD block with the LinkedIn and GitHub profiles', async () => { const html = await render(Base, { title: 't', description: 'd' }); expect(html).toContain('"@type":"Person"'); expect(html).toContain(SITE.linkedin); });
-  it('should emit exactly one h1 across the page', async () => { const html = await render(IndexPage); expect(html.match(/<h1\b/g)?.length).toBe(1); });
+  it('should emit a Person JSON-LD block with the LinkedIn and GitHub profiles', async () => {
+    const html = await render(Base, { title: 't', description: 'd' });
+    expect(html).toContain('"@type":"Person"');
+    expect(html).toContain(SITE.linkedin);
+  });
+  it('should emit exactly one h1 across the page', async () => {
+    const html = await render(IndexPage);
+    expect(html.match(/<h1\b/g)?.length).toBe(1);
+  });
 });
 ```
 
@@ -240,11 +368,13 @@ describe('Base', () => {
 ### Task 6: Lead, work blocks, phone and demo frames, also-shipped
 
 **Files:**
+
 - Create: `src/components/Lead.astro`, `WorkBlock.astro`, `PhoneFrame.astro`, `DesktopFrame.astro`, `DemoFrame.astro`, `AlsoShipped.astro`; sign classes in `global.css`
 - Modify: `src/pages/index.astro`
 - Test: `test/components/WorkBlock.test.ts`, `test/components/DemoFrame.test.ts`, `test/components/AlsoShipped.test.ts`
 
 **Interfaces:**
+
 - `WorkBlock.astro` props: `{ work: CollectionEntry<'works'>; index: number }`; renders the halftone block (`.block`, modifier `.block--cream` for the demo), kicker, optional tag, big word lines, the artifact by kind (`PhoneFrame` with `<Image>`, `DesktopFrame` with `<Image>`, or `DemoFrame`), then the caption row: zero-padded number, name as plain text (no link in unit 1), rendered body, optional `<b>` hint, receipts column of `<a target="_blank" rel="noopener">` links.
 - `DemoFrame.astro` props: `{ fallbackAlt: string }`; renders `<iframe src="/demo/" title="Flutter Password Validator demo" loading="lazy">` inside the phone chrome plus `<noscript><img src="/demo-fallback.png" alt=...></noscript>`; the iframe gets `data-demo` so a later task can swap in the static image when `/demo/` 404s.
 - `Lead.astro`: the two spec sentences; the underline sign on "check it" via `<u class="sign-underline">`.
@@ -254,15 +384,36 @@ describe('Base', () => {
 
 ```ts
 describe('WorkBlock', () => {
-  it('should render every receipt as an external link', async () => { const html = await render(WorkBlock, { work: corepassEntry, index: 0 }); for (const receipt of corepassEntry.data.receipts) expect(html).toContain(`href="${receipt.url}"`); expect(html).toMatch(/rel="noopener/); });
-  it('should not link the work title in unit 1', async () => { const html = await render(WorkBlock, { work: corepassEntry, index: 0 }); expect(html).not.toMatch(/<a[^>]*>CorePass<\/a>/); });
-  it('should zero-pad the index', async () => { expect(await render(WorkBlock, { work: corepassEntry, index: 0 })).toContain('>01<'); });
+  it('should render every receipt as an external link', async () => {
+    const html = await render(WorkBlock, { work: corepassEntry, index: 0 });
+    for (const receipt of corepassEntry.data.receipts)
+      expect(html).toContain(`href="${receipt.url}"`);
+    expect(html).toMatch(/rel="noopener/);
+  });
+  it('should not link the work title in unit 1', async () => {
+    const html = await render(WorkBlock, { work: corepassEntry, index: 0 });
+    expect(html).not.toMatch(/<a[^>]*>CorePass<\/a>/);
+  });
+  it('should zero-pad the index', async () => {
+    expect(await render(WorkBlock, { work: corepassEntry, index: 0 })).toContain('>01<');
+  });
 });
 describe('DemoFrame', () => {
-  it('should lazy-load the demo iframe and keep a noscript image', async () => { const html = await render(DemoFrame, { fallbackAlt: 'a' }); expect(html).toContain('src="/demo/"'); expect(html).toContain('loading="lazy"'); expect(html).toMatch(/<noscript>[\s\S]*<img/); });
+  it('should lazy-load the demo iframe and keep a noscript image', async () => {
+    const html = await render(DemoFrame, { fallbackAlt: 'a' });
+    expect(html).toContain('src="/demo/"');
+    expect(html).toContain('loading="lazy"');
+    expect(html).toMatch(/<noscript>[\s\S]*<img/);
+  });
 });
 describe('AlsoShipped', () => {
-  it('should render internal for a row without a url', async () => { const html = await render(AlsoShipped, { items: [{ data: { id: 'f', name: 'Fediverse video app', note: 'n' } }] }); expect(html).toContain('internal'); expect(html).not.toMatch(/<a /); });
+  it('should render internal for a row without a url', async () => {
+    const html = await render(AlsoShipped, {
+      items: [{ data: { id: 'f', name: 'Fediverse video app', note: 'n' } }],
+    });
+    expect(html).toContain('internal');
+    expect(html).not.toMatch(/<a /);
+  });
 });
 ```
 
@@ -276,11 +427,13 @@ describe('AlsoShipped', () => {
 ### Task 7: Posts grid and post pages
 
 **Files:**
+
 - Create: `src/components/PostCard.astro`, `src/components/Posts.astro`, `src/pages/posts/[slug].astro`
 - Modify: `src/pages/index.astro`
 - Test: `test/components/PostCard.test.ts`
 
 **Interfaces:**
+
 - `PostCard.astro` props: `{ post: CollectionEntry<'posts'> }`; renders `<Image src={graphic} alt={alt} widths=[480, 960]>` with no aspect-ratio class (intrinsic size from metadata), the title, the month `format(date, 'MMM yyyy')` via `Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' })`, a link to `/posts/${post.id}` on the title and a link "on LinkedIn ↗" to `linkedinUrl(activityId)`.
 - `Posts.astro` props: `{ posts: CollectionEntry<'posts'>[] }`, newest first, two columns `>= 768px`.
 - `/posts/[slug]`: `getStaticPaths` from the collection; page shows the graphic, rendered body, date, LinkedIn link; `Base` title = post title, canonical = site URL.
@@ -289,9 +442,20 @@ describe('AlsoShipped', () => {
 
 ```ts
 describe('PostCard', () => {
-  it('should link to the LinkedIn original by activity id', async () => { const html = await render(PostCard, { post: postEntry }); expect(html).toContain('href="https://www.linkedin.com/feed/update/urn:li:activity:7486157038834782208"'); });
-  it('should keep the graphic at its own aspect ratio', async () => { const html = await render(PostCard, { post: portraitPostEntry }); expect(html).toMatch(/<img[^>]*width="\d+"[^>]*height="\d+"/); expect(html).not.toContain('aspect-ratio'); });
-  it('should show the month and year only', async () => { expect(await render(PostCard, { post: postEntry })).toContain('Jul 2026'); });
+  it('should link to the LinkedIn original by activity id', async () => {
+    const html = await render(PostCard, { post: postEntry });
+    expect(html).toContain(
+      'href="https://www.linkedin.com/feed/update/urn:li:activity:7486157038834782208"',
+    );
+  });
+  it('should keep the graphic at its own aspect ratio', async () => {
+    const html = await render(PostCard, { post: portraitPostEntry });
+    expect(html).toMatch(/<img[^>]*width="\d+"[^>]*height="\d+"/);
+    expect(html).not.toContain('aspect-ratio');
+  });
+  it('should show the month and year only', async () => {
+    expect(await render(PostCard, { post: postEntry })).toContain('Jul 2026');
+  });
 });
 ```
 
@@ -305,11 +469,13 @@ describe('PostCard', () => {
 ### Task 8: Contact, footer, OG image, asset gate, SEO files
 
 **Files:**
+
 - Create: `src/components/Contact.astro`, `src/components/Footer.astro`, `src/pages/robots.txt.ts`, `tools/check-assets.mjs`, `tools/og/og.html`, `tools/og/render-og.mjs`, `public/og.png`, `public/cv.pdf`, `src/assets/works/*.png` (staged store screenshots), `public/demo-fallback.png`
 - Modify: `package.json` (`prebuild: node tools/check-assets.mjs`), `src/pages/index.astro`
 - Test: `test/tools/check-assets.test.ts`, `test/components/Footer.test.ts`
 
 **Interfaces:**
+
 - `tools/check-assets.mjs`: `export function missingAssets(rootDirectory: string, requiredPaths: string[], existsImplementation = fs.existsSync): string[]`; CLI entry exits 1 listing missing paths when `process.env.NODE_ENV === 'production' || process.env.CI === 'true'`, otherwise prints a warning. Required: `src/assets/portrait.jpg`, `src/assets/works/corepass.png`, `src/assets/works/ring.png`, `public/og.png`, `public/cv.pdf`, `public/demo-fallback.png`.
 - `Footer.astro`: `"Aref Mozafari · {new Date().getFullYear()}"` and a link to `SITE.repo` labelled "Built by hand · source on GitHub".
 - `Contact.astro`: heading "Let's talk.", links to `mailto:`, LinkedIn, GitHub, `/cv.pdf` labelled "Résumé, one page, PDF".
@@ -320,12 +486,23 @@ describe('PostCard', () => {
 
 ```ts
 describe('missingAssets', () => {
-  it('should list only the paths that do not exist', () => { const exists = (path: string) => path.endsWith('og.png'); expect(missingAssets('/r', ['public/og.png', 'src/assets/portrait.jpg'], exists)).toEqual(['src/assets/portrait.jpg']); });
-  it('should return an empty list when every asset exists', () => { expect(missingAssets('/r', ['a', 'b'], () => true)).toEqual([]); });
+  it('should list only the paths that do not exist', () => {
+    const exists = (path: string) => path.endsWith('og.png');
+    expect(missingAssets('/r', ['public/og.png', 'src/assets/portrait.jpg'], exists)).toEqual([
+      'src/assets/portrait.jpg',
+    ]);
+  });
+  it('should return an empty list when every asset exists', () => {
+    expect(missingAssets('/r', ['a', 'b'], () => true)).toEqual([]);
+  });
 });
 describe('Footer', () => {
-  it('should link the source repository', async () => { expect(await render(Footer)).toContain(`href="${SITE.repo}"`); });
-  it('should carry no attribution to any tool', async () => { expect(await render(Footer)).not.toMatch(/claude|anthropic|generated/i); });
+  it('should link the source repository', async () => {
+    expect(await render(Footer)).toContain(`href="${SITE.repo}"`);
+  });
+  it('should carry no attribution to any tool', async () => {
+    expect(await render(Footer)).not.toMatch(/claude|anthropic|generated/i);
+  });
 });
 ```
 
@@ -339,10 +516,12 @@ describe('Footer', () => {
 ### Task 9: Flutter web demo
 
 **Files:**
+
 - Create: `demo/` via `flutter create --platforms=web --project-name validator_demo --org com.arefmozafari demo`, then `demo/lib/main.dart`, `demo/lib/demo_theme.dart`, `demo/test/main_test.dart`, `demo/analysis_options.yaml` (flutter_lints)
 - Modify: `package.json` (`build:demo` script), `.gitignore` (`public/demo/`)
 
 **Interfaces:**
+
 - `demo/lib/main.dart`: `void main() => runApp(const DemoApp())`; `DemoApp` is a `MaterialApp` with `theme: demoTheme` (cream `0xFFF5F1E8` background, ink `0xFF15120C` text, gold `0xFFE0B95C` as the bar colour, green `0xFF3F8A4C` as success; constants in `demo_theme.dart`), `debugShowCheckedModeBanner: false`, home `DemoPage`.
 - `DemoPage`: a `TextField` (autofocus, obscureText false so the visitor sees what they type, label "Password") and `FlutterPwValidator(controller: controller, rules: const PasswordRules(minLength: 8, uppercase: 1, digits: 1, special: 1, custom: [CommonPasswordsRule()]))`. Nothing else: no buttons, no app bar.
 - `npm run build:demo`: `cd demo && flutter build web --release --base-href=/demo/ --no-web-resources-cdn && rm -rf ../public/demo && cp -r build/web ../public/demo`.
@@ -366,10 +545,12 @@ group('DemoPage', () {
 ### Task 10: CI build and Cloudflare Pages deploy
 
 **Files:**
+
 - Create: `.github/workflows/deploy.yml`
 - Modify: `README.md` (hand-off section: secrets, Pages project name `arefmozafari-com`, custom-domain step, preview URLs)
 
 **Interfaces:**
+
 - Workflow `deploy`: triggers `push` to `main` and `pull_request`. Jobs: one job, `ubuntu-latest`, steps: checkout; `subosito/flutter-action@v2` (`channel: stable`, `cache: true`); `actions/setup-node@v4` (`node-version: 22`, `cache: npm`); `npm ci`; `npm run build:demo`; `npm run verify` with `CI=true` and `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`; `cloudflare/wrangler-action@v4` with `apiToken`, `accountId`, `gitHubToken`, and `command: pages deploy dist --project-name=arefmozafari-com --branch=${{ github.head_ref || github.ref_name }}`. Permissions `contents: read`, `deployments: write`.
 
 - [ ] **Step 1: Write the workflow.**
