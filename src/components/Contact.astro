@@ -11,7 +11,9 @@ import { SITE } from '../site';
   <a href={SITE.github} target="_blank" rel="noopener">
     github.com/arefmozafari
   </a>
-  <a href="/cv.pdf">Résumé, one page, PDF</a>
+  <a href={SITE.resumePath} download={SITE.resumeFileName}>
+    Résumé, one page, PDF
+  </a>
 </div>
 
 <style>

@@ -10,7 +10,13 @@ describe('Contact', () => {
     expect(html).toContain(`href="mailto:${SITE.email}"`);
     expect(html).toContain(`href="${SITE.linkedin}"`);
     expect(html).toContain(`href="${SITE.github}"`);
-    expect(html).toContain('href="/cv.pdf"');
+    expect(html).toContain('href="/Aref-Mozafari-Senior-Mobile-Engineer.pdf"');
+  });
+
+  it('should save the résumé under a name that says whose it is', async () => {
+    const html = await render(Contact);
+
+    expect(html).toMatch(/download="Aref-Mozafari-Senior-Mobile-Engineer\.pdf"/);
   });
 
   it('should open with the fixed heading', async () => {

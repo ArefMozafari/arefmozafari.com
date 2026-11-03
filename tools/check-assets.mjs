@@ -10,7 +10,7 @@ export const REQUIRED_ASSETS = [
   'src/assets/works/corepass.png',
   'src/assets/works/ring.png',
   'public/og.png',
-  'public/cv.pdf',
+  'public/Aref-Mozafari-Senior-Mobile-Engineer.pdf',
   'public/demo-fallback.png',
   'public/demo/index.html',
 ];
