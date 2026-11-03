@@ -6,7 +6,7 @@ word: [CorePass]
 artifact:
   kind: poster
   image: ../../assets/works/corepass.png
-  alt: 'CorePass App Store card: the only digital identity you will ever need, with a verified driving licence in the app'
+  alt: "CorePass's own social card from corepass.net"
 receipts:
   - label: App Store ↗
     url: https://apps.apple.com/app/corepass-id/id1644928641

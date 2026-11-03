@@ -41,6 +41,12 @@ describe('WorkBlock', () => {
 
     expect(html).toMatch(/class="[^"]*poster[^"]*"/);
     expect(html).not.toMatch(/class="[^"]*phone[^"]*"/);
+  });
+
+  it('should give a landscape poster the wide variant', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).toMatch(/class="[^"]*poster--wide[^"]*"/);
     expect(html).toContain('alt="The store card of the identity app"');
   });
 

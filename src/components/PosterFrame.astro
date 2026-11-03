@@ -1,9 +1,15 @@
 ---
-/// A rounded poster at the right of a block: the store's own card, shown as itself,
-/// with no phone chrome around it. The image is the default slot.
+/// A rounded poster at the right of a block: the product's own card, shown as itself,
+/// with no phone chrome around it. The image is the default slot. A landscape card gets
+/// the wide variant so it fills the block's height instead of shrinking to a strip.
+interface Props {
+  wide?: boolean;
+}
+
+const { wide = false } = Astro.props;
 ---
 
-<div class="poster">
+<div class:list={['poster', { 'poster--wide': wide }]}>
   <slot />
 </div>
 
@@ -19,6 +25,10 @@
     box-shadow: var(--shadow-poster);
   }
 
+  .poster--wide {
+    width: var(--poster-width-wide);
+  }
+
   .poster :global(img) {
     display: block;
     width: 100%;
@@ -30,6 +40,10 @@
       right: var(--space-4);
       top: var(--space-4);
       width: var(--poster-width-phone);
+    }
+
+    .poster--wide {
+      width: var(--poster-width-wide-phone);
     }
   }
 </style>

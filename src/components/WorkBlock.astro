@@ -36,8 +36,8 @@ const image = work.artifact.image;
       ))}
     </h3>
     {work.artifact.kind === 'poster' && image && (
-      <PosterFrame>
-        <Image src={image} alt={work.artifact.alt} width={600} densities={[1, 2]} />
+      <PosterFrame wide={image.width > image.height}>
+        <Image src={image} alt={work.artifact.alt} width={940} densities={[1, 2]} />
       </PosterFrame>
     )}
     {work.artifact.kind === 'phone' && image && (
@@ -97,11 +97,13 @@ const image = work.artifact.image;
     );
   }
 
+  /* The word and kicker keep to the left so a wide poster at the right never sits under them. */
   .word {
     position: absolute;
     left: var(--space-5);
     bottom: var(--space-4);
     z-index: var(--layer-label);
+    max-width: 48%;
     font-size: var(--text-word);
     font-weight: 800;
     letter-spacing: var(--tracking-word);

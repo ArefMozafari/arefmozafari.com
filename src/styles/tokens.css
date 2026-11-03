@@ -98,6 +98,8 @@
   --radius-phone-screen: 22px;
   --poster-width: 300px;
   --poster-width-phone: 46%;
+  --poster-width-wide: 400px;
+  --poster-width-wide-phone: 50%;
   --block-height: 320px;
   --block-height-phone: 236px;
   --phone-width: 170px;
