@@ -3,11 +3,16 @@ import DemoFrame from '../../src/components/DemoFrame.astro';
 import { render } from '../helpers/render';
 
 describe('DemoFrame', () => {
-  it('should lazy-load the demo iframe and keep a noscript image', async () => {
+  it('should hold the demo url off the iframe until a script starts it', async () => {
     const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
 
-    expect(html).toContain('src="/demo/index.html"');
-    expect(html).toContain('loading="lazy"');
+    expect(html).toMatch(/<iframe[^>]*data-src="\/demo\/index\.html"/);
+    expect(html).not.toMatch(/<iframe[^>]*\ssrc=/);
+  });
+
+  it('should keep a noscript image', async () => {
+    const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
+
     expect(html).toMatch(/<noscript>[\s\S]*<img[^>]*alt="The widget"/);
   });
 

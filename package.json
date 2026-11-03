@@ -17,7 +17,8 @@
     "astro": "astro",
     "prebuild": "node tools/check-assets.mjs",
     "check:assets": "node tools/check-assets.mjs",
-    "build:demo": "cd demo && flutter build web --release --base-href=/demo/ --no-web-resources-cdn && rm -rf ../public/demo && cp -r build/web ../public/demo"
+    "build:demo": "cd demo && flutter build web --release --base-href=/demo/ --no-web-resources-cdn && rm -rf ../public/demo && cp -r build/web ../public/demo && npm run prune:demo",
+    "prune:demo": "rm -rf public/demo/canvaskit/*.symbols public/demo/canvaskit/skwasm* public/demo/canvaskit/wimp* public/demo/canvaskit/webparagraph"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

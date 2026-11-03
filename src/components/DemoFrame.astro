@@ -3,7 +3,8 @@ import PhoneFrame from './PhoneFrame.astro';
 
 /// The real flutter_pw_validator widget, compiled to web, inside the phone chrome.
 /// A capture of the same widget is painted under the iframe, so the screen is never
-/// blank: it shows while Flutter loads and stays when scripts are off.
+/// blank: it shows while Flutter loads and stays when scripts are off. The iframe carries
+/// its url in data-src; scripts/demo-start.ts starts it once the block is near the viewport.
 interface Props {
   fallbackAlt: string;
 }
@@ -15,7 +16,7 @@ const FALLBACK_PATH = '/demo-fallback.png';
 ---
 
 <PhoneFrame class="demo" screenStyle={`background-image: url('${FALLBACK_PATH}')`}>
-  <iframe src={DEMO_PATH} title="Flutter Password Validator demo" loading="lazy" data-demo></iframe>
+  <iframe data-src={DEMO_PATH} title="Flutter Password Validator demo" data-demo></iframe>
   <noscript>
     <img src={FALLBACK_PATH} alt={fallbackAlt} width="170" height="330" />
   </noscript>
