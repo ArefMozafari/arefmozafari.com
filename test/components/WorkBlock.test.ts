@@ -7,7 +7,6 @@ const corepass = {
   name: 'CorePass',
   order: 1,
   kicker: 'Blockchain identity & wallet',
-  tag: 'Live on both stores',
   word: ['CorePass'],
   artifact: { kind: 'phone', image: corepassImage, alt: 'CorePass on an iPhone' },
   receipts: [

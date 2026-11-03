@@ -1,8 +1,7 @@
 ---
 name: CorePass
 order: 1
-kicker: Blockchain identity & wallet
-tag: Live on both stores
+kicker: Blockchain identity & wallet · live on both stores
 word: [CorePass]
 artifact:
   kind: phone

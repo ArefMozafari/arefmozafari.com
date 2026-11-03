@@ -96,11 +96,12 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
    name as the big word, one real artifact (phone screenshot, desktop screenshot, or the live
    demo), then a caption row: number, name, two-sentence description, and the receipts
    column of links. Order:
-   - 01 CorePass. Kicker "Blockchain identity & wallet". Tag "Live on both stores". Phone
-     frame with a real App Store / Play screenshot. Receipts: App Store, Google Play,
-     corepass.net.
-   - 02 Ring. Kicker "Mobile Engineer, 2026 –". Tag "Classifieds · Iran". Desktop or store
-     screenshot. Receipts: Cafe Bazaar, Myket, ring.ir.
+   - 01 CorePass. Kicker "Blockchain identity & wallet · live on both stores". Phone frame
+     with a real App Store screenshot. Receipts: App Store, Google Play, corepass.net.
+   - 02 Ring. Kicker "Classifieds marketplace · Mobile Engineer, 2026 –". Phone frame with
+     the app's own Cafe Bazaar screenshot. Receipts: Cafe Bazaar, Myket, ring.ir.
+     (The separate corner tags were removed on 2026-11-03 at the owner's request; their text
+     folded into the kickers.)
    - 03 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
      Validator" on two lines. The phone frame holds the real widget compiled to web, with a
      focused input and no label on the block; the caption carries one bold sentence: "The

@@ -16,7 +16,6 @@ export const workSchema = ({ image }: SchemaContext) =>
     name: z.string().min(1),
     order: z.number().int().positive(),
     kicker: z.string().min(1),
-    tag: z.string().optional(),
     word: z.array(z.string().min(1)).min(1).max(2),
     artifact: z.object({
       kind: z.enum(['phone', 'desktop', 'demo']),

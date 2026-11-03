@@ -23,7 +23,6 @@ const isTwoLines = work.word.length === 2;
 
 <article class="work">
   <div class:list={['block', { 'block--cream': isDemo, 'sign-spark': index === 0 }]}>
-    {work.tag && <span class="tag mono">{work.tag}</span>}
     <p class:list={['word', { 'word--two': isTwoLines }]}>
       <small class="kicker mono">{work.kicker}</small>
       {work.word.map((line, lineIndex) => (
@@ -92,30 +91,11 @@ const isTwoLines = work.word.length === 2;
     );
   }
 
-  /* The tag is set like the kicker, a mono label on a solid charcoal strip, and stacks
-     above the artifact so spec copy is never hidden behind a frame. */
-  .tag {
-    position: absolute;
-    top: var(--space-5);
-    right: var(--space-5);
-    z-index: var(--layer-tag);
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-block);
-    font-size: var(--text-kicker);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-block-gold);
-  }
-
-  .sign-spark .tag {
-    right: var(--space-7);
-  }
-
   .word {
     position: absolute;
     left: var(--space-5);
     bottom: var(--space-4);
-    z-index: var(--layer-tag);
+    z-index: var(--layer-label);
     font-size: var(--text-word);
     font-weight: 800;
     letter-spacing: var(--tracking-word);
@@ -184,8 +164,7 @@ const isTwoLines = work.word.length === 2;
       height: var(--block-height-phone);
     }
 
-    /* The artifact sits at the right edge, so the word and kicker keep to the left half
-       and the tag moves to the top-left corner, clear of both frames. */
+    /* The artifact sits at the right edge, so the word and kicker keep to the left half. */
     .word,
     .word--two {
       max-width: 52%;
@@ -194,13 +173,6 @@ const isTwoLines = work.word.length === 2;
 
     .kicker {
       max-width: 100%;
-    }
-
-    .tag,
-    .sign-spark .tag {
-      top: var(--space-4);
-      right: auto;
-      left: var(--space-4);
     }
 
     .caption {

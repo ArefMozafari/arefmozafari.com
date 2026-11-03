@@ -1,8 +1,7 @@
 ---
 name: Ring
 order: 2
-kicker: Mobile Engineer, 2026 –
-tag: Classifieds · Iran
+kicker: Classifieds marketplace · Mobile Engineer, 2026 –
 word: [Ring]
 artifact:
   kind: phone

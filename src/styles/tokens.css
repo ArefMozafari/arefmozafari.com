@@ -81,9 +81,9 @@
   --caption-number-width-phone: 30px;
   --underline-offset-large: 4px;
 
-  /* Stacking inside a work block: the tag sits above the artifact. */
+  /* Stacking inside a work block: labels sit above the artifact. */
   --layer-artifact: 1;
-  --layer-tag: 2;
+  --layer-label: 2;
 
   /* Shapes. */
   --radius-pill: 999px;
