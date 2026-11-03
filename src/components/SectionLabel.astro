@@ -1,5 +1,6 @@
 ---
 /// A mono, uppercase section label with an optional quiet note on the right.
+/// `sign` puts this section's gold mark, a small dot, in front of the title.
 interface Props {
   title: string;
   note?: string;
@@ -9,8 +10,8 @@ interface Props {
 const { title, note, sign = false } = Astro.props;
 ---
 
-<h2 class:list={['label', 'section-label', { 'sign-dot': sign }]}>
-  <span>{title}</span>
+<h2 class="label section-label">
+  <span class:list={{ 'sign-dot': sign }}>{title}</span>
   {note && <span class="note">{note}</span>}
 </h2>
 

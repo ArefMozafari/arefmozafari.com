@@ -50,7 +50,24 @@ describe('OpenSource', () => {
       ],
     });
 
-    expect(html).toContain('19 ★ · 1 forks');
+    expect(html).toContain('19 ★ · 1 fork');
+    expect(html).not.toContain('1 forks');
+  });
+
+  it('should use singular words for a count of one', async () => {
+    const html = await render(OpenSource, {
+      rows: [
+        {
+          name: 'n',
+          description: 'd',
+          url: 'https://x.y',
+          counts: null,
+          score: { points: 1, likes: 1, downloads30Days: 1 },
+        },
+      ],
+    });
+
+    expect(html).toContain('1 like · 1 pt');
   });
 
   it('should show nothing for a repo nobody has starred yet', async () => {

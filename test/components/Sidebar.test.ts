@@ -36,6 +36,13 @@ describe('Sidebar', () => {
     expect(await render(Sidebar, { years: 8, sections })).not.toMatch(/relocat/i);
   });
 
+  it('should separate the contact links with spaced dots', async () => {
+    const html = await render(Sidebar, { years: 8, sections });
+    const text = html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
+
+    expect(text).toContain('GitHub · LinkedIn · CV');
+  });
+
   it('should render the name as the only h1', async () => {
     const html = await render(Sidebar, { years: 8, sections });
 

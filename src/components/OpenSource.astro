@@ -17,19 +17,24 @@ interface Props {
 
 const { rows } = Astro.props;
 
+/// "1 fork", "46 forks": the unit agrees with the count.
+function plural(count: number, unit: string): string {
+  return `${count} ${unit}${count === 1 ? '' : 's'}`;
+}
+
 /// Stars and likes together for a published package, stars and forks for a repo,
 /// likes and points when only pub.dev answered, the note when nothing else applies.
 /// A repo nobody has starred yet shows no count at all.
 function countText(row: OpenSourceRow): string {
   const hasStars = row.counts !== null && row.counts.stars > 0;
   if (hasStars && row.score) {
-    return `${row.counts!.stars} ★ · ${row.score.likes} likes`;
+    return `${row.counts!.stars} ★ · ${plural(row.score.likes, 'like')}`;
   }
   if (hasStars) {
-    return `${row.counts!.stars} ★ · ${row.counts!.forks} forks`;
+    return `${row.counts!.stars} ★ · ${plural(row.counts!.forks, 'fork')}`;
   }
   if (row.score) {
-    return `${row.score.likes} likes · ${row.score.points} pts`;
+    return `${plural(row.score.likes, 'like')} · ${plural(row.score.points, 'pt')}`;
   }
   return row.note ?? '';
 }
