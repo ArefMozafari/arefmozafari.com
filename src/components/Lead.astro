@@ -1,8 +1,9 @@
 ---
 /// The two sentences that open the page. The underline is this section's gold sign.
+/// The first sentence is the work section's heading, so the outline runs h1 → h2 → h3.
 ---
 
-<p class="lead">Three things I shipped that you can open right now.</p>
+<h2 class="lead">Three things I shipped that you can open right now.</h2>
 <p class="lead-sub muted">
   No internal metrics on this page. Every claim links to a store listing, a repository, or a
   published package. <u class="sign-underline">If you can't check it, it isn't here.</u>
@@ -12,6 +13,7 @@
   .lead {
     max-width: var(--measure-lead);
     font-size: var(--text-lead);
+    font-weight: 400;
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-tight);
   }
