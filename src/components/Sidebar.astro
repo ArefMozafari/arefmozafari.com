@@ -17,31 +17,51 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
 ---
 
 <div class="sidebar">
-  <NameTag class="name">Aref<br />Mozafari</NameTag>
-  <p class="name-fa" lang="fa" dir="rtl">{SITE.nameFa}</p>
+  <NameTag class="name">
+    Aref
+    <br />
+    Mozafari
+  </NameTag>
+  <p class="name-fa" lang="fa" dir="rtl">
+    {SITE.nameFa}
+  </p>
 
   <figure class="portrait">
     <Image src={portrait} alt={SITE.name} width={320} densities={[1, 2]} loading="eager" />
   </figure>
 
   <p class="role muted">
-    Senior Mobile Engineer.<br />
-    Flutter, iOS &amp; Android.<br />
-    <span data-years data-career-start={careerStart}>{years}</span> years: wallets, call SDKs,
-    marketplaces.
+    Senior Mobile Engineer.
+    <br />
+    Flutter, iOS &amp; Android.
+    <br />
+    <span data-years data-career-start={careerStart}>
+      {years}
+    </span>{' '}
+    years: wallets, call SDKs, marketplaces.
   </p>
 
-  <p class="avail"><i aria-hidden="true"></i>Open to remote roles</p>
+  <p class="avail">
+    <i aria-hidden="true"></i>Open to remote roles
+  </p>
 
   <nav class="nav" aria-label="Sections">
-    {sections.map((section) => <a href={`/#${section.id}`}>{section.label}</a>)}
+    {sections.map((section) => (
+      <a href={`/#${section.id}`}>{section.label}</a>
+    ))}
   </nav>
 
   <address class="contact muted">
-    <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
-    <a href={SITE.github} target="_blank" rel="noopener">GitHub</a> ·
-    <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
-    <a href="/cv.pdf">CV</a>
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    <br />
+    <a href={SITE.github} target="_blank" rel="noopener">
+      GitHub
+    </a>{' '}
+    ·
+    <a href={SITE.linkedin} target="_blank" rel="noopener">
+      LinkedIn
+    </a>{' '}
+    ·<a href="/cv.pdf">CV</a>
   </address>
 </div>
 

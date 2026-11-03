@@ -13,23 +13,21 @@ const { items } = Astro.props;
 ---
 
 <ul class="index">
-  {
-    items.map((item) => (
-      <li class="row">
-        <div>
-          <span class="name">{item.name}</span>
-          <small class="note muted">{item.note}</small>
-        </div>
-        {item.url ? (
-          <a class="mono" href={item.url} target="_blank" rel="noopener">
-            {item.url.includes('github.com') ? 'GitHub ↗' : 'Listing ↗'}
-          </a>
-        ) : (
-          <span class="mono muted">internal</span>
-        )}
-      </li>
-    ))
-  }
+  {items.map((item) => (
+    <li class="row">
+      <div>
+        <span class="name">{item.name}</span>
+        <small class="note muted">{item.note}</small>
+      </div>
+      {item.url ? (
+        <a class="mono" href={item.url} target="_blank" rel="noopener">
+          {item.url.includes('github.com') ? 'GitHub ↗' : 'Listing ↗'}
+        </a>
+      ) : (
+        <span class="mono muted">internal</span>
+      )}
+    </li>
+  ))}
 </ul>
 
 <style>

@@ -33,20 +33,16 @@ const isTwoLines = work.word.length === 2;
         </>
       ))}
     </p>
-    {
-      work.artifact.kind === 'phone' && work.artifact.image && (
-        <PhoneFrame>
-          <Image src={work.artifact.image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
-        </PhoneFrame>
-      )
-    }
-    {
-      work.artifact.kind === 'desktop' && work.artifact.image && (
-        <DesktopFrame>
-          <Image src={work.artifact.image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
-        </DesktopFrame>
-      )
-    }
+    {work.artifact.kind === 'phone' && work.artifact.image && (
+      <PhoneFrame>
+        <Image src={work.artifact.image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
+      </PhoneFrame>
+    )}
+    {work.artifact.kind === 'desktop' && work.artifact.image && (
+      <DesktopFrame>
+        <Image src={work.artifact.image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
+      </DesktopFrame>
+    )}
     {isDemo && <DemoFrame fallbackAlt={work.artifact.alt} />}
   </div>
 
@@ -60,15 +56,13 @@ const isTwoLines = work.word.length === 2;
       </p>
     </div>
     <ul class="receipts mono">
-      {
-        work.receipts.map((receipt) => (
-          <li>
-            <a href={receipt.url} target="_blank" rel="noopener">
-              {receipt.label}
-            </a>
-          </li>
-        ))
-      }
+      {work.receipts.map((receipt) => (
+        <li>
+          <a href={receipt.url} target="_blank" rel="noopener">
+            {receipt.label}
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 </article>

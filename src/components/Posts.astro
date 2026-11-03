@@ -14,7 +14,9 @@ const newestFirst = [...posts].sort(
 ---
 
 <div class="posts">
-  {newestFirst.map((post) => <PostCard post={post} />)}
+  {newestFirst.map((post) => (
+    <PostCard post={post} />
+  ))}
 </div>
 
 <style>

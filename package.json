@@ -14,7 +14,9 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "verify": "npm run check && npm run test && npm run build",
-    "astro": "astro"
+    "astro": "astro",
+    "prebuild": "node tools/check-assets.mjs",
+    "check:assets": "node tools/check-assets.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
