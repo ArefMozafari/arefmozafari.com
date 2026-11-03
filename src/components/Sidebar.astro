@@ -105,20 +105,23 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   .portrait {
     position: relative;
     margin: 0 0 var(--space-5);
-    /* Square like the photo, so the whole composition shows and nothing is cropped. */
-    aspect-ratio: 1;
+    aspect-ratio: 4 / 5;
+    min-height: var(--portrait-min-height);
     overflow: hidden;
     border-radius: var(--radius-card);
     background: var(--color-canvas);
   }
 
-  /* The photo fills the figure edge to edge, so no backing ever shows. */
+  /* The square photo fills the 4:5 figure edge to edge, so no backing ever shows. On a short
+     viewport the flex column squeezes the figure, so the photo anchors to its top and the crop
+     takes the chest, never the head. */
   .portrait img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     filter: grayscale(1) contrast(1.05);
   }
 

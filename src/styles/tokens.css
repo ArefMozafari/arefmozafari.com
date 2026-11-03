@@ -113,6 +113,8 @@
   --phone-width-phone: 140px;
   --phone-height-phone: 272px;
   --portrait-small: 40px;
+  /* The least height the sidebar portrait keeps when a short viewport squeezes the column. */
+  --portrait-min-height: 180px;
   --dot: 8px;
 
   /* Motion: the only two transitions on the site. */
