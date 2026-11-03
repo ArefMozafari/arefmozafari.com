@@ -105,13 +105,14 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   .portrait {
     position: relative;
     margin: 0 0 var(--space-5);
-    aspect-ratio: 4 / 5;
+    /* Square like the photo, so the whole composition shows and nothing is cropped. */
+    aspect-ratio: 1;
     overflow: hidden;
     border-radius: var(--radius-card);
     background: var(--color-canvas);
   }
 
-  /* The square photo fills the 4:5 figure edge to edge, so no backing ever shows. */
+  /* The photo fills the figure edge to edge, so no backing ever shows. */
   .portrait img {
     position: absolute;
     inset: 0;
