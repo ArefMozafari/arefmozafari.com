@@ -4,6 +4,7 @@ date: 2026-09-26
 linkedinActivityId: '7509697354250383360'
 graphic: ./graphic.png
 alt: 'The pr-evidence skill file and its install command'
+description: pr-evidence is an open-source agent skill that gets before-and-after screenshots into GitHub pull requests from the command line, for Claude Code, Codex, Gemini CLI, Copilot and Cursor.
 ---
 
 The drag-and-drop upload is browser-session only, so gh can't reach it. An agent that opens the PR for you opens one with no screenshots in it.

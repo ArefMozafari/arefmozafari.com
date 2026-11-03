@@ -34,6 +34,10 @@ export const postSchema = ({ image }: SchemaContext) =>
     linkedinActivityId: z.string().regex(LINKEDIN_ACTIVITY_ID),
     graphic: image(),
     alt: z.string().min(1),
+    /// A shorter title for search results and the browser tab, when the hook runs long.
+    searchTitle: z.string().min(1).optional(),
+    /// A search snippet naming the subject; without it the first paragraph stands in.
+    description: z.string().min(1).optional(),
   });
 
 /// An open-source row: a name, one line on what it is, and a link.

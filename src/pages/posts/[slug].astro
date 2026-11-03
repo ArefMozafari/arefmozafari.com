@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Shell from '../../components/Shell.astro';
 import { linkedinUrl } from '../../content/schemas';
@@ -13,6 +13,9 @@ export async function getStaticPaths() {
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
+/// Width card scrapers expect of a share image.
+const SHARE_IMAGE_WIDTH = 1200;
+
 const { post } = Astro.props;
 const { Content } = await render(post);
 const years = yearsSince(SITE.careerStart, new Date());
@@ -22,9 +25,22 @@ const dateFormat = new Intl.DateTimeFormat('en', {
   year: 'numeric',
 });
 const date = dateFormat.format(post.data.date);
+const title = post.data.searchTitle ?? post.data.title;
+const description = post.data.description ?? describePost(post.body ?? '');
+const shareImage = await getImage({ src: post.data.graphic, width: SHARE_IMAGE_WIDTH, format: 'png' });
+const article = {
+  title: post.data.title,
+  date: post.data.date,
+  image: {
+    src: shareImage.src,
+    width: shareImage.attributes.width,
+    height: shareImage.attributes.height,
+    alt: post.data.alt,
+  },
+};
 ---
 
-<Base title={`${post.data.title} · ${SITE.name}`} description={describePost(post.body ?? '')}>
+<Base title={`${title} · ${SITE.name}`} description={description} article={article}>
   <Shell years={years} nameAsHeading={false}>
     <article class="post">
       <a class="back mono muted" href="/#posts">

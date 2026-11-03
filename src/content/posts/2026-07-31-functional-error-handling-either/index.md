@@ -4,6 +4,8 @@ date: 2026-07-31
 linkedinActivityId: '7489749364047986688'
 graphic: ./graphic.png
 alt: 'A Dart signature returning Either<Failure, User>: failure as a value, not a surprise'
+searchTitle: Replacing try/catch with Either in a production Flutter codebase
+description: We rebuilt a Flutter app's data and domain layers around fpdart so every risky call returns an Either, with fewer crash reports and faster reviews as the result.
 ---
 
 The problem: scattered try/catch hides which functions can actually fail, until production tells you the hard way.

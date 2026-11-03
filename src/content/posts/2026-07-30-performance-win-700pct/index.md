@@ -4,6 +4,7 @@ date: 2026-07-30
 linkedinActivityId: '7486157038834782208'
 graphic: ./graphic.png
 alt: '700% faster hashing in Flutter with Rust and Flutter Rust Bridge'
+description: Moving a crypto wallet's hashing from Dart to Rust over Flutter Rust Bridge, 700% faster and 60% less processing time, with the same Dart API on top.
 ---
 
 The trick wasn't Dart. It was leaving it.

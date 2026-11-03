@@ -4,6 +4,8 @@ date: 2026-07-30
 linkedinActivityId: '7488409354807754752'
 graphic: ./graphic.png
 alt: 'Ghost in the Droid, an MCP server that drives Android through the accessibility tree'
+searchTitle: Claude drives a real Android phone over plain ADB
+description: Ghost in the Droid is an open-source MCP server that drives Android through the accessibility tree. If your Flutter app has no Semantics, agents cannot see it.
 ---
 
 "Ghost in the Droid" is an open-source MCP server for Claude Code. It sees the screen through screenshots and a compacted accessibility tree. Sixty-plus tools: launch apps, tap, swipe, type, run batch flows. Exploratory QA, regression runs, bug repros, described in plain English.

@@ -4,6 +4,7 @@ date: 2026-10-01
 linkedinActivityId: '7511429879624527873'
 graphic: ./graphic.png
 alt: 'An agent session capturing the before state of an app for a pull request'
+description: How the pr-evidence skill captures the before on the base branch and the after on the change, same screen and same emulator, side by side in the pull request.
 ---
 
 That's the first rule of pr-evidence, the skill I published last week: capture the before while the base branch is still checked out. Grab it later and you pay for a second build.
