@@ -40,7 +40,7 @@ describe('Sidebar', () => {
     const html = await render(Sidebar, { years: 8, sections });
     const text = html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
 
-    expect(text).toContain('GitHub · LinkedIn · CV');
+    expect(text).toContain('GitHub · LinkedIn · Résumé');
   });
 
   it('should render the name as the only h1', async () => {
