@@ -1,7 +1,7 @@
 ---
 name: Flutter Password Validator
 order: 4
-kicker: Open source · pub.dev
+kicker: Flutter package · open source, 2.0 in 2026
 word: [Password, Validator]
 artifact:
   kind: demo
@@ -13,7 +13,7 @@ receipts:
     url: https://github.com/ArefMozafari/flutter_pw_validator
   - label: password_rules ↗
     url: https://pub.dev/packages/password_rules
-hint: The phone is the real widget compiled to web. Type in it.
+hint: 'Try it: the phone runs the real widget, compiled for the web.'
 ---
 
-Password validation for Flutter, rewritten as 2.0 this year on top of password_rules, a pure-Dart policy package.
+Password validation for Flutter, rewritten as 2.0 in 2026 on top of password_rules, a pure-Dart policy package.

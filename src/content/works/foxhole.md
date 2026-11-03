@@ -12,4 +12,4 @@ receipts:
     url: https://github.com/ArefMozafari/FoxholeArtillery-mobile
 ---
 
-A firing-solution calculator for the game Foxhole: pick the weapon, enter distance and azimuth to the enemy and to your own gun, read the answer. Built in Flutter under the Xeniac name and published on Google Play.
+A firing-solution calculator for the game Foxhole: pick the weapon, enter distance and azimuth to the enemy and to your own gun, read the answer. Built in Flutter under the Xeniac name; it was on Google Play from 2019.

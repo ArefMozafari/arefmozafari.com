@@ -1,7 +1,7 @@
 ---
 name: Ring
 order: 2
-kicker: Classifieds marketplace · Mobile Engineer, 2026 –
+kicker: Classifieds marketplace · Mobile Engineer, 2026–present
 word: [Ring]
 artifact:
   kind: poster
@@ -16,4 +16,4 @@ receipts:
     url: https://ring.ir
 ---
 
-A national classifieds marketplace. Search, map, listing creation, buyer–seller contact. Sentry, PostHog, the full test range, performance on mid- and low-end Android.
+A national classifieds marketplace. I work on the Flutter app: search, map, listing creation and buyer–seller contact, with Sentry and PostHog wired in, tests from unit to integration, and performance work for mid- and low-end Android.

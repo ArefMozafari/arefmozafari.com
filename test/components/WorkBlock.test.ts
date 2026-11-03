@@ -62,13 +62,13 @@ describe('WorkBlock', () => {
       name: 'Flutter Password Validator',
       word: ['Password', 'Validator'],
       artifact: { kind: 'demo', alt: 'The widget' },
-      hint: 'The phone is the real widget compiled to web. Type in it.',
+      hint: 'Try it: the phone runs the real widget, compiled for the web.',
     };
 
     const html = await render(WorkBlock, { work: demo, index: 2 }, { default: 'desc' });
 
     expect(html).toMatch(
-      /<b[^>]*>The phone is the real widget compiled to web\. Type in it\.<\/b>/,
+      /<b[^>]*>Try it: the phone runs the real widget, compiled for the web\.<\/b>/,
     );
     expect(html).toContain('>03<');
   });
