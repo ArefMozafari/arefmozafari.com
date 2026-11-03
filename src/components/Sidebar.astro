@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import portrait from '../assets/portrait.jpg';
 import type { Section } from '../sections';
 import { SITE } from '../site';
+import ThemeSwitch from './ThemeSwitch.astro';
 
 interface Props {
   years: number;
@@ -64,6 +65,9 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     {' · '}
     <a href="/cv.pdf">CV</a>
   </address>
+  <div class="scheme">
+    <ThemeSwitch />
+  </div>
 </div>
 
 <style>
@@ -90,13 +94,13 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-body);
   }
 
-  /* Charcoal-and-gold duotone: a grayscale photo multiplied over a gold gradient,
-     with the halftone grid on top so the portrait belongs to the block system. */
+  /* Charcoal-and-gold duotone: a grayscale photo multiplied over a gold gradient. */
   .portrait {
     position: relative;
     margin: 0 0 var(--space-5);
     aspect-ratio: 4 / 5;
     overflow: hidden;
+    border-radius: var(--radius-card);
     background: linear-gradient(160deg, var(--color-block-gold), var(--color-gold-deep));
   }
 
@@ -106,18 +110,6 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     object-fit: cover;
     filter: grayscale(1) contrast(1.08);
     mix-blend-mode: multiply;
-  }
-
-  .portrait::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(
-      var(--color-portrait-dot) var(--halftone-dot),
-      transparent calc(var(--halftone-dot) + 0.2px)
-    );
-    background-size: var(--halftone-portrait-size) var(--halftone-portrait-size);
-    pointer-events: none;
   }
 
   .role {
@@ -181,10 +173,15 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
 
   /* Below the desktop breakpoint the compact header carries the portrait, the menu and
      the contact links, so the column keeps only the name, the role and the pill. */
+  .scheme {
+    margin-top: var(--space-3);
+  }
+
   @media (max-width: 1023px) {
     .portrait,
     .nav,
-    .contact {
+    .contact,
+    .scheme {
       display: none;
     }
   }

@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import '../styles/global.css';
+import { THEME_KEY } from '../scripts/theme';
 import { SITE } from '../site';
 
 interface Props {
@@ -33,7 +34,22 @@ const person = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content={SITE.themeColor.light} />
+    <script is:inline define:vars={{ themeKey: THEME_KEY }}>
+      // Applies a stored scheme before first paint so the page never flashes the other one.
+      try {
+        const stored = localStorage.getItem(themeKey);
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch {
+        // No storage, no stored choice: the system scheme applies.
+      }
+    </script>
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content={SITE.themeColor.light}
+    />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content={SITE.themeColor.dark} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -56,6 +72,7 @@ const person = {
     <script>
       import '../scripts/years-client';
       import '../scripts/active-nav';
+      import '../scripts/theme';
     </script>
   </body>
 </html>

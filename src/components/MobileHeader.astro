@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import portrait from '../assets/portrait.jpg';
 import type { Section } from '../sections';
 import { SITE } from '../site';
+import ThemeSwitch from './ThemeSwitch.astro';
 
 interface Props {
   sections: readonly Section[];
@@ -23,6 +24,7 @@ const { sections } = Astro.props;
         <a href={`/#${section.id}`}>{section.label}</a>
       ))}
       <a href={`mailto:${SITE.email}`}>Email</a>
+      <ThemeSwitch />
     </nav>
   </details>
 </header>

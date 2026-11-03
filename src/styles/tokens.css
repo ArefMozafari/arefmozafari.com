@@ -7,31 +7,36 @@
  *   tablet   768px to 1023px
  *   desktop  >= 1024px
  */
+/*
+ * Two schemes, one token each, through light-dark(). Light is the design: cream canvas,
+ * charcoal blocks, gold accent. Dark inverts the roles rather than darkening: the canvas takes
+ * the charcoal, the ink takes the cream, and the blocks flip to cream so they still read as
+ * objects on the page. Gold swaps to the brighter cut on charcoal and the deeper cut on cream.
+ * Which scheme applies is decided by `color-scheme` on :root (see the bottom of this file).
+ */
 :root {
-  /* Colour: cream canvas, charcoal blocks, gold accent. */
-  --color-canvas: #efe9dc;
-  --color-ink: #15120c;
-  --color-ink-muted: #5a5244;
-  --color-gold-deep: #8a6f3c;
-  --color-block: #1a160f;
-  --color-block-ink: #f5f1e8;
-  --color-block-ink-muted: #a89f8d;
-  --color-block-gold: #e0b95c;
+  --color-canvas: light-dark(#efe9dc, #15120c);
+  --color-ink: light-dark(#15120c, #f5f1e8);
+  --color-ink-muted: light-dark(#5a5244, #a89f8d);
+  --color-gold-deep: light-dark(#8a6f3c, #e0b95c);
+  --color-block: light-dark(#1a160f, #efe9dc);
+  --color-block-ink: light-dark(#f5f1e8, #15120c);
+  --color-block-ink-muted: light-dark(#a89f8d, #5a5244);
+  --color-block-gold: light-dark(#e0b95c, #8a6f3c);
   --color-green: #3f8a4c;
   --color-focus: rgba(224, 185, 92, 0.35);
-  --color-portrait-dot: rgba(26, 22, 15, 0.55);
+  --shadow-poster: 0 12px 32px rgba(0, 0, 0, 0.35);
 
   /* Lines. */
-  --hairline: 1px solid rgba(21, 18, 12, 0.2);
+  --hairline: 1px solid light-dark(rgba(21, 18, 12, 0.2), rgba(245, 241, 232, 0.18));
   --rule-strong: 1.5px solid var(--color-ink);
-  --rule-block: 2px solid rgba(245, 241, 232, 0.25);
+  --rule-block: 2px solid light-dark(rgba(245, 241, 232, 0.25), rgba(21, 18, 12, 0.3));
 
-  /* Halftone texture for the blocks and the portrait. */
-  --halftone-gold: rgba(224, 185, 92, 0.42);
-  --halftone-cream: rgba(245, 241, 232, 0.26);
+  /* Halftone texture for the blocks. */
+  --halftone-gold: light-dark(rgba(224, 185, 92, 0.42), rgba(138, 111, 60, 0.38));
+  --halftone-cream: light-dark(rgba(245, 241, 232, 0.26), rgba(21, 18, 12, 0.18));
   --halftone-size: 9px;
   --halftone-dot: 0.9px;
-  --halftone-portrait-size: 7px;
 
   /* Type. --font-display and --font-fa are defined by Astro's fonts API. */
   --font-mono: 'SF Mono', Menlo, Consolas, monospace;
@@ -87,9 +92,12 @@
 
   /* Shapes. */
   --radius-pill: 999px;
-  --radius-card: 8px;
-  --radius-phone: 26px;
-  --radius-phone-screen: 20px;
+  --radius-block: 16px;
+  --radius-card: 12px;
+  --radius-phone: 32px;
+  --radius-phone-screen: 26px;
+  --poster-width: 300px;
+  --poster-width-phone: 46%;
   --block-height: 320px;
   --block-height-phone: 236px;
   --phone-width: 170px;
@@ -107,30 +115,14 @@
   --motion-fast: 150ms;
   --motion-ease: ease-out;
 
+  /* Follows the system until the visitor picks a scheme with the switch. */
   color-scheme: light dark;
 }
 
-/*
- * Dark scheme, following the system. The roles invert rather than darken: the canvas takes
- * the charcoal, the ink takes the cream, and the blocks flip to cream so they still read as
- * objects on the page. Gold swaps to the brighter cut on charcoal and the deeper cut on cream.
- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-canvas: #15120c;
-    --color-ink: #f5f1e8;
-    --color-ink-muted: #a89f8d;
-    --color-gold-deep: #e0b95c;
-    --color-block: #efe9dc;
-    --color-block-ink: #15120c;
-    --color-block-ink-muted: #5a5244;
-    --color-block-gold: #8a6f3c;
-    --color-portrait-dot: rgba(26, 22, 15, 0.45);
+:root[data-theme='light'] {
+  color-scheme: light;
+}
 
-    --hairline: 1px solid rgba(245, 241, 232, 0.18);
-    --rule-block: 2px solid rgba(21, 18, 12, 0.3);
-
-    --halftone-gold: rgba(138, 111, 60, 0.38);
-    --halftone-cream: rgba(21, 18, 12, 0.18);
-  }
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }

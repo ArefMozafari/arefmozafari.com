@@ -1,0 +1,43 @@
+---
+/// A three-state colour-scheme switch: system, light, dark. One button that cycles; the
+/// current state is marked for sighted and assistive readers alike. Wired by scripts/theme.ts.
+---
+
+<button
+  type="button"
+  class="switch mono"
+  data-theme-switch
+  aria-label="Colour scheme: follows the system. Click to change."
+>
+  <span data-theme-option="system" aria-current="true">
+    System
+  </span>
+  <span data-theme-option="light">Light</span>
+  <span data-theme-option="dark">Dark</span>
+</button>
+
+<style>
+  .switch {
+    display: inline-flex;
+    gap: var(--space-1);
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+  }
+
+  .switch span {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-pill);
+    transition: color var(--motion-fast) var(--motion-ease);
+  }
+
+  .switch span[aria-current='true'] {
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+  }
+</style>
