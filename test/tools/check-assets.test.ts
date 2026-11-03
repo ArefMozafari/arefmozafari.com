@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { missingAssets } from '../../tools/check-assets.mjs';
+import { missingAssets, REQUIRED_ASSETS } from '../../tools/check-assets.mjs';
+
+describe('REQUIRED_ASSETS', () => {
+  it('should include the built demo so the phone never shows the homepage', () => {
+    expect(REQUIRED_ASSETS).toContain('public/demo/index.html');
+  });
+});
 
 describe('missingAssets', () => {
   it('should list only the paths that do not exist', () => {

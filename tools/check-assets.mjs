@@ -12,6 +12,7 @@ export const REQUIRED_ASSETS = [
   'public/og.png',
   'public/cv.pdf',
   'public/demo-fallback.png',
+  'public/demo/index.html',
 ];
 
 /// Returns the required paths that do not exist under the root directory.
