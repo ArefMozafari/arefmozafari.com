@@ -15,7 +15,7 @@ const { sections } = Astro.props;
   <a class="home" href="#top" aria-label="Top of page">
     <Image src={portrait} alt="" width={80} loading="eager" />
   </a>
-  <span class="status mono muted">Open to remote roles</span>
+  <span class="spacer" aria-hidden="true"></span>
   <details class="menu">
     <summary>Menu</summary>
     <nav aria-label="Sections">
@@ -54,7 +54,7 @@ const { sections } = Astro.props;
     mix-blend-mode: multiply;
   }
 
-  .status {
+  .spacer {
     flex: 1;
   }
 
