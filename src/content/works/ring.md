@@ -5,9 +5,9 @@ kicker: Mobile Engineer, 2026 –
 tag: Classifieds · Iran
 word: [Ring]
 artifact:
-  kind: desktop
+  kind: phone
   image: ../../assets/works/ring.png
-  alt: The Ring listing on Cafe Bazaar
+  alt: A Ring listing page on Android, from the app's Cafe Bazaar screenshots
 receipts:
   - label: Cafe Bazaar ↗
     url: https://cafebazaar.ir/app/com.ads.ring
