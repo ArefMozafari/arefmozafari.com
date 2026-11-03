@@ -42,11 +42,8 @@ describe('PostCard', () => {
     expect(html).not.toContain('aspect-ratio');
   });
 
-  it('should label the outbound link Original, whatever the source', async () => {
-    const html = await render(PostCard, { post });
-
-    expect(html).toContain('Original ↗');
-    expect(html).not.toContain('on LinkedIn');
+  it('should name LinkedIn in the outbound link text', async () => {
+    expect(await render(PostCard, { post })).toContain('On LinkedIn ↗');
   });
 
   it('should show the month and year only', async () => {

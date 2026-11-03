@@ -134,7 +134,7 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
    thousand impressions, or an own release (as of 2026-11-03: Ghost in the Droid, fpdart
    Either, the 700% hashing story, the pr-evidence release and its follow-up). Each card: the
    real graphic at its own aspect ratio, the hook line, the month, and a link labelled
-   "Original ↗" to wherever it was first published. Source is a folder of markdown entries
+   "On LinkedIn ↗" to the original post (was "Original ↗" until the 2026-11-04 writing review). Source is a folder of markdown entries
    with the graphic beside each. Each post also gets its own URL on the site.
 6. Contact: "Let's talk." then email, LinkedIn, GitHub, résumé PDF as large underlined links.
 7. Footer: "Aref Mozafari · {year}" and "Built by hand · source on GitHub".
