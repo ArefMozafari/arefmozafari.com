@@ -36,6 +36,30 @@ describe('WorkBlock', () => {
     expect(html).not.toMatch(/<a[^>]*>\s*CorePass\s*<\/a>/);
   });
 
+  it('should keep the kicker out of the heading text', async () => {
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).toMatch(/<h3[^>]*>\s*CorePass\s*<\/h3>/);
+    expect(html).toContain('Blockchain identity &amp; wallet');
+  });
+
+  it('should load only the first block eagerly, with priority', async () => {
+    const first = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+    const second = await render(WorkBlock, { work: corepass, index: 1 }, { default: 'desc' });
+
+    expect(first).toMatch(/<img[^>]*loading="eager"/);
+    expect(first).toMatch(/<img[^>]*fetchpriority="high"/);
+    expect(second).toMatch(/<img[^>]*loading="lazy"/);
+    expect(second).not.toContain('fetchpriority="high"');
+  });
+
+  it('should not offer a 2x poster the source cannot fill', async () => {
+    // The CorePass card is 1200px wide, under the 1880px a 2x candidate would need.
+    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+
+    expect(html).not.toMatch(/\s2x"/);
+  });
+
   it('should render a poster artifact as a plain image, with no phone chrome', async () => {
     const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
 

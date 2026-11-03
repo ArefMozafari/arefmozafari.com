@@ -22,32 +22,67 @@ const number = String(index + 1).padStart(2, '0');
 const isDemo = work.artifact.kind === 'demo';
 const isTwoLines = work.word.length === 2;
 const image = work.artifact.image;
+// The first block sits in the first screen, so its artifact is the page's largest paint.
+const isFirst = index === 0;
+const loading = isFirst ? 'eager' : 'lazy';
+const fetchpriority = isFirst ? 'high' : undefined;
+const POSTER_WIDTH = 940;
+const PHONE_WIDTH = 340;
+const DESKTOP_WIDTH = 840;
+
+/// A 2x candidate only when the source has the pixels; otherwise Astro would list the same file twice.
+function densitiesFor(renderWidth: number): number[] {
+  return image && image.width >= renderWidth * 2 ? [1, 2] : [1];
+}
 ---
 
 <article class="work">
   <div class="block">
-    <h3 class:list={['word', { 'word--two': isTwoLines }]}>
-      <small class="kicker mono">{work.kicker}</small>
-      {work.word.map((line, lineIndex) => (
-        <>
-          {lineIndex > 0 && <br />}
-          {line}
-        </>
-      ))}
-    </h3>
+    <div class="title">
+      <p class="kicker mono">{work.kicker}</p>
+      <h3 class:list={['word', { 'word--two': isTwoLines }]}>
+        {work.word.map((line, lineIndex) => (
+          <>
+            {lineIndex > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </h3>
+    </div>
     {work.artifact.kind === 'poster' && image && (
       <PosterFrame wide={image.width > image.height}>
-        <Image src={image} alt={work.artifact.alt} width={940} densities={[1, 2]} />
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={POSTER_WIDTH}
+          densities={densitiesFor(POSTER_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
       </PosterFrame>
     )}
     {work.artifact.kind === 'phone' && image && (
       <PhoneFrame>
-        <Image src={image} alt={work.artifact.alt} width={340} densities={[1, 2]} />
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={PHONE_WIDTH}
+          densities={densitiesFor(PHONE_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
       </PhoneFrame>
     )}
     {work.artifact.kind === 'desktop' && image && (
       <DesktopFrame>
-        <Image src={image} alt={work.artifact.alt} width={840} densities={[1, 2]} />
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={DESKTOP_WIDTH}
+          densities={densitiesFor(DESKTOP_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
       </DesktopFrame>
     )}
     {isDemo && <DemoFrame fallbackAlt={work.artifact.alt} />}
@@ -92,12 +127,15 @@ const image = work.artifact.image;
   }
 
   /* The word and kicker keep to the left so a wide poster at the right never sits under them. */
-  .word {
+  .title {
     position: absolute;
     left: var(--space-5);
     bottom: var(--space-4);
     z-index: var(--layer-label);
     max-width: 48%;
+  }
+
+  .word {
     font-size: var(--text-word);
     font-weight: 800;
     letter-spacing: var(--tracking-word);
@@ -168,9 +206,12 @@ const image = work.artifact.image;
     }
 
     /* The artifact sits at the right edge, so the word and kicker keep to the left half. */
+    .title {
+      max-width: 52%;
+    }
+
     .word,
     .word--two {
-      max-width: 52%;
       font-size: var(--text-word-phone);
     }
 
