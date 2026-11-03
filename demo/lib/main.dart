@@ -33,10 +33,8 @@ class _DemoPageState extends State<DemoPage> {
   static const double _fieldGap = 10;
   static const double _ruleSpacing = 6;
   static const double _barThickness = 2;
-  // The phone frame shows the demo at roughly half size, so the type runs smaller than the
-  // page's own small text to sit level with the screenshots in the other frames.
+  // Smaller than the field's text for the same reason demoFieldFontSize is small.
   static const double _ruleFontSize = 9;
-  static const double _fieldFontSize = 11;
 
   final TextEditingController _controller = TextEditingController();
 
@@ -67,7 +65,7 @@ class _DemoPageState extends State<DemoPage> {
               controller: _controller,
               autocorrect: false,
               enableSuggestions: false,
-              style: const TextStyle(fontSize: _fieldFontSize),
+              style: const TextStyle(fontSize: demoFieldFontSize),
               decoration: const InputDecoration(
                 labelText: 'Password',
                 isDense: true,

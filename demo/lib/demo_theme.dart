@@ -9,6 +9,11 @@ abstract final class DemoColors {
   static const Color green = Color(0xFF3F8A4C);
 }
 
+/// Size of the password field's text and its label. The phone frame shows the demo at roughly
+/// half size, so the type runs smaller than the page's own small text to sit level with the
+/// screenshots in the other frames.
+const double demoFieldFontSize = 11;
+
 /// The one theme of the demo: cream canvas, charcoal ink, gold for the bar.
 final ThemeData demoTheme = ThemeData(
   useMaterial3: true,
@@ -30,7 +35,13 @@ final ThemeData demoTheme = ThemeData(
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: DemoColors.ink, width: 2),
     ),
-    labelStyle: TextStyle(color: DemoColors.inkMuted),
-    floatingLabelStyle: TextStyle(color: DemoColors.ink),
+    labelStyle: TextStyle(
+      color: DemoColors.inkMuted,
+      fontSize: demoFieldFontSize,
+    ),
+    floatingLabelStyle: TextStyle(
+      color: DemoColors.ink,
+      fontSize: demoFieldFontSize,
+    ),
   ),
 );
