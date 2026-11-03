@@ -10,8 +10,8 @@ npm install
 GITHUB_TOKEN="$(gh auth token)" npm run dev
 ```
 
-The token is optional. Without it GitHub's anonymous rate limit runs out quickly and the
-open-source rows fall back to links without counts.
+The token is optional. Without it GitHub's anonymous rate limit can run out during a long dev
+session, and the upstream pull request's row loses its live state until the next build.
 
 The demo phone on the homepage embeds `public/demo/`, which is a Flutter web build. Build it
 once with a Flutter SDK installed:
@@ -38,8 +38,8 @@ cd demo && flutter analyze && flutter test
 
 - `src/content/` holds the content: works, posts, open-source rows, earlier work.
 - `src/styles/tokens.css` holds every visual value.
-- `src/lib/` holds the only logic: computed years, GitHub and pub.dev counts, pull request
-  state, a per-process memo so each remote is asked once per build.
+- `src/lib/` holds the only logic: computed years, the pull request state, a per-process memo
+  so each remote is asked once per build.
 - `demo/` is the Flutter app behind the phone frame.
 - `tools/og/` renders the Open Graph card; `tools/check-assets.mjs` is the production asset gate.
 - `docs/superpowers/` holds the design spec and the implementation plan.
@@ -47,8 +47,7 @@ cd demo && flutter analyze && flutter test
 ## What is live, and what is not
 
 Computed or fetched on every build, and refreshed by the weekly scheduled run: years of
-experience, GitHub stars and forks, pub.dev likes and points, the upstream pull request's
-state, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
+experience, the upstream pull request's state, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
 commit, or "Run workflow" on the Actions tab, turns the weekly refresh back on. Hand-maintained by design: the availability pill, the role line, the
 work descriptions, and new posts (one folder each under `src/content/posts/`).
 

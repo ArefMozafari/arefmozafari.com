@@ -16,8 +16,8 @@ visible: it holds the design decisions and the content rules.
 - **Locales:** none. The site is English; the Persian name is the one `lang="fa"` element.
 - **Run target:** `GITHUB_TOKEN="$(gh auth token)" astro dev --background` (manage with
   `astro dev stop`, `astro dev status`, `astro dev logs`), then `http://localhost:4321`. The
-  token lifts GitHub's anonymous rate limit of 60 calls an hour, which a dev session burns
-  through; without it the open-source rows render link-only. Each remote is fetched once per
+  token lifts GitHub's anonymous rate limit of 60 calls an hour; without it the upstream pull
+  request's row loses its live state once the limit is hit. Each remote is fetched once per
   process (`src/lib/memo.ts`). The demo phone needs `npm run build:demo` once so
   `public/demo/` exists.
 - **Deploy:** GitHub Actions builds and deploys to Cloudflare Pages on push to `main`;

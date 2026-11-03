@@ -65,8 +65,11 @@ canvas is the inversion of its charcoal canvas, chosen so the site is not anothe
 `#15120C`, ink `#F5F1E8`, muted ink `#A89F8D`, accent gold brightens to `#E0B95C`; the blocks
 flip to cream `#EFE9DC` with charcoal ink and deep-gold `#8A6F3C` labels, so they still read as
 objects on the page; halftone dots become deep gold on cream. Portrait duotone, post graphics,
-the demo and the OG image are unchanged. There is no manual toggle. `color-scheme: light dark`
-and two `theme-color` metas tell the browser.
+the demo and the OG image are unchanged. Tokens are written once with `light-dark()`, and
+`color-scheme` on the root decides which side applies. A three-state switch (system, light,
+dark) sits under the sidebar contact links and in the phone menu; the choice is kept in
+`localStorage` under `theme` and applied by an inline script before first paint, so there is
+no flash. Nothing stored means "follow the system".
 
 Every colour, size, radius and spacing lives in one token file. No raw values in components.
 
@@ -100,31 +103,36 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
 1. Lead: "Three things I shipped that you can open right now.", with the gold underline sign
    on "open right now". (A sub-line that stated the receipts rule was removed on 2026-11-03 at
    the owner's request: the links make the point without a disclaimer.)
-2. Three case blocks. Each: a 320px halftone block with a small gold kicker, the product
-   name as the big word, one real artifact (phone screenshot, desktop screenshot, or the live
-   demo), then a caption row: number, name, two-sentence description, and the receipts
-   column of links. Order:
-   - 01 CorePass. Kicker "Blockchain identity & wallet · live on both stores". Phone frame
-     with a real App Store screenshot. Receipts: App Store, Google Play, corepass.net.
-   - 02 Ring. Kicker "Classifieds marketplace · Mobile Engineer, 2026 –". Phone frame with
-     the app's own Cafe Bazaar screenshot. Receipts: Cafe Bazaar, Myket, ring.ir.
-     (The separate corner tags were removed on 2026-11-03 at the owner's request; their text
-     folded into the kickers.)
+2. Three case blocks. Each: a rounded 320px halftone block with a small gold kicker on a
+   charcoal strip, the product name as the big word (the block's `h3`, named nowhere else in
+   the block), one real artifact (a store card shown as a rounded poster, a phone or desktop
+   screenshot, or the live demo), then a caption row: number, two-sentence description, and
+   the receipts column of links. Order:
+   - 01 CorePass. Kicker "Blockchain identity & wallet · live on both stores". Poster: the
+     App Store card as published. Receipts: App Store, Google Play, corepass.net.
+   - 02 Ring. Kicker "Classifieds marketplace · Mobile Engineer, 2026 –". Poster: the Cafe
+     Bazaar card as published. Receipts: Cafe Bazaar, Myket, ring.ir.
+     (On 2026-11-03 the owner removed the corner tags into the kickers, then chose the branded
+     store cards over cropped screens; the cards appear as themselves, never inside the site's
+     own phone frame, so there is no phone inside a phone.)
    - 03 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
      Validator" on two lines. The phone frame holds the real widget compiled to web, with a
      focused input and no label on the block; the caption carries one bold sentence: "The
      phone is the real widget compiled to web. Type in it." Receipts: pub.dev, GitHub,
      password_rules.
-3. "Also shipped": a hairline index of earlier work with a link where one exists (Ting &
-   Heyo, Bfrest, Foxhole artillery calculator) and "internal" where none does (Fediverse
-   video app). No numbers.
-4. "Open source": repo rows with description and a live count (GitHub stars and forks,
-   pub.dev points) fetched at build time, plus the upstream contribution to
-   flutter/agent-plugins linking to the PR.
-5. "Posts": two-column grid of the owner's LinkedIn posts: the real graphic, the hook line,
-   the month, a link to the LinkedIn original. Source is a folder of markdown entries with
-   the graphic beside each; the owner's existing `posts/YYYY-MM-DD-slug/` folders convert
-   with a one-off script. Each post also gets its own URL on the site.
+3. "Also shipped" (label note "earlier work"): a hairline index of earlier work with a link
+   where one exists (Foxhole artillery calculator) and plain text where none does (Ting &
+   Heyo, Bfrest, Fediverse video app). No numbers, no filler word.
+4. "Open source": a compact two-column grid of small cards, each the repo name, one line on
+   what it is, and a link. No counts (owner's decision 2026-11-03: the numbers are not large
+   enough to carry weight). The upstream contribution row carries the pull request's live
+   state ("in review", "merged", "closed") fetched at build.
+5. "Posts": two-column grid of the posts that mattered, by reach or by concept: over a
+   thousand impressions, or an own release (as of 2026-11-03: Ghost in the Droid, fpdart
+   Either, the 700% hashing story, the pr-evidence release and its follow-up). Each card: the
+   real graphic at its own aspect ratio, the hook line, the month, and a link labelled
+   "Original ↗" to wherever it was first published. Source is a folder of markdown entries
+   with the graphic beside each. Each post also gets its own URL on the site.
 6. Contact: "Let's talk." then email, LinkedIn, GitHub, résumé PDF as large underlined links.
 7. Footer: "Aref Mozafari · {year}" and "Built by hand · source on GitHub".
 
@@ -140,7 +148,8 @@ builds only (never a dead link in production).
 ### Portrait
 
 One photo, square or 4:5, in the sticky column under the name; small square in the phone
-header. Treated as a charcoal-and-gold duotone halftone so it belongs to the block system.
+header. Treated as a charcoal-and-gold duotone with rounded corners; the halftone grid was
+dropped from the portrait on 2026-11-03 because dots over a face read as a joke.
 Never a circle, never the LinkedIn Open-To-Work frame. The owner supplies the source file;
 the treatment is applied in the build (CSS `mix-blend-mode`/filter or a pre-processed asset,
 builder's choice, output must look the same in Safari and Chrome).
@@ -148,8 +157,9 @@ builder's choice, output must look the same in Safari and Chrome).
 ### The roaming sign
 
 Carried over from the LinkedIn playbook: exactly one small gold mark per section, in the
-outlined-glyph language, a different form each time (underline on one word in the lead,
-corner spark on one block, gutter mark in a code panel, and so on). Small; content dominates.
+outlined-glyph language, a different form each time (underline on a phrase in the lead, a
+gold dot before the Posts label). Small; content dominates. The corner spark on the first
+block was removed on 2026-11-03 at the owner's request.
 
 ### Motion
 
@@ -176,8 +186,9 @@ item colour change under 200ms; link underline colour on hover. Everything respe
 
 - Astro, static output, zero client JavaScript except: the years correction, the active-nav
   observer, and the embedded Flutter demo. Content collections for posts and case studies.
-- Build-time data: GitHub REST for stars/forks, pub.dev API for points/likes, cached in the
-  build; failures degrade to "link only" and must not fail the build.
+- Build-time data: the upstream pull request's state from the GitHub REST API, fetched once
+  per build; a failure leaves the plain note and must not fail the build. (Star and pub.dev
+  counts were fetched too until 2026-11-03, when the owner dropped counts from the page.)
 - Flutter demo: a small Flutter web app in `demo/` depending on `flutter_pw_validator`
   (published 2.0.0), built with `flutter build web --release` and copied to `public/demo/`
   in CI; the homepage embeds it in an `<iframe>` inside the phone frame, lazy-loaded, with a
