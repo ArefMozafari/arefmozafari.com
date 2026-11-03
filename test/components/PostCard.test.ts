@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import squareGraphic from '../../src/content/posts/2026-07-30-performance-win-700pct/graphic.png';
-import portraitGraphic from '../../src/content/posts/2026-08-05-ai-era-glossary/graphic.png';
+import portraitGraphic from '../../src/content/posts/2026-10-01-pr-evidence-proof-pr3/graphic.png';
 import PostCard from '../../src/components/PostCard.astro';
 import { render } from '../helpers/render';
 
@@ -40,6 +40,13 @@ describe('PostCard', () => {
 
     expect(html).toMatch(/<img[^>]*width="\d+"[^>]*height="\d+"/);
     expect(html).not.toContain('aspect-ratio');
+  });
+
+  it('should label the outbound link Original, whatever the source', async () => {
+    const html = await render(PostCard, { post });
+
+    expect(html).toContain('Original ↗');
+    expect(html).not.toContain('on LinkedIn');
   });
 
   it('should show the month and year only', async () => {
