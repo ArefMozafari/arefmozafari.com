@@ -43,8 +43,14 @@
   --font-mono: 'SF Mono', Menlo, Consolas, monospace;
   --text-name: 72px;
   --text-name-phone: 56px;
-  /* Height of the drawn Persian name, the cap-to-descender span of its glyphs. */
-  --text-name-fa: 22px;
+  /* Height of the drawn Persian name, the cap-to-descender span of its glyphs; sized to fit
+     between the first name and the column edge. */
+  --text-name-fa: 18px;
+  /* Where the baseline sits in the display face at weight 800, as a share of the font size. */
+  --name-baseline: 0.78;
+  /* Where the baseline sits in the drawn Persian name, as a share of its height: the glyphs
+     reach 79.74 units above the baseline and 27.26 below, out of 107. */
+  --name-fa-baseline: 0.745;
   --text-word: 84px;
   --text-word-two-lines: 72px;
   --text-word-phone: clamp(32px, 10.5vw, 44px);

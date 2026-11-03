@@ -19,15 +19,17 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
 ---
 
 <div class="sidebar">
-  <NameTag class="name">
-    Aref
-    <br />
-    Mozafari
-  </NameTag>
-  <p class="name-fa" lang="fa" dir="rtl">
-    <span class="visually-hidden">{SITE.nameFa}</span>
-    <NameFa aria-hidden="true" />
-  </p>
+  <div class="name-block">
+    <NameTag class="name">
+      Aref
+      <br />
+      Mozafari
+    </NameTag>
+    <p class="name-fa" lang="fa" dir="rtl">
+      <span class="visually-hidden">{SITE.nameFa}</span>
+      <NameFa aria-hidden="true" />
+    </p>
+  </div>
 
   <figure class="portrait">
     <Image src={portrait} alt={SITE.name} width={320} densities={[1, 2]} loading="eager" />
@@ -81,6 +83,11 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     height: 100%;
   }
 
+  .name-block {
+    position: relative;
+    margin-bottom: var(--space-5);
+  }
+
   /* The surname is wider than the column on purpose: it runs over the hairline into the
      main area. Keep it on one line so the overrun is a move, not a wrap. */
   .name {
@@ -93,12 +100,17 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-name);
   }
 
-  /* The Persian name is five glyphs, drawn as paths so no Arabic font is downloaded for
-     them; the text itself stays in the markup for crawlers and screen readers. */
+  /* The Persian name sits in the space right of the first name, flush with the column edge
+     and on the first name's baseline. It is five glyphs drawn as paths, so no Arabic font is
+     downloaded for them; the text itself stays in the markup for crawlers and screen readers. */
   .name-fa {
-    margin: var(--space-1) 0 var(--space-5);
+    position: absolute;
+    top: calc(
+      var(--text-name) * var(--name-baseline) - var(--text-name-fa) * var(--name-fa-baseline)
+    );
+    right: 0;
+    margin: 0;
     color: var(--color-gold-deep);
-    text-align: left;
   }
 
   .name-fa svg {
@@ -218,6 +230,21 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   @media (max-width: 767px) {
     .name {
       font-size: var(--text-name-phone);
+    }
+
+    .name-fa {
+      top: calc(
+        var(--text-name-phone) * var(--name-baseline) - var(--text-name-fa) *
+          var(--name-fa-baseline)
+      );
+    }
+  }
+
+  /* Without the column, the block is only as wide as the surname, so the Persian name ends
+     where the surname ends instead of drifting to the far edge of the screen. */
+  @media (max-width: 1023px) {
+    .name-block {
+      width: max-content;
     }
   }
 </style>
