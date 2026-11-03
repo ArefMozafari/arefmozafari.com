@@ -1,0 +1,52 @@
+---
+import { SITE } from '../site';
+---
+
+<div class="contact">
+  <h2 class="heading">Let's talk.</h2>
+  <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+  <a href={SITE.linkedin} target="_blank" rel="noopener">
+    linkedin.com/in/aref-mozafari
+  </a>
+  <a href={SITE.github} target="_blank" rel="noopener">
+    github.com/arefmozafari
+  </a>
+  <a href="/cv.pdf">Résumé, one page, PDF</a>
+</div>
+
+<style>
+  .contact {
+    margin-top: var(--space-9);
+    padding-top: var(--space-5);
+    border-top: var(--rule-strong);
+  }
+
+  .heading {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-contact);
+    font-weight: 800;
+    letter-spacing: var(--tracking-name);
+    line-height: 0.95;
+  }
+
+  .contact a {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin: var(--space-2) 0;
+    font-size: var(--text-contact-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 767px) {
+    .heading {
+      font-size: var(--text-contact-phone);
+    }
+
+    .contact a {
+      font-size: var(--text-caption);
+    }
+  }
+</style>
