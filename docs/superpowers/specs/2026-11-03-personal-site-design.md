@@ -60,6 +60,14 @@ block kicker gold `#E0B95C`. Availability green `#3F8A4C`. Hairline `rgba(21,18,
 strong rule `1.5px #15120C`. These come from the owner's LinkedIn brand system; the cream
 canvas is the inversion of its charcoal canvas, chosen so the site is not another dark page.
 
+**Dark scheme (added 2026-11-03, owner's request).** The site follows the system
+(`prefers-color-scheme`), light first. Dark is an inversion of roles, not a darkening: canvas
+`#15120C`, ink `#F5F1E8`, muted ink `#A89F8D`, accent gold brightens to `#E0B95C`; the blocks
+flip to cream `#EFE9DC` with charcoal ink and deep-gold `#8A6F3C` labels, so they still read as
+objects on the page; halftone dots become deep gold on cream. Portrait duotone, post graphics,
+the demo and the OG image are unchanged. There is no manual toggle. `color-scheme: light dark`
+and two `theme-color` metas tell the browser.
+
 Every colour, size, radius and spacing lives in one token file. No raw values in components.
 
 ### Type

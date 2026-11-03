@@ -9,6 +9,9 @@ export const SITE = {
   github: 'https://github.com/arefmozafari',
   repo: 'https://github.com/ArefMozafari/arefmozafari.com',
   careerStart: new Date('2018-12-01'),
+  /// Browser chrome colours per scheme; they mirror `--color-canvas` in tokens.css, which
+  /// a <meta> tag cannot read.
+  themeColor: { light: '#efe9dc', dark: '#15120c' },
   description:
     'Senior Mobile Engineer. Flutter, iOS and Android. Wallets, call SDKs and marketplaces, shipped to the stores. Open to remote roles.',
 } as const;

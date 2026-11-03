@@ -106,4 +106,31 @@
   /* Motion: the only two transitions on the site. */
   --motion-fast: 150ms;
   --motion-ease: ease-out;
+
+  color-scheme: light dark;
+}
+
+/*
+ * Dark scheme, following the system. The roles invert rather than darken: the canvas takes
+ * the charcoal, the ink takes the cream, and the blocks flip to cream so they still read as
+ * objects on the page. Gold swaps to the brighter cut on charcoal and the deeper cut on cream.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #15120c;
+    --color-ink: #f5f1e8;
+    --color-ink-muted: #a89f8d;
+    --color-gold-deep: #e0b95c;
+    --color-block: #efe9dc;
+    --color-block-ink: #15120c;
+    --color-block-ink-muted: #5a5244;
+    --color-block-gold: #8a6f3c;
+    --color-portrait-dot: rgba(26, 22, 15, 0.45);
+
+    --hairline: 1px solid rgba(245, 241, 232, 0.18);
+    --rule-block: 2px solid rgba(21, 18, 12, 0.3);
+
+    --halftone-gold: rgba(138, 111, 60, 0.38);
+    --halftone-cream: rgba(21, 18, 12, 0.18);
+  }
 }
