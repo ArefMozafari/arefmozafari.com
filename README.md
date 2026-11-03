@@ -48,7 +48,8 @@ cd demo && flutter analyze && flutter test
 
 Computed or fetched on every build, and refreshed by the weekly scheduled run: years of
 experience, GitHub stars and forks, pub.dev likes and points, the upstream pull request's
-state, the footer year. Hand-maintained by design: the availability pill, the role line, the
+state, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
+commit, or "Run workflow" on the Actions tab, turns the weekly refresh back on. Hand-maintained by design: the availability pill, the role line, the
 work descriptions, and new posts (one folder each under `src/content/posts/`).
 
 ## Deploy
