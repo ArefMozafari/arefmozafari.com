@@ -4,13 +4,60 @@ import IndexPage from '../../src/pages/index.astro';
 import { SITE } from '../../src/site';
 import { render } from '../helpers/render';
 
+const article = {
+  title: 'A post',
+  date: new Date('2026-07-30'),
+  image: { src: '/_astro/graphic.png', width: 1200, height: 1200, alt: 'The graphic' },
+};
+
+function jsonLd(html: string): { '@graph': Record<string, unknown>[] } {
+  const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  return JSON.parse(match?.[1] ?? '{}');
+}
+
 describe('Base', () => {
-  it('should emit a Person JSON-LD block with the LinkedIn and GitHub profiles', async () => {
+  it('should describe the owner as a Person with portrait, Persian name and profiles', async () => {
+    const html = await render(Base, { title: 't', description: 'd' });
+    const person = jsonLd(html)['@graph'].find((node) => node['@type'] === 'Person');
+
+    expect(person).toMatchObject({
+      '@id': `${SITE.domain}/#person`,
+      name: SITE.name,
+      alternateName: SITE.nameFa,
+      url: `${SITE.domain}/`,
+    });
+    expect(person?.image).toMatch(/^https:\/\/arefmozafari\.com\//);
+    expect(person?.sameAs).toEqual(expect.arrayContaining([SITE.linkedin, SITE.github]));
+  });
+
+  it('should add a BlogPosting by the owner on an article page', async () => {
+    const html = await render(Base, { title: 't', description: 'd', article });
+    const posting = jsonLd(html)['@graph'].find((node) => node['@type'] === 'BlogPosting');
+
+    expect(posting).toMatchObject({
+      headline: 'A post',
+      datePublished: '2026-07-30',
+      author: { '@id': `${SITE.domain}/#person` },
+    });
+    expect(html).toContain('<meta property="og:type" content="article"');
+    expect(html).toContain('<meta property="article:published_time" content="2026-07-30"');
+  });
+
+  it('should describe the share image with size and alt, per page', async () => {
+    const html = await render(Base, { title: 't', description: 'd', article });
+
+    expect(html).toContain('content="https://arefmozafari.com/_astro/graphic.png"');
+    expect(html).toContain('<meta property="og:image:width" content="1200"');
+    expect(html).toContain('<meta property="og:image:alt" content="The graphic"');
+    expect(html).toContain('<meta name="twitter:image:alt" content="The graphic"');
+  });
+
+  it('should fall back to the site card and website type', async () => {
     const html = await render(Base, { title: 't', description: 'd' });
 
-    expect(html).toContain('"@type":"Person"');
-    expect(html).toContain(SITE.linkedin);
-    expect(html).toContain(SITE.github);
+    expect(html).toContain('content="https://arefmozafari.com/og.png"');
+    expect(html).toContain('<meta property="og:type" content="website"');
+    expect(jsonLd(html)['@graph'].some((node) => node['@type'] === 'BlogPosting')).toBe(false);
   });
 
   it('should set the title, description and canonical url', async () => {
@@ -19,6 +66,13 @@ describe('Base', () => {
     expect(html).toContain('<title>Aref Mozafari</title>');
     expect(html).toContain('<meta name="description" content="A description"');
     expect(html).toMatch(/<link rel="canonical" href="https:\/\/arefmozafari\.com\/?"/);
+  });
+
+  it('should mark a noindex page as such and give it no canonical', async () => {
+    const html = await render(Base, { title: 't', description: 'd', noindex: true });
+
+    expect(html).toContain('<meta name="robots" content="noindex"');
+    expect(html).not.toContain('rel="canonical"');
   });
 
   it('should emit exactly one h1 across the home page', async () => {

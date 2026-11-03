@@ -7,7 +7,7 @@ import { SITE } from '../site';
 const years = yearsSince(SITE.careerStart, new Date());
 ---
 
-<Base title={`Page not found · ${SITE.name}`} description="There is no page at this address.">
+<Base title={`Page not found · ${SITE.name}`} description="There is no page at this address." noindex>
   <Shell years={years} nameAsHeading={false}>
     <h1 class="title">Page not found.</h1>
     <p class="muted">There is no page at this address. The homepage has everything.</p>

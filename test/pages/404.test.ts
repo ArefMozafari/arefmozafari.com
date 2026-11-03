@@ -9,4 +9,8 @@ describe('404 page', () => {
     expect(html).toMatch(/<h1[^>]*>[^<]*not found/i);
     expect(html).toContain('href="/"');
   });
+
+  it('should keep itself out of the index', async () => {
+    expect(await render(NotFoundPage)).toContain('<meta name="robots" content="noindex"');
+  });
 });
