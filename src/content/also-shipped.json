@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ting-heyo",
+    "name": "Ting & Heyo",
+    "note": "decentralized WebRTC audio/video call SDK, CoDeTech"
+  },
+  {
+    "id": "bfrest",
+    "name": "Bfrest",
+    "note": "fintech money transfer, Atifer, led delivery"
+  },
+  {
+    "id": "foxhole-artillery",
+    "name": "Foxhole artillery calculator",
+    "note": "community tool, 2019, open source",
+    "url": "https://github.com/ArefMozafari/FoxholeArtillery-mobile"
+  },
+  {
+    "id": "fediverse-video",
+    "name": "Fediverse video app",
+    "note": "torrent-based delivery, CoDeTech"
+  }
+]
