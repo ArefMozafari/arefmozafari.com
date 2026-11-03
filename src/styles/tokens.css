@@ -28,10 +28,10 @@
   --rule-block: 2px solid rgba(245, 241, 232, 0.25);
 
   /* Halftone texture for the blocks and the portrait. */
-  --halftone-gold: rgba(224, 185, 92, 0.55);
-  --halftone-cream: rgba(245, 241, 232, 0.35);
+  --halftone-gold: rgba(224, 185, 92, 0.42);
+  --halftone-cream: rgba(245, 241, 232, 0.26);
   --halftone-size: 9px;
-  --halftone-dot: 1.4px;
+  --halftone-dot: 0.9px;
   --halftone-portrait-size: 7px;
 
   /* Type. --font-display and --font-fa are defined by Astro's fonts API. */
