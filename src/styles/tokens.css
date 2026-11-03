@@ -92,10 +92,10 @@
 
   /* Shapes. */
   --radius-pill: 999px;
-  --radius-block: 16px;
-  --radius-card: 12px;
-  --radius-phone: 32px;
-  --radius-phone-screen: 26px;
+  --radius-block: 10px;
+  --radius-card: 8px;
+  --radius-phone: 28px;
+  --radius-phone-screen: 22px;
   --poster-width: 300px;
   --poster-width-phone: 46%;
   --block-height: 320px;
