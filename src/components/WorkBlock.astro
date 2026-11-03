@@ -128,9 +128,12 @@ const isTwoLines = work.word.length === 2;
     line-height: 0.95;
   }
 
+  /* A solid charcoal backing stops the halftone running through the small letters. */
   .kicker {
-    display: block;
-    margin-bottom: var(--space-3);
+    display: table;
+    margin: 0 calc(var(--space-2) * -1) var(--space-3);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-block);
     font-size: var(--text-kicker);
     font-weight: 400;
     letter-spacing: 0.08em;
