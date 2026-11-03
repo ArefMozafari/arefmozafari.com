@@ -39,11 +39,12 @@
   --halftone-size: 9px;
   --halftone-dot: 0.9px;
 
-  /* Type. --font-display and --font-fa are defined by Astro's fonts API. */
+  /* Type. --font-display is defined by Astro's fonts API. */
   --font-mono: 'SF Mono', Menlo, Consolas, monospace;
   --text-name: 72px;
   --text-name-phone: 56px;
-  --text-name-fa: 25px;
+  /* Height of the drawn Persian name, the cap-to-descender span of its glyphs. */
+  --text-name-fa: 22px;
   --text-word: 84px;
   --text-word-two-lines: 72px;
   --text-word-phone: clamp(32px, 10.5vw, 44px);

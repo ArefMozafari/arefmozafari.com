@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import NameFa from '../assets/name-fa.svg';
 import portrait from '../assets/portrait.jpg';
 import type { Section } from '../sections';
 import { SITE } from '../site';
@@ -24,7 +25,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     Mozafari
   </NameTag>
   <p class="name-fa" lang="fa" dir="rtl">
-    {SITE.nameFa}
+    <span class="visually-hidden">{SITE.nameFa}</span>
+    <NameFa aria-hidden="true" />
   </p>
 
   <figure class="portrait">
@@ -91,14 +93,18 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-name);
   }
 
+  /* The Persian name is five glyphs, drawn as paths so no Arabic font is downloaded for
+     them; the text itself stays in the markup for crawlers and screen readers. */
   .name-fa {
     margin: var(--space-1) 0 var(--space-5);
-    font-family: var(--font-fa), sans-serif;
-    font-size: var(--text-name-fa);
-    font-weight: 800;
     color: var(--color-gold-deep);
     text-align: left;
-    line-height: var(--leading-body);
+  }
+
+  .name-fa svg {
+    display: block;
+    height: var(--text-name-fa);
+    width: auto;
   }
 
   /* A grayscale photo with a translucent gold wash over it; the wash's strength is one token. */

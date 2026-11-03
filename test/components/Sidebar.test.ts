@@ -10,11 +10,12 @@ const sections = [
 ];
 
 describe('Sidebar', () => {
-  it('should mark the Persian name as right-to-left Persian', async () => {
+  it('should mark the Persian name as right-to-left Persian, drawn as paths with the text kept', async () => {
     const html = await render(Sidebar, { years: 8, sections });
 
     expect(html).toMatch(/<p[^>]*lang="fa"[^>]*dir="rtl"/);
     expect(html).toContain('عارف مظفری');
+    expect(html).toMatch(/<svg[^>]*aria-hidden="true"/);
   });
 
   it('should render the role line with the computed years', async () => {

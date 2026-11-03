@@ -79,13 +79,15 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
   500, 800. Name at 800, 72px desktop, letter-spacing −0.04em, line-height .9.
 - Mono labels and ids: SF Mono / Menlo system stack. Uppercase mono with letter-spacing for
   section labels only; package ids in mono, normal case.
-- Persian: used for one element, the Persian name under the Latin name, at weight 800.
-  Default is Vazirmatn 800 (SIL Open Font Licence, Google provider, self-hosted by the
-  build). IranSansX ExtraBold was the first choice, but its licence (fontiran.com, read
-  2026-11-03) states that placing the font file on a server for a website requires a
-  registered web licence on fontiran.com in addition to the purchase; the owner's copy covers
-  personal installation. If the owner registers that licence, the swap is one font entry in
-  `astro.config.mjs` and one token.
+- Persian: used for one element, the Persian name under the Latin name, at weight 800, set
+  in Vazirmatn ExtraBold (SIL Open Font Licence). Since 2026-11-04 the name ships as glyph
+  outlines in `src/assets/name-fa.svg`, generated once from the font with opentype.js, so no
+  Arabic font is downloaded for five characters; the text stays in the markup, visually
+  hidden, for crawlers and screen readers. IranSansX ExtraBold was the first choice, but its
+  licence (fontiran.com, read 2026-11-03) states that placing the font file on a server for a
+  website requires a registered web licence on fontiran.com in addition to the purchase; the
+  owner's copy covers personal installation. Regenerating the outlines from another font is
+  the same one-off conversion.
 
 ### Layout
 
@@ -200,10 +202,15 @@ item colour change under 200ms; link underline colour on hover. Everything respe
 - Hosting: Cloudflare Pages, connected to the GitHub repo `ArefMozafari/arefmozafari.com`,
   building on push to `main`, custom domain `arefmozafari.com` (nameservers are already on
   Cloudflare; mail stays on iCloud, do not touch MX). Preview deploys per branch.
-- SEO: one `h1`, per-page title and description, Open Graph and Twitter card image (a
-  generated 1200×630 in the block style), JSON-LD `Person` with name, job title, sameAs
-  (LinkedIn, GitHub), sitemap, robots, canonical URLs, alt text on every graphic, each post
-  its own URL. Target query is the owner's name.
+- SEO: one `h1`, per-page title and description, Open Graph and Twitter card image (the
+  generated 1200×630 site card on the home page, the post's own graphic with `og:type`
+  article on posts), JSON-LD graph with a `Person` (portrait, Persian `alternateName`,
+  sameAs to LinkedIn, GitHub and pub.dev), a `WebSite`, and a `BlogPosting` by that person on
+  every post, sitemap with lastmod (post date from the slug, build date elsewhere), robots
+  with `/demo/` disallowed, canonical URLs, the 404 and the `*.pages.dev` hosts noindexed,
+  alt text on every graphic, each post its own URL. A post may carry `searchTitle` and
+  `description` for the search snippet; the first paragraph stands in otherwise. Target
+  query is the owner's name. (Expanded on 2026-11-04 after the SEO review.)
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
   `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline, not body text),
   reduced-motion honoured, Persian element marked `lang="fa" dir="rtl"`.
