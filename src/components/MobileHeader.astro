@@ -13,7 +13,7 @@ const { sections } = Astro.props;
 
 <header class="mobile-header">
   <a class="home" href="#top" aria-label="Top of page">
-    <Image src={portrait} alt="" width={80} class="portrait" />
+    <Image src={portrait} alt="" width={80} loading="eager" />
   </a>
   <span class="status mono muted">Open to remote roles</span>
   <details class="menu">
@@ -36,13 +36,14 @@ const { sections } = Astro.props;
     font-size: var(--text-label);
   }
 
+  /* The same duotone as the big portrait, at thumbnail size. */
   .home {
     display: block;
     width: var(--portrait-small);
     height: var(--portrait-small);
     overflow: hidden;
     border-radius: var(--space-1);
-    background: var(--color-block);
+    background: linear-gradient(160deg, var(--color-block-gold), var(--color-gold-deep));
   }
 
   .home :global(img) {
@@ -50,6 +51,7 @@ const { sections } = Astro.props;
     height: 100%;
     object-fit: cover;
     filter: grayscale(1) contrast(1.08);
+    mix-blend-mode: multiply;
   }
 
   .status {
@@ -70,7 +72,7 @@ const { sections } = Astro.props;
   .menu nav {
     position: absolute;
     right: var(--gutter);
-    z-index: 2;
+    z-index: var(--layer-tag);
     display: flex;
     flex-direction: column;
     gap: var(--space-2);

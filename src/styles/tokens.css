@@ -19,6 +19,8 @@
   --color-block-gold: #e0b95c;
   --color-green: #3f8a4c;
   --color-focus: rgba(224, 185, 92, 0.35);
+  --color-tag-border: rgba(224, 185, 92, 0.5);
+  --color-portrait-dot: rgba(26, 22, 15, 0.55);
 
   /* Lines. */
   --hairline: 1px solid rgba(21, 18, 12, 0.2);
@@ -75,6 +77,14 @@
   --sidebar-padding: 34px;
   --main-padding: 40px;
   --measure-lead: 560px;
+  --measure-post: 640px;
+  --caption-number-width: 44px;
+  --caption-number-width-phone: 30px;
+  --underline-offset-large: 4px;
+
+  /* Stacking inside a work block: the tag sits above the artifact. */
+  --layer-artifact: 1;
+  --layer-tag: 2;
 
   /* Shapes. */
   --radius-pill: 999px;
@@ -82,11 +92,15 @@
   --radius-phone: 26px;
   --radius-phone-screen: 20px;
   --block-height: 320px;
-  --block-height-phone: 210px;
+  --block-height-phone: 236px;
   --phone-width: 170px;
   --phone-height: 330px;
-  --phone-width-phone: 104px;
-  --phone-height-phone: 200px;
+  --phone-bezel: 6px;
+  --window-max-width: 420px;
+  --window-width: 60%;
+  --window-width-phone: 46%;
+  --phone-width-phone: 140px;
+  --phone-height-phone: 272px;
   --portrait-small: 40px;
   --dot: 8px;
 

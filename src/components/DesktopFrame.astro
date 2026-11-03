@@ -11,8 +11,9 @@
     position: absolute;
     right: var(--space-7);
     top: var(--space-6);
-    width: 60%;
-    max-width: 420px;
+    z-index: var(--layer-artifact);
+    width: var(--window-width);
+    max-width: var(--window-max-width);
     height: 100%;
     overflow: hidden;
     border: var(--rule-block);
@@ -28,11 +29,12 @@
     object-position: top;
   }
 
+  /* On a phone the window sits lower and narrower, clear of the kicker and the word. */
   @media (max-width: 767px) {
     .window {
       right: var(--space-4);
-      top: var(--space-4);
-      width: 55%;
+      top: var(--space-8);
+      width: var(--window-width-phone);
     }
   }
 </style>

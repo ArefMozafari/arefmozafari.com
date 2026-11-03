@@ -92,13 +92,16 @@ const isTwoLines = work.word.length === 2;
     );
   }
 
+  /* The tag stacks above the artifact so spec copy is never hidden behind a frame. */
   .tag {
     position: absolute;
     top: var(--space-5);
     right: var(--space-5);
+    z-index: var(--layer-tag);
     padding: var(--space-2) var(--space-3);
-    border: 1px solid rgba(224, 185, 92, 0.5);
+    border: 1px solid var(--color-tag-border);
     border-radius: var(--radius-pill);
+    background: var(--color-block);
     font-size: var(--text-label);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
@@ -113,6 +116,7 @@ const isTwoLines = work.word.length === 2;
     position: absolute;
     left: var(--space-5);
     bottom: var(--space-4);
+    z-index: var(--layer-tag);
     font-size: var(--text-word);
     font-weight: 800;
     letter-spacing: var(--tracking-word);
@@ -136,7 +140,7 @@ const isTwoLines = work.word.length === 2;
 
   .caption {
     display: grid;
-    grid-template-columns: 44px 1fr auto;
+    grid-template-columns: var(--caption-number-width) 1fr auto;
     gap: var(--space-4);
     align-items: baseline;
     padding: var(--space-4) 0;
@@ -178,11 +182,16 @@ const isTwoLines = work.word.length === 2;
       height: var(--block-height-phone);
     }
 
-    /* The phone frame sits at the right edge, so the word keeps to the left 58%. */
+    /* The artifact sits at the right edge, so the word and kicker keep to the left half
+       and the tag moves to the top-left corner, clear of both frames. */
     .word,
     .word--two {
-      max-width: 58%;
+      max-width: 52%;
       font-size: var(--text-word-phone);
+    }
+
+    .kicker {
+      max-width: 100%;
     }
 
     .tag,
@@ -193,7 +202,7 @@ const isTwoLines = work.word.length === 2;
     }
 
     .caption {
-      grid-template-columns: 30px 1fr;
+      grid-template-columns: var(--caption-number-width-phone) 1fr;
       font-size: var(--text-body);
     }
 
