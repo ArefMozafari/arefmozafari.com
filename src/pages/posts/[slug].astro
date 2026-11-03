@@ -27,7 +27,11 @@ const dateFormat = new Intl.DateTimeFormat('en', {
 const date = dateFormat.format(post.data.date);
 const title = post.data.searchTitle ?? post.data.title;
 const description = post.data.description ?? describePost(post.body ?? '');
-const shareImage = await getImage({ src: post.data.graphic, width: SHARE_IMAGE_WIDTH, format: 'png' });
+const shareImage = await getImage({
+  src: post.data.graphic,
+  width: SHARE_IMAGE_WIDTH,
+  format: 'png',
+});
 const article = {
   title: post.data.title,
   date: post.data.date,
