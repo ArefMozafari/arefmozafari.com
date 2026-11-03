@@ -21,7 +21,7 @@ describe('Sidebar', () => {
     const html = await render(Sidebar, { years: 8, sections });
 
     expect(html).toContain('data-career-start="2018-12-01"');
-    expect(html).toMatch(/8<\/span> years shipping production apps, SDKs and plugins\./);
+    expect(html).toMatch(/8<\/span> years shipping production apps, SDKs, tools and plugins\./);
   });
 
   it('should link every section with a plain anchor', async () => {
