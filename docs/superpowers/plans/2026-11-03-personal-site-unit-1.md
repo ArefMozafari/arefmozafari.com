@@ -15,7 +15,7 @@
 - No raw colour, size, radius, spacing or duration in a component: tokens live in `src/styles/tokens.css` only.
 - No internal metric on the homepage. The only numbers rendered are computed (years) or fetched (GitHub, pub.dev). A failed fetch renders the row without a number and never fails the build.
 - Every external claim is a link to its receipt (store listing, repo, package page, LinkedIn post).
-- Copy fixed by the spec is used verbatim: lead "Three things I shipped that you can open right now."; sub-line "No internal metrics on this page. Every claim links to a store listing, a repository, or a published package. If you can't check it, it isn't here."; role line "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production apps."; pill "Open to remote roles"; demo hint "The phone is the real widget compiled to web. Type in it."; contact heading "Let's talk."; footer "Built by hand · source on GitHub".
+- Copy fixed by the spec is used verbatim: lead "Three things I shipped that you can open right now."; sub-line "No internal metrics on this page. Every claim links to a store listing, a repository, or a published package. If you can't check it, it isn't here."; role line "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production apps, SDKs and plugins."; pill "Open to remote roles"; demo hint "The phone is the real widget compiled to web. Type in it."; contact heading "Let's talk."; footer "Built by hand · source on GitHub".
 - Years: `round((now − 2018-12-01) / 365.25 days)`, computed at build, corrected on the client.
 - Tokens from the spec: canvas `#EFE9DC`, ink `#15120C`, muted `#5A5244`, deep gold `#8A6F3C`, block `#1A160F`, block ink `#F5F1E8`, block gold `#E0B95C`, green `#3F8A4C`, hairline `rgba(21,18,12,.2)`, strong rule `1.5px #15120C`, halftone dot gold `rgba(224,185,92,.55)` / cream `rgba(245,241,232,.35)` on a 9px grid.
 - Type: Bricolage Grotesque 400/500/800 (Google provider, self-hosted by Astro's fonts API); mono stack `"SF Mono", Menlo, monospace`; Persian name in Vazirmatn 800 (Google provider, `cssVariable: '--font-fa'`), element marked `lang="fa" dir="rtl"`. IranSansX is not shipped: its licence requires a registered web licence for server hosting (spec, Type section).
@@ -335,7 +335,7 @@ describe('Sidebar', () => {
   it('should render the role line with the computed years', async () => {
     const html = await render(Sidebar, { years: 8, sections });
     expect(html).toContain('data-career-start="2018-12-01"');
-    expect(html).toMatch(/8<\/span> years shipping production apps\./);
+    expect(html).toMatch(/8<\/span> years shipping production apps, SDKs and plugins\./);
   });
   it('should link every section with a plain anchor', async () => {
     const html = await render(Sidebar, { years: 8, sections });
