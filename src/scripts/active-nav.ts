@@ -24,10 +24,18 @@ function watchSections(): void {
     return;
   }
   const visible = new Map<string, number>();
+  const lastSection = sections[sections.length - 1];
+  // At the very end of the page the last section is the one being read, however short it is.
+  const isAtPageEnd = () =>
+    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         visible.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+      }
+      if (isAtPageEnd()) {
+        markActive(lastSection.id, links);
+        return;
       }
       const [topSection] = sections
         .filter((section) => (visible.get(section.id) ?? 0) > 0)

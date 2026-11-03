@@ -52,9 +52,17 @@ const posts = await getCollection('posts');
       <SectionLabel title="Posts" sign />
       <Posts posts={posts} />
     </section>
-    <section id="contact" aria-label="Contact">
+    <section id="contact" class="last" aria-label="Contact">
       <Contact />
       <Footer />
     </section>
   </Shell>
 </Base>
+
+<style>
+  /* The last section is tall enough to reach the top of the viewport, so the Contact link
+     scrolls like the others instead of stopping a few hundred pixels short. */
+  .last {
+    min-height: calc(100vh - var(--space-7));
+  }
+</style>
