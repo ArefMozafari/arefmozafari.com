@@ -1,0 +1,105 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-gold-deep);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--motion-fast) var(--motion-ease);
+}
+
+a:hover {
+  text-decoration-color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-deep);
+  outline-offset: 2px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Shared text roles. */
+.mono {
+  font-family: var(--font-mono);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.muted {
+  color: var(--color-ink-muted);
+}
+
+/* The roaming sign: one small gold mark per section, a different form each time. */
+.sign-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.sign-spark::after {
+  content: '✦';
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  color: var(--color-block-gold);
+  font-size: var(--text-kicker);
+}
+
+.sign-dot::before {
+  content: '';
+  display: inline-block;
+  width: var(--dot);
+  height: var(--dot);
+  margin-right: var(--space-2);
+  border-radius: 50%;
+  background: var(--color-gold-deep);
+  vertical-align: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

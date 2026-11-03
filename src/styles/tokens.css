@@ -1,0 +1,96 @@
+/*
+ * Every visual value the site uses. Components reference these and never
+ * write a raw colour, size, radius or duration.
+ *
+ * Breakpoints (CSS custom properties cannot hold them; keep in sync by hand):
+ *   phone    < 768px
+ *   tablet   768px to 1023px
+ *   desktop  >= 1024px
+ */
+:root {
+  /* Colour: cream canvas, charcoal blocks, gold accent. */
+  --color-canvas: #efe9dc;
+  --color-ink: #15120c;
+  --color-ink-muted: #5a5244;
+  --color-gold-deep: #8a6f3c;
+  --color-block: #1a160f;
+  --color-block-ink: #f5f1e8;
+  --color-block-ink-muted: #a89f8d;
+  --color-block-gold: #e0b95c;
+  --color-green: #3f8a4c;
+  --color-focus: rgba(224, 185, 92, 0.35);
+
+  /* Lines. */
+  --hairline: 1px solid rgba(21, 18, 12, 0.2);
+  --rule-strong: 1.5px solid var(--color-ink);
+  --rule-block: 2px solid rgba(245, 241, 232, 0.25);
+
+  /* Halftone texture for the blocks and the portrait. */
+  --halftone-gold: rgba(224, 185, 92, 0.55);
+  --halftone-cream: rgba(245, 241, 232, 0.35);
+  --halftone-size: 9px;
+  --halftone-dot: 1.4px;
+  --halftone-portrait-size: 7px;
+
+  /* Type. --font-display and --font-fa are defined by Astro's fonts API. */
+  --font-mono: 'SF Mono', Menlo, Consolas, monospace;
+  --text-name: 72px;
+  --text-name-phone: 56px;
+  --text-name-fa: 25px;
+  --text-word: 84px;
+  --text-word-two-lines: 72px;
+  --text-word-phone: 56px;
+  --text-lead: 32px;
+  --text-lead-phone: 24px;
+  --text-contact: 64px;
+  --text-contact-phone: 44px;
+  --text-nav: 22px;
+  --text-caption: 18px;
+  --text-body: 16px;
+  --text-small: 15px;
+  --text-note: 13px;
+  --text-label: 12px;
+  --text-kicker: 13px;
+  --text-contact-link: 22px;
+  --tracking-name: -0.04em;
+  --tracking-word: -0.05em;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.1em;
+  --leading-name: 0.9;
+  --leading-tight: 1.15;
+  --leading-body: 1.5;
+
+  /* Space. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 56px;
+  --space-9: 72px;
+  --gutter: 16px;
+  --sidebar-width: 320px;
+  --sidebar-padding: 34px;
+  --main-padding: 40px;
+  --measure-lead: 560px;
+
+  /* Shapes. */
+  --radius-pill: 999px;
+  --radius-card: 8px;
+  --radius-phone: 26px;
+  --radius-phone-screen: 20px;
+  --block-height: 320px;
+  --block-height-phone: 210px;
+  --phone-width: 170px;
+  --phone-height: 330px;
+  --phone-width-phone: 104px;
+  --phone-height-phone: 200px;
+  --portrait-small: 40px;
+  --dot: 8px;
+
+  /* Motion: the only two transitions on the site. */
+  --motion-fast: 150ms;
+  --motion-ease: ease-out;
+}
