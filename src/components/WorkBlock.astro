@@ -79,7 +79,8 @@ const image = work.artifact.image;
   .block {
     position: relative;
     height: var(--block-height);
-    overflow: hidden;
+    /* Clip, not hidden: a hidden box still scrolls when something inside it is scrolled into view, which pushed the phone's head out of the block. */
+    overflow: clip;
     border-radius: var(--radius-block);
     background-color: var(--color-block);
     background-image: radial-gradient(
