@@ -11,6 +11,14 @@ describe('DemoFrame', () => {
     expect(html).toMatch(/<noscript>[\s\S]*<img[^>]*alt="The widget"/);
   });
 
+  it('should paint the fallback under the iframe so it shows while loading and without scripts', async () => {
+    const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
+
+    expect(html).toMatch(
+      /class="[^"]*screen[^"]*"[^>]*style="[^"]*background-image:\s*url\(['"]?\/demo-fallback\.png/,
+    );
+  });
+
   it('should title the iframe for assistive technology', async () => {
     const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
 

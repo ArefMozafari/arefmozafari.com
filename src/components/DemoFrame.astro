@@ -2,7 +2,8 @@
 import PhoneFrame from './PhoneFrame.astro';
 
 /// The real flutter_pw_validator widget, compiled to web, inside the phone chrome.
-/// Without JavaScript the visitor sees a static screenshot instead.
+/// A capture of the same widget is painted under the iframe, so the screen is never
+/// blank: it shows while Flutter loads and stays when scripts are off.
 interface Props {
   fallbackAlt: string;
 }
@@ -13,7 +14,7 @@ const DEMO_PATH = '/demo/index.html';
 const FALLBACK_PATH = '/demo-fallback.png';
 ---
 
-<PhoneFrame class="demo">
+<PhoneFrame class="demo" screenStyle={`background-image: url('${FALLBACK_PATH}')`}>
   <iframe src={DEMO_PATH} title="Flutter Password Validator demo" loading="lazy" data-demo></iframe>
   <noscript>
     <img src={FALLBACK_PATH} alt={fallbackAlt} width="170" height="330" />
@@ -25,7 +26,13 @@ const FALLBACK_PATH = '/demo-fallback.png';
     border-color: var(--color-ink);
   }
 
-  /* With scripting on, the iframe fills the screen; without it the noscript image does. */
+  /* Without scripts the iframe would cover the painted fallback with a blank document. */
+  @media (scripting: none) {
+    iframe {
+      display: none;
+    }
+  }
+
   noscript img {
     width: 100%;
     height: 100%;

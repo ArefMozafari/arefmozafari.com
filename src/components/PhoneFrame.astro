@@ -1,14 +1,16 @@
 ---
-/// Phone chrome around a screenshot or the live demo. The screen is the default slot.
+/// Phone chrome around a screenshot or the live demo. The screen is the default slot;
+/// `screenStyle` lets a caller paint a fallback image under whatever the slot holds.
 interface Props {
   class?: string;
+  screenStyle?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className, screenStyle } = Astro.props;
 ---
 
 <div class:list={['phone', className]}>
-  <div class="screen">
+  <div class="screen" style={screenStyle}>
     <slot />
   </div>
 </div>
@@ -18,9 +20,10 @@ const { class: className } = Astro.props;
     position: absolute;
     right: var(--space-8);
     bottom: calc(var(--space-7) * -1);
+    z-index: var(--layer-artifact);
     width: var(--phone-width);
     height: var(--phone-height);
-    padding: 6px;
+    padding: var(--phone-bezel);
     border: var(--rule-block);
     border-radius: var(--radius-phone);
     background: var(--color-block);
@@ -31,7 +34,9 @@ const { class: className } = Astro.props;
     height: 100%;
     overflow: hidden;
     border-radius: var(--radius-phone-screen);
-    background: var(--color-block-ink);
+    background-color: var(--color-block-ink);
+    background-size: cover;
+    background-position: top center;
   }
 
   .screen :global(img),
@@ -46,10 +51,10 @@ const { class: className } = Astro.props;
 
   @media (max-width: 767px) {
     .phone {
-      right: var(--space-5);
+      right: var(--space-4);
+      bottom: calc(var(--space-6) * -1);
       width: var(--phone-width-phone);
       height: var(--phone-height-phone);
-      bottom: calc(var(--space-6) * -1);
     }
   }
 </style>
