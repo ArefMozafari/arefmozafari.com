@@ -25,8 +25,11 @@ const { wide = false } = Astro.props;
     box-shadow: var(--shadow-poster);
   }
 
+  /* A landscape card sits on the block's centre line instead of hanging from the top. */
   .poster--wide {
+    top: 50%;
     width: var(--poster-width-wide);
+    transform: translateY(-50%);
   }
 
   .poster :global(img) {
@@ -42,8 +45,11 @@ const { wide = false } = Astro.props;
       width: var(--poster-width-phone);
     }
 
+    /* On a phone the block is short, so a centred card would sit under the kicker. */
     .poster--wide {
+      top: var(--space-4);
       width: var(--poster-width-wide-phone);
+      transform: none;
     }
   }
 </style>
