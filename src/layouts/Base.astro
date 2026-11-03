@@ -1,0 +1,58 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import { SITE } from '../site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage = '/og.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.domain).href;
+const ogImageUrl = new URL(ogImage, Astro.site ?? SITE.domain).href;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  jobTitle: SITE.title,
+  url: SITE.domain,
+  email: `mailto:${SITE.email}`,
+  sameAs: [SITE.linkedin, SITE.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-fa" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/years-client';
+      import '../scripts/active-nav';
+    </script>
+  </body>
+</html>

@@ -1,15 +1,16 @@
 ---
-import '../styles/global.css';
+import Shell from '../components/Shell.astro';
+import Base from '../layouts/Base.astro';
+import { yearsSince } from '../lib/years';
 import { SITE } from '../site';
+
+const years = yearsSince(SITE.careerStart, new Date());
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{SITE.name}</title>
-  </head>
-  <body>
-    <h1>{SITE.name}</h1>
-  </body>
-</html>
+<Base title={`${SITE.name} · ${SITE.title}`} description={SITE.description}>
+  <Shell years={years}>
+    <section id="work">
+      <p class="lead">Three things I shipped that you can open right now.</p>
+    </section>
+  </Shell>
+</Base>

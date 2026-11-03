@@ -1,0 +1,46 @@
+---
+import { SITE } from '../site';
+---
+
+<nav class="bottom-bar" aria-label="Quick actions">
+  <a class="primary" href={`mailto:${SITE.email}`}>Email me</a>
+  <a class="secondary" href="/cv.pdf">Résumé</a>
+</nav>
+
+<style>
+  .bottom-bar {
+    display: none;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 3;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+    background: var(--color-canvas);
+    border-top: var(--rule-strong);
+  }
+
+  .bottom-bar a {
+    flex: 1;
+    padding: var(--space-4);
+    border-radius: var(--radius-pill);
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: var(--text-small);
+  }
+
+  .primary {
+    background: var(--color-ink);
+    color: var(--color-block-ink);
+  }
+
+  .secondary {
+    border: var(--rule-strong);
+  }
+
+  @media (max-width: 767px) {
+    .bottom-bar {
+      display: flex;
+    }
+  }
+</style>

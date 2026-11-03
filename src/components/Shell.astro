@@ -1,0 +1,70 @@
+---
+import { SECTIONS } from '../sections';
+import BottomBar from './BottomBar.astro';
+import MobileHeader from './MobileHeader.astro';
+import Sidebar from './Sidebar.astro';
+
+interface Props {
+  years: number;
+}
+
+const { years } = Astro.props;
+---
+
+<div class="shell" id="top">
+  <MobileHeader sections={SECTIONS} />
+  <aside class="aside">
+    <Sidebar years={years} sections={SECTIONS} />
+  </aside>
+  <main class="main">
+    <slot />
+  </main>
+  <BottomBar />
+</div>
+
+<style>
+  .shell {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+
+  .aside {
+    padding: var(--space-6) var(--gutter) 0;
+  }
+
+  .main {
+    padding: var(--space-6) var(--gutter) calc(var(--space-9) + var(--space-8));
+  }
+
+  @media (min-width: 768px) {
+    .aside,
+    .main {
+      padding-left: var(--main-padding);
+      padding-right: var(--main-padding);
+    }
+
+    .main {
+      padding-bottom: var(--space-9);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .shell {
+      grid-template-columns: var(--sidebar-width) 1fr;
+    }
+
+    .aside {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100vh;
+      padding: var(--space-7) var(--sidebar-padding);
+      border-right: var(--hairline);
+    }
+
+    .main {
+      padding: var(--space-7) var(--main-padding) var(--space-9);
+    }
+  }
+</style>
