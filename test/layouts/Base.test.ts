@@ -68,6 +68,14 @@ describe('Base', () => {
     expect(html).toMatch(/<link rel="canonical" href="https:\/\/arefmozafari\.com\/?"/);
   });
 
+  it('should offer the icon as SVG with PNG fallbacks for tabs and home screens', async () => {
+    const html = await render(Base, { title: 't', description: 'd' });
+
+    expect(html).toContain('href="/favicon.svg" type="image/svg+xml"');
+    expect(html).toContain('href="/favicon-32.png" type="image/png" sizes="32x32"');
+    expect(html).toContain('rel="apple-touch-icon" href="/apple-touch-icon.png"');
+  });
+
   it('should mark a noindex page as such and give it no canonical', async () => {
     const html = await render(Base, { title: 't', description: 'd', noindex: true });
 

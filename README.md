@@ -90,3 +90,9 @@ on demand, then deploys with `cloudflare/wrangler-action`.
 `public/og.png` is rendered from `tools/og/og.html` (serve the folder over http, open it at
 1200×630, screenshot). `public/demo-fallback.png` is a 340×660 capture of the built demo at
 `/demo/index.html`. Re-capture either when its source changes.
+
+`public/favicon.svg` is a work block in miniature: the initial in Bricolage Grotesque ExtraBold
+as outlines, with the gold dot. `tools/favicon/build.mjs` regenerates it from the font's static
+ExtraBold TTF (from the Bricolage repository, not committed) with `opentype.js` installed
+alongside; `public/favicon-32.png` and `public/apple-touch-icon.png` are renders of it at 32 and
+180 pixels.
