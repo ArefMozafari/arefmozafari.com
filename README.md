@@ -58,8 +58,8 @@ work descriptions, and new posts (one folder each under `src/content/posts/`).
 ## Deploy
 
 GitHub Actions (`.github/workflows/deploy.yml`) builds the demo and the site on every push to
-`main`, every pull request (preview), every Monday (fresh counts), and on demand, then
-deploys with `cloudflare/wrangler-action`.
+`main`, every pull request (preview), every Monday (fresh pull request state and years), and
+on demand, then deploys with `cloudflare/wrangler-action`.
 
 ### One-time hand-off
 
@@ -76,9 +76,13 @@ deploys with `cloudflare/wrangler-action`.
    **Cloudflare Pages: Edit** on this account).
 3. In the Cloudflare dashboard open Workers & Pages → `arefmozafari-com` → Custom domains and
    add `arefmozafari.com` and `www.arefmozafari.com`. The nameservers are already on
-   Cloudflare, so the records are created in place. `public/_redirects` sends `www` to the
-   apex permanently. Do not touch the MX records; mail stays on iCloud.
-4. Push `main`. The first run creates the production deployment; pull requests appear at
+   Cloudflare, so the records are created in place. Do not touch the MX records; mail stays
+   on iCloud.
+4. Send `www` to the apex with a redirect rule, since a Pages `_redirects` file cannot match a
+   hostname: in the dashboard open the `arefmozafari.com` zone → Rules → Redirect Rules →
+   Create rule → template "Redirect from WWW to Root", status 301, preserve the path and query
+   string. The `www` record stays proxied, so the rule answers before Pages does.
+5. Push `main`. The first run creates the production deployment; pull requests appear at
    `<branch>.arefmozafari-com.pages.dev`.
 
 ### Refreshing the static captures
