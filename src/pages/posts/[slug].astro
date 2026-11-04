@@ -1,0 +1,128 @@
+---
+import { getImage, Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Shell from '../../components/Shell.astro';
+import { linkedinUrl } from '../../content/schemas';
+import Base from '../../layouts/Base.astro';
+import { describePost } from '../../lib/post-description';
+import { yearsSince } from '../../lib/years';
+import { SITE } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+/// Width card scrapers expect of a share image.
+const SHARE_IMAGE_WIDTH = 1200;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const years = yearsSince(SITE.careerStart, new Date());
+const dateFormat = new Intl.DateTimeFormat('en', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const date = dateFormat.format(post.data.date);
+const title = post.data.searchTitle ?? post.data.title;
+const description = post.data.description ?? describePost(post.body ?? '');
+const shareImage = await getImage({
+  src: post.data.graphic,
+  width: SHARE_IMAGE_WIDTH,
+  format: 'png',
+});
+const article = {
+  title: post.data.title,
+  date: post.data.date,
+  image: {
+    src: shareImage.src,
+    width: shareImage.attributes.width,
+    height: shareImage.attributes.height,
+    alt: post.data.alt,
+  },
+};
+---
+
+<Base title={`${title} · ${SITE.name}`} description={description} article={article}>
+  <Shell years={years} nameAsHeading={false}>
+    <article class="post">
+      <a class="back mono muted" href="/#posts">
+        ← Posts
+      </a>
+      <h1 class="title">{post.data.title}</h1>
+      <p class="meta mono muted">
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
+        {' · '}
+        <a href={linkedinUrl(post.data.linkedinActivityId)} target="_blank" rel="noopener">
+          First published on LinkedIn ↗
+        </a>
+      </p>
+      <Image
+        class="graphic"
+        src={post.data.graphic}
+        alt={post.data.alt}
+        widths={[640, 1200]}
+        sizes="(min-width: 1024px) 640px, 100vw"
+        loading="eager"
+      />
+      <div class="body">
+        <Content />
+      </div>
+    </article>
+  </Shell>
+</Base>
+
+<style>
+  .post {
+    max-width: var(--measure-post);
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: var(--space-5);
+    font-size: var(--text-label);
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: var(--text-lead);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+  }
+
+  .meta {
+    margin: var(--space-3) 0 var(--space-5);
+    font-size: var(--text-label);
+  }
+
+  .graphic {
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--space-6);
+    background: var(--color-block);
+  }
+
+  .body {
+    font-size: var(--text-caption);
+    line-height: 1.55;
+  }
+
+  .body :global(p) {
+    margin: 0 0 var(--space-4);
+  }
+
+  .body :global(ul) {
+    padding-left: var(--space-5);
+  }
+
+  .body :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

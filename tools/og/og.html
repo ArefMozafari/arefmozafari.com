@@ -1,0 +1,144 @@
+<!doctype html>
+<!-- The Open Graph card, 1200 by 630. Render once with tools/og/render-og.mjs. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&family=Vazirmatn:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --canvas: #efe9dc;
+        --ink: #15120c;
+        --muted: #5a5244;
+        --gold-deep: #8a6f3c;
+        --block: #1a160f;
+        --block-ink: #f5f1e8;
+        --block-gold: #e0b95c;
+        --green: #3f8a4c;
+      }
+
+      html,
+      body {
+        margin: 0;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: 'Bricolage Grotesque', sans-serif;
+        overflow: hidden;
+      }
+
+      .block {
+        position: relative;
+        background-color: var(--block);
+        background-image: radial-gradient(rgba(224, 185, 92, 0.55) 1.6px, transparent 1.8px);
+        background-size: 10px 10px;
+        color: var(--block-ink);
+      }
+
+      .block .word {
+        position: absolute;
+        left: 36px;
+        bottom: 32px;
+        font-size: 92px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+      }
+
+      .block .fa {
+        position: absolute;
+        left: 36px;
+        top: 36px;
+        font-family: Vazirmatn, sans-serif;
+        font-size: 34px;
+        font-weight: 800;
+        color: var(--block-gold);
+        direction: rtl;
+      }
+
+      .block .spark {
+        position: absolute;
+        right: 28px;
+        top: 28px;
+        color: var(--block-gold);
+        font-size: 22px;
+      }
+
+      .text {
+        padding: 64px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .role {
+        font-size: 52px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        max-width: 640px;
+      }
+
+      .role b {
+        font-weight: 800;
+      }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        font-size: 24px;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 20px;
+        border: 2px solid var(--ink);
+        border-radius: 999px;
+        color: var(--ink);
+      }
+
+      .pill i {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      .domain {
+        font-family: 'SF Mono', Menlo, monospace;
+        font-size: 22px;
+        color: var(--gold-deep);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="block">
+      <span class="fa">عارف مظفری</span>
+      <span class="spark">✦</span>
+      <div class="word">Aref<br />Mozafari</div>
+    </div>
+    <div class="text">
+      <p class="role">
+        <b>Senior Mobile Engineer.</b><br />Flutter, iOS &amp; Android.<br />Wallets, call SDKs,
+        marketplaces, shipped to the stores.
+      </p>
+      <div class="meta">
+        <span class="pill"><i></i>Open to remote roles</span>
+        <span class="domain">arefmozafari.com</span>
+      </div>
+    </div>
+  </body>
+</html>

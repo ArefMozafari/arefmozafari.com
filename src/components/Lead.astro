@@ -1,0 +1,25 @@
+---
+/// The sentence that opens the page and heads the work section, so the outline runs
+/// h1 → h2 → h3. The underline on one word is this section's gold sign.
+---
+
+<h2 class="lead">
+  Four things I shipped that you can <u class="sign-underline">open right now</u>.
+</h2>
+
+<style>
+  .lead {
+    max-width: var(--measure-lead);
+    margin-bottom: var(--space-7);
+    font-size: var(--text-lead);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+  }
+
+  @media (max-width: 767px) {
+    .lead {
+      font-size: var(--text-lead-phone);
+    }
+  }
+</style>

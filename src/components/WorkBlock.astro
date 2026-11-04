@@ -1,0 +1,232 @@
+---
+import { Image } from 'astro:assets';
+import type { z } from 'astro/zod';
+import type { workSchema } from '../content/schemas';
+import DemoFrame from './DemoFrame.astro';
+import DesktopFrame from './DesktopFrame.astro';
+import PhoneFrame from './PhoneFrame.astro';
+import PosterFrame from './PosterFrame.astro';
+
+type Work = z.infer<ReturnType<typeof workSchema>>;
+
+/// One homepage block: halftone image with the product name as the big word (and the
+/// block's heading), one real artifact, then a caption row with the description
+/// (default slot) and the receipts.
+interface Props {
+  work: Work;
+  index: number;
+}
+
+const { work, index } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const isDemo = work.artifact.kind === 'demo';
+const isTwoLines = work.word.length === 2;
+const image = work.artifact.image;
+// The first block sits in the first screen, so its artifact is the page's largest paint.
+const isFirst = index === 0;
+const loading = isFirst ? 'eager' : 'lazy';
+const fetchpriority = isFirst ? 'high' : undefined;
+const POSTER_WIDTH = 940;
+const PHONE_WIDTH = 340;
+const DESKTOP_WIDTH = 840;
+
+/// A 2x candidate only when the source has the pixels; otherwise Astro would list the same file twice.
+function densitiesFor(renderWidth: number): number[] {
+  return image && image.width >= renderWidth * 2 ? [1, 2] : [1];
+}
+---
+
+<article class="work">
+  <div class="block">
+    <div class="title">
+      <p class="kicker mono">{work.kicker}</p>
+      <h3 class:list={['word', { 'word--two': isTwoLines }]}>
+        {work.word.map((line, lineIndex) => (
+          <>
+            {lineIndex > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </h3>
+    </div>
+    {work.artifact.kind === 'poster' && image && (
+      <PosterFrame wide={image.width > image.height}>
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={POSTER_WIDTH}
+          densities={densitiesFor(POSTER_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
+      </PosterFrame>
+    )}
+    {work.artifact.kind === 'phone' && image && (
+      <PhoneFrame>
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={PHONE_WIDTH}
+          densities={densitiesFor(PHONE_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
+      </PhoneFrame>
+    )}
+    {work.artifact.kind === 'desktop' && image && (
+      <DesktopFrame>
+        <Image
+          src={image}
+          alt={work.artifact.alt}
+          width={DESKTOP_WIDTH}
+          densities={densitiesFor(DESKTOP_WIDTH)}
+          loading={loading}
+          fetchpriority={fetchpriority}
+        />
+      </DesktopFrame>
+    )}
+    {isDemo && <DemoFrame fallbackAlt={work.artifact.alt} />}
+  </div>
+
+  <div class="caption">
+    <span class="number">{number}</span>
+    <div class="description muted">
+      <slot />
+      {work.hint && <b class="hint">{work.hint}</b>}
+    </div>
+    <ul class="receipts mono">
+      {work.receipts.map((receipt) => (
+        <li>
+          <a href={receipt.url} target="_blank" rel="noopener">
+            {receipt.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</article>
+
+<style>
+  .work {
+    margin-bottom: var(--space-7);
+  }
+
+  .block {
+    position: relative;
+    height: var(--block-height);
+    /* Clip, not hidden: a hidden box still scrolls when something inside it is scrolled into view, which pushed the phone's head out of the block. */
+    overflow: clip;
+    border-radius: var(--radius-block);
+    background-color: var(--color-block);
+    background-image: radial-gradient(
+      var(--halftone-cream) var(--halftone-dot),
+      transparent calc(var(--halftone-dot) + 0.2px)
+    );
+    background-size: var(--halftone-size) var(--halftone-size);
+    color: var(--color-block-ink);
+  }
+
+  /* The word and kicker keep to the left so a wide poster at the right never sits under them. */
+  .title {
+    position: absolute;
+    left: var(--space-5);
+    bottom: var(--space-4);
+    z-index: var(--layer-label);
+    max-width: 48%;
+  }
+
+  .word {
+    font-size: var(--text-word);
+    font-weight: 800;
+    letter-spacing: var(--tracking-word);
+    line-height: 1;
+  }
+
+  .word--two {
+    font-size: var(--text-word-two-lines);
+    line-height: 0.95;
+  }
+
+  /* A solid charcoal backing stops the halftone running through the small letters. */
+  .kicker {
+    display: table;
+    margin: 0 calc(var(--space-2) * -1) var(--space-3);
+    padding: var(--space-2) var(--space-2);
+    border-radius: var(--radius-strip);
+    background: var(--color-block);
+    font-size: var(--text-kicker);
+    font-weight: 400;
+    /* Uppercase mono has no descenders, so a unit line-height centres the caps in the strip. */
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-block-gold);
+  }
+
+  .caption {
+    display: grid;
+    grid-template-columns: var(--caption-number-width) 1fr auto;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding: var(--space-4) 0;
+    border-bottom: var(--rule-strong);
+    font-size: var(--text-caption);
+  }
+
+  .number {
+    font-weight: 800;
+  }
+
+  .description {
+    font-size: var(--text-small);
+    line-height: var(--leading-body);
+  }
+
+  .description :global(p) {
+    display: inline;
+  }
+
+  .hint {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .receipts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-note);
+    line-height: 1.7;
+    text-align: right;
+  }
+
+  @media (max-width: 767px) {
+    .block {
+      height: var(--block-height-phone);
+    }
+
+    /* The artifact sits at the right edge, so the word and kicker keep to the left half. */
+    .title {
+      max-width: 52%;
+    }
+
+    .word,
+    .word--two {
+      font-size: var(--text-word-phone);
+    }
+
+    .kicker {
+      max-width: 100%;
+    }
+
+    .caption {
+      grid-template-columns: var(--caption-number-width-phone) 1fr;
+      font-size: var(--text-body);
+    }
+
+    .receipts {
+      grid-column: 2;
+      text-align: left;
+    }
+  }
+</style>

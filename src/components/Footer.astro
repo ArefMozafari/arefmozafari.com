@@ -1,0 +1,36 @@
+---
+import { SITE } from '../site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer mono muted">
+  <span>Aref Mozafari · {year}</span>
+  <a href={SITE.repo} target="_blank" rel="noopener">
+    Built by hand · source on GitHub ↗
+  </a>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    font-size: var(--text-label);
+  }
+
+  .footer a {
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 767px) {
+    .footer {
+      flex-direction: column;
+    }
+  }
+</style>

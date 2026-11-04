@@ -1,0 +1,141 @@
+/*
+ * Every visual value the site uses. Components reference these and never
+ * write a raw colour, size, radius or duration.
+ *
+ * Breakpoints (CSS custom properties cannot hold them; keep in sync by hand):
+ *   phone    < 768px
+ *   tablet   768px to 1023px
+ *   desktop  >= 1024px
+ */
+/*
+ * Two schemes, one token each, through light-dark(). Light is the design: cream canvas,
+ * charcoal blocks, gold accent. Dark inverts the roles rather than darkening: the canvas takes
+ * the charcoal, the ink takes the cream, and the blocks flip to cream so they still read as
+ * objects on the page. Gold swaps to the brighter cut on charcoal and the deeper cut on cream.
+ * Which scheme applies is decided by `color-scheme` on :root (see the bottom of this file).
+ */
+:root {
+  --color-canvas: light-dark(#efe9dc, #15120c);
+  --color-ink: light-dark(#15120c, #f5f1e8);
+  --color-ink-muted: light-dark(#5a5244, #a89f8d);
+  --color-gold-deep: light-dark(#8a6f3c, #e0b95c);
+  --color-block: light-dark(#1a160f, #efe9dc);
+  --color-block-ink: light-dark(#f5f1e8, #15120c);
+  --color-block-ink-muted: light-dark(#a89f8d, #5a5244);
+  --color-block-gold: light-dark(#e0b95c, #8a6f3c);
+  --color-green: #3f8a4c;
+  --color-focus: rgba(224, 185, 92, 0.35);
+  --shadow-poster: 0 12px 32px rgba(0, 0, 0, 0.35);
+  /* How much gold sits over the grayscale portrait; 1 is the full duotone. */
+  --portrait-tint: 0.45;
+
+  /* Lines. */
+  --hairline: 1px solid light-dark(rgba(21, 18, 12, 0.2), rgba(245, 241, 232, 0.18));
+  --rule-strong: 1.5px solid var(--color-ink);
+  --rule-block: 2px solid light-dark(rgba(245, 241, 232, 0.25), rgba(21, 18, 12, 0.3));
+
+  /* Halftone texture for the blocks. */
+  --halftone-cream: light-dark(rgba(245, 241, 232, 0.26), rgba(21, 18, 12, 0.18));
+  --halftone-size: 9px;
+  --halftone-dot: 0.9px;
+
+  /* Type. --font-display is defined by Astro's fonts API. */
+  --font-mono: 'SF Mono', Menlo, Consolas, monospace;
+  --text-name: 72px;
+  --text-name-phone: 56px;
+  /* Height of the drawn Persian name, the cap-to-descender span of its glyphs; sized to fit
+     between the first name and the column edge. */
+  --text-name-fa: 18px;
+  /* Where the baseline sits in the display face at weight 800, as a share of the font size. */
+  --name-baseline: 0.78;
+  /* Where the baseline sits in the drawn Persian name, as a share of its height: the glyphs
+     reach 79.74 units above the baseline and 27.26 below, out of 107. */
+  --name-fa-baseline: 0.745;
+  --text-word: 84px;
+  --text-word-two-lines: 72px;
+  --text-word-phone: clamp(32px, 10.5vw, 44px);
+  --text-lead: 32px;
+  --text-lead-phone: 24px;
+  --text-contact: 64px;
+  --text-contact-phone: 44px;
+  --text-nav: 22px;
+  --text-caption: 18px;
+  --text-body: 16px;
+  --text-small: 15px;
+  --text-note: 13px;
+  --text-label: 12px;
+  --text-kicker: 14px;
+  --text-contact-link: 22px;
+  --tracking-name: -0.04em;
+  --tracking-word: -0.05em;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.1em;
+  --leading-name: 0.9;
+  --leading-tight: 1.15;
+  --leading-body: 1.5;
+
+  /* Space. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 56px;
+  --space-9: 72px;
+  --gutter: 16px;
+  --sidebar-width: 320px;
+  --sidebar-padding: 34px;
+  --main-padding: 40px;
+  --measure-lead: 560px;
+  --measure-post: 640px;
+  --caption-number-width: 44px;
+  --caption-number-width-phone: 30px;
+  --underline-offset-large: 4px;
+
+  /* Stacking inside a work block: labels sit above the artifact. */
+  --layer-artifact: 1;
+  --layer-label: 2;
+
+  /* Shapes. */
+  --radius-pill: 999px;
+  --radius-block: 10px;
+  --radius-card: 8px;
+  --radius-strip: 4px;
+  --radius-phone: 28px;
+  --radius-phone-screen: 22px;
+  --poster-width: 300px;
+  --poster-width-phone: 46%;
+  --poster-width-wide: 400px;
+  --poster-width-wide-phone: 50%;
+  --block-height: 320px;
+  --block-height-phone: 236px;
+  --phone-width: 196px;
+  --phone-height: 372px;
+  --phone-bezel: 6px;
+  --window-max-width: 420px;
+  --window-width: 60%;
+  --window-width-phone: 46%;
+  --phone-width-phone: 140px;
+  --phone-height-phone: 272px;
+  --portrait-small: 40px;
+  /* The least height the sidebar portrait keeps when a short viewport squeezes the column. */
+  --portrait-min-height: 180px;
+  --dot: 8px;
+
+  /* Motion: the only two transitions on the site. */
+  --motion-fast: 150ms;
+  --motion-ease: ease-out;
+
+  /* Follows the system until the visitor picks a scheme with the switch. */
+  color-scheme: light dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}

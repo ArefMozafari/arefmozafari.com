@@ -1,0 +1,76 @@
+---
+export type OpenSourceRow = {
+  name: string;
+  description: string;
+  url: string;
+  note?: string;
+};
+
+/// A compact two-column grid of the open-source work: the name, one line on what it is,
+/// and a note where one applies (the live state of an upstream pull request).
+interface Props {
+  rows: OpenSourceRow[];
+}
+
+const { rows } = Astro.props;
+---
+
+<ul class="repos">
+  {rows.map((row) => (
+    <li class="repo">
+      <a class="mono name" href={row.url} target="_blank" rel="noopener">
+        {row.name}
+      </a>
+      <p class="muted description">{row.description}</p>
+      {row.note && <span class="mono muted note">{row.note}</span>}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .repos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .repo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: var(--hairline);
+    border-radius: var(--radius-card);
+  }
+
+  .name {
+    width: max-content;
+    max-width: 100%;
+    font-size: var(--text-note);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .name:hover {
+    text-decoration: underline;
+  }
+
+  .description {
+    font-size: var(--text-note);
+    line-height: 1.45;
+  }
+
+  .note {
+    margin-top: var(--space-1);
+    font-size: var(--text-label);
+  }
+
+  @media (max-width: 767px) {
+    .repos {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+/// Phone chrome around a screenshot or the live demo. The screen is the default slot;
+/// `screenStyle` lets a caller paint a fallback image under whatever the slot holds.
+interface Props {
+  class?: string;
+  screenStyle?: string;
+}
+
+const { class: className, screenStyle } = Astro.props;
+---
+
+<div class:list={['phone', className]}>
+  <div class="screen" style={screenStyle}>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .phone {
+    position: absolute;
+    right: var(--space-8);
+    /* Hangs off the bottom edge so its top clears the block's top edge by a few pixels. */
+    bottom: calc(var(--space-8) * -1);
+    z-index: var(--layer-artifact);
+    width: var(--phone-width);
+    height: var(--phone-height);
+    padding: var(--phone-bezel);
+    border: var(--rule-block);
+    border-radius: var(--radius-phone);
+    background: var(--color-block);
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-phone-screen);
+    background-color: var(--color-block-ink);
+    background-size: cover;
+    background-position: top center;
+  }
+
+  .screen :global(img),
+  .screen :global(iframe) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  @media (max-width: 767px) {
+    .phone {
+      right: var(--space-4);
+      /* The phone block is short, so the frame hangs further off the bottom to keep its top in view. */
+      bottom: calc(var(--space-8) * -1);
+      width: var(--phone-width-phone);
+      height: var(--phone-height-phone);
+    }
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import AlsoShipped from '../components/AlsoShipped.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import Lead from '../components/Lead.astro';
+import OpenSource from '../components/OpenSource.astro';
+import Posts from '../components/Posts.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Shell from '../components/Shell.astro';
+import WorkBlock from '../components/WorkBlock.astro';
+import Base from '../layouts/Base.astro';
+import { buildOpenSourceRows } from '../lib/open-source-rows';
+import { yearsSince } from '../lib/years';
+import { SITE } from '../site';
+
+const years = yearsSince(SITE.careerStart, new Date());
+
+const works = (await getCollection('works')).sort(
+  (first, second) => first.data.order - second.data.order,
+);
+const worksWithContent = await Promise.all(
+  works.map(async (work) => ({ work, Content: (await render(work)).Content })),
+);
+const alsoShipped = (await getCollection('alsoShipped'))
+  .map((entry) => entry.data)
+  .sort((first, second) => first.order - second.order);
+const repos = (await getCollection('repos'))
+  .map((entry) => entry.data)
+  .sort((first, second) => first.order - second.order);
+const openSourceRows = await buildOpenSourceRows(repos);
+const posts = await getCollection('posts');
+---
+
+<Base title={`${SITE.name} · ${SITE.title} · ${SITE.stack}`} description={SITE.description}>
+  <Shell years={years}>
+    <section id="work" aria-label="Work">
+      <Lead />
+      {worksWithContent.map(({ work, Content }, index) => (
+        <WorkBlock work={work.data} index={index}>
+          <Content />
+        </WorkBlock>
+      ))}
+      <SectionLabel title="Also shipped" note="earlier work" />
+      <AlsoShipped items={alsoShipped} />
+    </section>
+    <section id="open-source" aria-label="Open source">
+      <SectionLabel title="Open source" />
+      <OpenSource rows={openSourceRows} />
+    </section>
+    <section id="posts" aria-label="Posts">
+      <SectionLabel title="Posts" sign note="short notes, first published on LinkedIn" />
+      <Posts posts={posts} />
+    </section>
+    <section id="contact" class="last" aria-label="Contact">
+      <Contact />
+      <Footer />
+    </section>
+  </Shell>
+</Base>
+
+<style>
+  /* The last section is tall enough to reach the top of the viewport, so the Contact link
+     scrolls like the others instead of stopping a few hundred pixels short. */
+  .last {
+    min-height: calc(100vh - var(--space-7));
+  }
+</style>

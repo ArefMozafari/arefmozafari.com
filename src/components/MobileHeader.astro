@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.jpg';
+import type { Section } from '../sections';
+import { SITE } from '../site';
+import ThemeSwitch from './ThemeSwitch.astro';
+
+interface Props {
+  sections: readonly Section[];
+}
+
+const { sections } = Astro.props;
+---
+
+<header class="mobile-header">
+  <a class="home" href="#top" aria-label="Top of page">
+    <Image src={portrait} alt="" width={80} loading="eager" />
+  </a>
+  <span class="spacer" aria-hidden="true"></span>
+  <details class="menu">
+    <summary>Menu</summary>
+    <nav aria-label="Sections">
+      {sections.map((section) => (
+        <a href={`/#${section.id}`}>{section.label}</a>
+      ))}
+      <a href={`mailto:${SITE.email}`}>Email</a>
+      <ThemeSwitch />
+    </nav>
+  </details>
+</header>
+
+<style>
+  .mobile-header {
+    display: none;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--gutter);
+    font-size: var(--text-label);
+  }
+
+  /* The same duotone as the big portrait, at thumbnail size. */
+  .home {
+    position: relative;
+    display: block;
+    width: var(--portrait-small);
+    height: var(--portrait-small);
+    overflow: hidden;
+    border-radius: var(--space-1);
+    background: var(--color-block);
+  }
+
+  .home :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .home::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, var(--color-block-gold), var(--color-gold-deep));
+    mix-blend-mode: multiply;
+    opacity: var(--portrait-tint);
+    pointer-events: none;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .menu summary {
+    cursor: pointer;
+    font-weight: 800;
+    font-size: var(--text-small);
+    list-style: none;
+  }
+
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu nav {
+    position: absolute;
+    right: var(--gutter);
+    z-index: var(--layer-label);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    padding: var(--space-4);
+    background: var(--color-canvas);
+    border: var(--rule-strong);
+    font-size: var(--text-caption);
+    font-weight: 800;
+  }
+
+  .menu nav a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 1023px) {
+    .mobile-header {
+      display: flex;
+    }
+  }
+</style>

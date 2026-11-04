@@ -60,6 +60,17 @@ block kicker gold `#E0B95C`. Availability green `#3F8A4C`. Hairline `rgba(21,18,
 strong rule `1.5px #15120C`. These come from the owner's LinkedIn brand system; the cream
 canvas is the inversion of its charcoal canvas, chosen so the site is not another dark page.
 
+**Dark scheme (added 2026-11-03, owner's request).** The site follows the system
+(`prefers-color-scheme`), light first. Dark is an inversion of roles, not a darkening: canvas
+`#15120C`, ink `#F5F1E8`, muted ink `#A89F8D`, accent gold brightens to `#E0B95C`; the blocks
+flip to cream `#EFE9DC` with charcoal ink and deep-gold `#8A6F3C` labels, so they still read as
+objects on the page; halftone dots become deep gold on cream. Portrait duotone, post graphics,
+the demo and the OG image are unchanged. Tokens are written once with `light-dark()`, and
+`color-scheme` on the root decides which side applies. A three-state switch (system, light,
+dark) sits under the sidebar contact links and in the phone menu; the choice is kept in
+`localStorage` under `theme` and applied by an inline script before first paint, so there is
+no flash. Nothing stored means "follow the system".
+
 Every colour, size, radius and spacing lives in one token file. No raw values in components.
 
 ### Type
@@ -68,13 +79,15 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
   500, 800. Name at 800, 72px desktop, letter-spacing −0.04em, line-height .9.
 - Mono labels and ids: SF Mono / Menlo system stack. Uppercase mono with letter-spacing for
   section labels only; package ids in mono, normal case.
-- Persian: used for one element, the Persian name under the Latin name, at weight 800.
-  Default is Vazirmatn 800 (SIL Open Font Licence, Google provider, self-hosted by the
-  build). IranSansX ExtraBold was the first choice, but its licence (fontiran.com, read
-  2026-11-03) states that placing the font file on a server for a website requires a
-  registered web licence on fontiran.com in addition to the purchase; the owner's copy covers
-  personal installation. If the owner registers that licence, the swap is one font entry in
-  `astro.config.mjs` and one token.
+- Persian: used for one element, the Persian name under the Latin name, at weight 800, set
+  in Vazirmatn ExtraBold (SIL Open Font Licence). Since 2026-11-04 the name ships as glyph
+  outlines in `src/assets/name-fa.svg`, generated once from the font with opentype.js, so no
+  Arabic font is downloaded for five characters; the text stays in the markup, visually
+  hidden, for crawlers and screen readers. IranSansX ExtraBold was the first choice, but its
+  licence (fontiran.com, read 2026-11-03) states that placing the font file on a server for a
+  website requires a registered web licence on fontiran.com in addition to the purchase; the
+  owner's copy covers personal installation. Regenerating the outlines from another font is
+  the same one-off conversion.
 
 ### Layout
 
@@ -89,33 +102,42 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
 
 ### Homepage sections, in order
 
-1. Lead: "Three things I shipped that you can open right now." Sub-line states the rule:
-   "No internal metrics on this page. Every claim links to a store listing, a repository, or
-   a published package. If you can't check it, it isn't here."
-2. Three case blocks. Each: a 320px halftone block with a small gold kicker, the product
-   name as the big word, one real artifact (phone screenshot, desktop screenshot, or the live
-   demo), then a caption row: number, name, two-sentence description, and the receipts
-   column of links. Order:
-   - 01 CorePass. Kicker "Blockchain identity & wallet". Tag "Live on both stores". Phone
-     frame with a real App Store / Play screenshot. Receipts: App Store, Google Play,
-     corepass.net.
-   - 02 Ring. Kicker "Mobile Engineer, 2026 –". Tag "Classifieds · Iran". Desktop or store
-     screenshot. Receipts: Cafe Bazaar, Myket, ring.ir.
-   - 03 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
+1. Lead: "Four things I shipped that you can open right now.", with the gold underline sign
+   on "open right now". (A sub-line that stated the receipts rule was removed on 2026-11-03 at
+   the owner's request: the links make the point without a disclaimer.)
+2. Four case blocks. Each: a rounded 320px halftone block with a small gold kicker on a
+   charcoal strip, the product name as the big word (the block's `h3`, named nowhere else in
+   the block), one real artifact (a store card shown as a rounded poster, a phone or desktop
+   screenshot, or the live demo), then a caption row: number, two-sentence description, and
+   the receipts column of links. Order:
+   - 01 CorePass. Kicker "Blockchain identity & wallet · live on both stores". Poster: the
+     App Store card as published. Receipts: App Store, Google Play, corepass.net.
+   - 02 Ring. Kicker "Classifieds marketplace · Mobile Engineer, 2026 –". Poster: the Cafe
+     Bazaar card as published. Receipts: Cafe Bazaar, Myket, ring.ir.
+     (On 2026-11-03 the owner removed the corner tags into the kickers, then chose the branded
+     store cards over cropped screens; the cards appear as themselves, never inside the site's
+     own phone frame, so there is no phone inside a phone.)
+   - 03 Foxhole Artillery. Kicker "Community tool · open source, 2019". Phone frame with one
+     of the app's own Google Play screenshots (the listing itself is gone; the shots survive
+     on Google's image host and in the repo README). Receipt: GitHub. Added 2026-11-03.
+   - 04 Flutter Password Validator. Kicker "Open source · pub.dev". Big word "Password /
      Validator" on two lines. The phone frame holds the real widget compiled to web, with a
      focused input and no label on the block; the caption carries one bold sentence: "The
      phone is the real widget compiled to web. Type in it." Receipts: pub.dev, GitHub,
      password_rules.
-3. "Also shipped": a hairline index of earlier work with a link where one exists (Ting &
-   Heyo, Bfrest, Foxhole artillery calculator) and "internal" where none does (Fediverse
-   video app). No numbers.
-4. "Open source": repo rows with description and a live count (GitHub stars and forks,
-   pub.dev points) fetched at build time, plus the upstream contribution to
-   flutter/agent-plugins linking to the PR.
-5. "Posts": two-column grid of the owner's LinkedIn posts: the real graphic, the hook line,
-   the month, a link to the LinkedIn original. Source is a folder of markdown entries with
-   the graphic beside each; the owner's existing `posts/YYYY-MM-DD-slug/` folders convert
-   with a one-off script. Each post also gets its own URL on the site.
+3. "Also shipped" (label note "earlier work"): a hairline index of earlier work, plain text
+   where there is nothing public to link (Ting & Heyo, Bfrest, Fediverse video app). No
+   numbers, no filler word.
+4. "Open source": a compact two-column grid of small cards, each the repo name, one line on
+   what it is, and a link. No counts (owner's decision 2026-11-03: the numbers are not large
+   enough to carry weight). The upstream contribution row carries the pull request's live
+   state ("in review", "merged", "closed") fetched at build.
+5. "Posts": two-column grid of the posts that mattered, by reach or by concept: over a
+   thousand impressions, or an own release (as of 2026-11-03: Ghost in the Droid, fpdart
+   Either, the 700% hashing story, the pr-evidence release and its follow-up). Each card: the
+   real graphic at its own aspect ratio, the hook line, the month, and a link labelled
+   "On LinkedIn ↗" to the original post (was "Original ↗" until the 2026-11-04 writing review). Source is a folder of markdown entries
+   with the graphic beside each. Each post also gets its own URL on the site.
 6. Contact: "Let's talk." then email, LinkedIn, GitHub, résumé PDF as large underlined links.
 7. Footer: "Aref Mozafari · {year}" and "Built by hand · source on GitHub".
 
@@ -131,7 +153,8 @@ builds only (never a dead link in production).
 ### Portrait
 
 One photo, square or 4:5, in the sticky column under the name; small square in the phone
-header. Treated as a charcoal-and-gold duotone halftone so it belongs to the block system.
+header. Treated as a charcoal-and-gold duotone with rounded corners; the halftone grid was
+dropped from the portrait on 2026-11-03 because dots over a face read as a joke.
 Never a circle, never the LinkedIn Open-To-Work frame. The owner supplies the source file;
 the treatment is applied in the build (CSS `mix-blend-mode`/filter or a pre-processed asset,
 builder's choice, output must look the same in Safari and Chrome).
@@ -139,8 +162,9 @@ builder's choice, output must look the same in Safari and Chrome).
 ### The roaming sign
 
 Carried over from the LinkedIn playbook: exactly one small gold mark per section, in the
-outlined-glyph language, a different form each time (underline on one word in the lead,
-corner spark on one block, gutter mark in a code panel, and so on). Small; content dominates.
+outlined-glyph language, a different form each time (underline on a phrase in the lead, a
+gold dot before the Posts label). Small; content dominates. The corner spark on the first
+block was removed on 2026-11-03 at the owner's request.
 
 ### Motion
 
@@ -155,8 +179,9 @@ item colour change under 200ms; link underline colour on hover. Everything respe
   still shows the right number.
 - Every number on the homepage is fetched or linked. If a source disappears, the row shows
   the link without the number rather than a stale number.
-- Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years: wallets, call SDKs,
-  marketplaces."
+- Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
+  apps, SDKs, tools and plugins." (Generalised from a list of domains on 2026-11-03 at the
+  owner's request; "tools" added on 2026-11-04.)
 - Availability pill: "Open to remote roles". The owner cannot relocate; never "open to
   relocation".
 - Links open the real thing: store listings, pub.dev, GitHub, LinkedIn post. No dead
@@ -166,8 +191,9 @@ item colour change under 200ms; link underline colour on hover. Everything respe
 
 - Astro, static output, zero client JavaScript except: the years correction, the active-nav
   observer, and the embedded Flutter demo. Content collections for posts and case studies.
-- Build-time data: GitHub REST for stars/forks, pub.dev API for points/likes, cached in the
-  build; failures degrade to "link only" and must not fail the build.
+- Build-time data: the upstream pull request's state from the GitHub REST API, fetched once
+  per build; a failure leaves the plain note and must not fail the build. (Star and pub.dev
+  counts were fetched too until 2026-11-03, when the owner dropped counts from the page.)
 - Flutter demo: a small Flutter web app in `demo/` depending on `flutter_pw_validator`
   (published 2.0.0), built with `flutter build web --release` and copied to `public/demo/`
   in CI; the homepage embeds it in an `<iframe>` inside the phone frame, lazy-loaded, with a
@@ -176,10 +202,15 @@ item colour change under 200ms; link underline colour on hover. Everything respe
 - Hosting: Cloudflare Pages, connected to the GitHub repo `ArefMozafari/arefmozafari.com`,
   building on push to `main`, custom domain `arefmozafari.com` (nameservers are already on
   Cloudflare; mail stays on iCloud, do not touch MX). Preview deploys per branch.
-- SEO: one `h1`, per-page title and description, Open Graph and Twitter card image (a
-  generated 1200×630 in the block style), JSON-LD `Person` with name, job title, sameAs
-  (LinkedIn, GitHub), sitemap, robots, canonical URLs, alt text on every graphic, each post
-  its own URL. Target query is the owner's name.
+- SEO: one `h1`, per-page title and description, Open Graph and Twitter card image (the
+  generated 1200×630 site card on the home page, the post's own graphic with `og:type`
+  article on posts), JSON-LD graph with a `Person` (portrait, Persian `alternateName`,
+  sameAs to LinkedIn, GitHub and pub.dev), a `WebSite`, and a `BlogPosting` by that person on
+  every post, sitemap with lastmod (post date from the slug, build date elsewhere), robots
+  with `/demo/` disallowed, canonical URLs, the 404 and the `*.pages.dev` hosts noindexed,
+  alt text on every graphic, each post its own URL. A post may carry `searchTitle` and
+  `description` for the search snippet; the first paragraph stands in otherwise. Target
+  query is the owner's name. (Expanded on 2026-11-04 after the SEO review.)
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
   `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline, not body text),
   reduced-motion honoured, Persian element marked `lang="fa" dir="rtl"`.

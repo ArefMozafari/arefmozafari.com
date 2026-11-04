@@ -1,0 +1,58 @@
+---
+import type { z } from 'astro/zod';
+import type { alsoShippedSchema } from '../content/schemas';
+
+type Item = z.infer<typeof alsoShippedSchema>;
+
+/// Earlier work as a hairline index. A row links out when there is somewhere to link.
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="index">
+  {items.map((item) => (
+    <li class="row">
+      <div>
+        <span class="name">{item.name}</span>
+        <small class="note muted">{item.note}</small>
+      </div>
+      {item.url && (
+        <a class="mono" href={item.url} target="_blank" rel="noopener">
+          {item.url.includes('github.com') ? 'GitHub ↗' : 'Listing ↗'}
+        </a>
+      )}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: var(--hairline);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding: var(--space-3) 0;
+    border-top: var(--hairline);
+    font-size: var(--text-body);
+  }
+
+  .note {
+    margin-left: var(--space-2);
+    font-size: var(--text-note);
+  }
+
+  .row a {
+    font-size: var(--text-note);
+    white-space: nowrap;
+  }
+</style>

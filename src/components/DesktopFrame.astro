@@ -1,0 +1,40 @@
+---
+/// Browser-window chrome around a desktop screenshot. The screen is the default slot.
+---
+
+<div class="window">
+  <slot />
+</div>
+
+<style>
+  .window {
+    position: absolute;
+    right: var(--space-7);
+    top: var(--space-6);
+    z-index: var(--layer-artifact);
+    width: var(--window-width);
+    max-width: var(--window-max-width);
+    height: 100%;
+    overflow: hidden;
+    border: var(--rule-block);
+    border-bottom: 0;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    background: var(--color-block-ink);
+  }
+
+  .window :global(img) {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* On a phone the window sits lower and narrower, clear of the kicker and the word. */
+  @media (max-width: 767px) {
+    .window {
+      right: var(--space-4);
+      top: var(--space-8);
+      width: var(--window-width-phone);
+    }
+  }
+</style>

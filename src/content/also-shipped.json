@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ting-heyo",
+    "order": 1,
+    "name": "Ting & Heyo",
+    "note": "decentralised WebRTC audio/video call SDK, CoDeTech, 2022–2026"
+  },
+  {
+    "id": "bfrest",
+    "order": 2,
+    "name": "Bfrest",
+    "note": "fintech money transfer, Atifer, led delivery, 2021"
+  },
+  {
+    "id": "fediverse-video",
+    "order": 3,
+    "name": "Fediverse video app",
+    "note": "torrent-based delivery, CoDeTech, 2022–2026"
+  }
+]

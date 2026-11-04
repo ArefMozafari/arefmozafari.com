@@ -1,0 +1,55 @@
+---
+/// A rounded poster at the right of a block: the product's own card, shown as itself,
+/// with no phone chrome around it. The image is the default slot. A landscape card gets
+/// the wide variant so it fills the block's height instead of shrinking to a strip.
+interface Props {
+  wide?: boolean;
+}
+
+const { wide = false } = Astro.props;
+---
+
+<div class:list={['poster', { 'poster--wide': wide }]}>
+  <slot />
+</div>
+
+<style>
+  .poster {
+    position: absolute;
+    right: var(--space-7);
+    top: var(--space-5);
+    z-index: var(--layer-artifact);
+    width: var(--poster-width);
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-poster);
+  }
+
+  /* A landscape card sits on the block's centre line instead of hanging from the top. */
+  .poster--wide {
+    top: 50%;
+    width: var(--poster-width-wide);
+    transform: translateY(-50%);
+  }
+
+  .poster :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 767px) {
+    .poster {
+      right: var(--space-4);
+      top: var(--space-4);
+      width: var(--poster-width-phone);
+    }
+
+    /* On a phone the block is short, so a centred card would sit under the kicker. */
+    .poster--wide {
+      top: var(--space-4);
+      width: var(--poster-width-wide-phone);
+      transform: none;
+    }
+  }
+</style>
