@@ -221,6 +221,10 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   alt text on every graphic, each post its own URL. A post may carry `searchTitle` and
   `description` for the search snippet; the first paragraph stands in otherwise. Target
   query is the owner's name. (Expanded on 2026-11-04 after the SEO review.)
+- Icon: a work block in miniature, charcoal tile with the card radius ratio, the initial "A"
+  in the display face as outlines, and the gold dot that signs the page, with a faint cream rule
+  so the tile keeps its edge on dark tab bars. SVG first, 32px PNG and 180px touch icon as
+  fallbacks. (Replaced the scaffold's framework logo on 2026-11-04.)
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
   `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline, not body text),
   reduced-motion honoured, Persian element marked `lang="fa" dir="rtl"`.
