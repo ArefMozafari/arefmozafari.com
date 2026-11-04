@@ -1,2 +1,0 @@
-# One address for the site: www goes to the apex, path kept, permanently.
-https://www.arefmozafari.com/* https://arefmozafari.com/:splat 301
