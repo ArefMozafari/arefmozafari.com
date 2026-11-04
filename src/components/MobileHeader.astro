@@ -31,6 +31,8 @@ const { sections } = Astro.props;
 
 <style>
   .mobile-header {
+    position: relative;
+    z-index: var(--layer-overlay);
     display: none;
     align-items: center;
     gap: var(--space-3);
