@@ -2,7 +2,7 @@
 import { SITE } from '../site';
 ---
 
-<nav class="bottom-bar" aria-label="Quick actions">
+<nav class="bottom-bar" aria-label="Quick actions" transition:persist="bottom-bar">
   <a class="primary" href={`mailto:${SITE.email}`}>
     Email me
   </a>
@@ -23,11 +23,16 @@ import { SITE } from '../site';
     border-top: var(--rule-strong);
   }
 
+  /* Both buttons carry the same rule, so they are the same height and their labels sit on the
+     same centre line; the filled one draws its rule in its own colour. */
   .bottom-bar a {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-4);
-    border-radius: var(--radius-pill);
-    text-align: center;
+    border: var(--rule-strong);
+    border-radius: var(--radius-block);
     text-decoration: none;
     font-weight: 800;
     font-size: var(--text-small);
@@ -36,10 +41,6 @@ import { SITE } from '../site';
   .primary {
     background: var(--color-ink);
     color: var(--color-block-ink);
-  }
-
-  .secondary {
-    border: var(--rule-strong);
   }
 
   @media (max-width: 767px) {

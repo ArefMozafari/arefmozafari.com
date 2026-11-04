@@ -35,4 +35,4 @@ export function startDemosNearViewport(document: Document, window: Window): void
   iframes.forEach((iframe) => observer.observe(iframe));
 }
 
-startDemosNearViewport(document, window);
+document.addEventListener('astro:page-load', () => startDemosNearViewport(document, window));

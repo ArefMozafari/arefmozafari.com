@@ -38,6 +38,14 @@ const { wide = false } = Astro.props;
     height: auto;
   }
 
+  /* Without the sidebar the block is narrower, so a fixed-width card would reach under the
+     title; the card takes a share of the block instead. */
+  @media (max-width: 1023px) {
+    .poster--wide {
+      width: var(--poster-width-wide-tablet);
+    }
+  }
+
   @media (max-width: 767px) {
     .poster {
       right: var(--space-4);

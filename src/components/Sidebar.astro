@@ -46,9 +46,10 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     years shipping production apps, SDKs, tools and plugins.
   </p>
 
-  <p class="avail">
-    <i aria-hidden="true"></i>Open to remote roles
-  </p>
+  <dl class="file label">
+    <dt>Status</dt>
+    <dd>Open to remote roles</dd>
+  </dl>
 
   <nav class="nav" aria-label="Sections">
     {sections.map((section) => (
@@ -158,23 +159,25 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-body);
   }
 
-  .avail {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    width: max-content;
-    margin-top: var(--space-5);
-    padding: var(--space-2) var(--space-3);
-    border: var(--rule-strong);
-    border-radius: var(--radius-pill);
-    font-size: var(--text-note);
+  /* The file header: key and value rows in the section-label style under a hairline, the
+     way a case file carries its status. Keys muted, values in ink. */
+  .file {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--space-4);
+    row-gap: var(--space-2);
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: var(--hairline);
   }
 
-  .avail i {
-    width: var(--dot);
-    height: var(--dot);
-    border-radius: 50%;
-    background: var(--color-green);
+  .file dt,
+  .file dd {
+    margin: 0;
+  }
+
+  .file dd {
+    color: var(--color-ink);
   }
 
   .nav {
@@ -213,7 +216,7 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   }
 
   /* Below the desktop breakpoint the compact header carries the portrait, the menu and
-     the contact links, so the column keeps only the name, the role and the pill. */
+     the contact links, so the column keeps only the name, the role and the status row. */
   .scheme {
     margin-top: var(--space-3);
   }

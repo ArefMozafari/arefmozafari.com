@@ -23,7 +23,6 @@
   --color-block-ink: light-dark(#f5f1e8, #15120c);
   --color-block-ink-muted: light-dark(#a89f8d, #5a5244);
   --color-block-gold: light-dark(#e0b95c, #8a6f3c);
-  --color-green: #3f8a4c;
   --color-focus: rgba(224, 185, 92, 0.35);
   --shadow-poster: 0 12px 32px rgba(0, 0, 0, 0.35);
   /* How much gold sits over the grayscale portrait; 1 is the full duotone. */
@@ -65,6 +64,7 @@
   --text-note: 13px;
   --text-label: 12px;
   --text-kicker: 14px;
+  --text-kicker-phone: 12px;
   --text-contact-link: 22px;
   --tracking-name: -0.04em;
   --tracking-word: -0.05em;
@@ -73,6 +73,7 @@
   --leading-name: 0.9;
   --leading-tight: 1.15;
   --leading-body: 1.5;
+  --leading-kicker: 1.7;
 
   /* Space. */
   --space-1: 4px;
@@ -99,7 +100,6 @@
   --layer-label: 2;
 
   /* Shapes. */
-  --radius-pill: 999px;
   --radius-block: 10px;
   --radius-card: 8px;
   --radius-strip: 4px;
@@ -108,7 +108,8 @@
   --poster-width: 300px;
   --poster-width-phone: 46%;
   --poster-width-wide: 400px;
-  --poster-width-wide-phone: 50%;
+  --poster-width-wide-tablet: 44%;
+  --poster-width-wide-phone: 46%;
   --block-height: 320px;
   --block-height-phone: 236px;
   --phone-width: 196px;

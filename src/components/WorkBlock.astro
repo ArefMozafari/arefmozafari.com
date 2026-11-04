@@ -39,7 +39,9 @@ function densitiesFor(renderWidth: number): number[] {
 <article class="work">
   <div class="block">
     <div class="title">
-      <p class="kicker mono">{work.kicker}</p>
+      <p class="kicker-row">
+        <span class="kicker mono">{work.kicker}</span>
+      </p>
       <h3 class:list={['word', { 'word--two': isTwoLines }]}>
         {work.word.map((line, lineIndex) => (
           <>
@@ -132,7 +134,8 @@ function densitiesFor(renderWidth: number): number[] {
     left: var(--space-5);
     bottom: var(--space-4);
     z-index: var(--layer-label);
-    max-width: 48%;
+    /* Stops short of the wide poster's left edge, strip padding included. */
+    max-width: 45%;
   }
 
   .word {
@@ -147,17 +150,24 @@ function densitiesFor(renderWidth: number): number[] {
     line-height: 0.95;
   }
 
-  /* A solid charcoal backing stops the halftone running through the small letters. */
-  .kicker {
-    display: table;
+  .kicker-row {
     margin: 0 calc(var(--space-2) * -1) var(--space-3);
-    padding: var(--space-2) var(--space-2);
+    /* Room between wrapped lines so each line's strip stays its own. */
+    line-height: var(--leading-kicker);
+  }
+
+  /* A solid charcoal strip behind the small letters stops the halftone running through them.
+     Inline with cloned decoration, so the strip hugs every wrapped line instead of boxing the
+     widest one. */
+  .kicker {
+    display: inline;
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-strip);
     background: var(--color-block);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
     font-size: var(--text-kicker);
     font-weight: 400;
-    /* Uppercase mono has no descenders, so a unit line-height centres the caps in the strip. */
-    line-height: 1;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-block-gold);
@@ -205,9 +215,10 @@ function densitiesFor(renderWidth: number): number[] {
       height: var(--block-height-phone);
     }
 
-    /* The artifact sits at the right edge, so the word and kicker keep to the left half. */
+    /* The artifact takes the right 46% of the block; the title stops short of it, strip
+       padding included. */
     .title {
-      max-width: 52%;
+      max-width: 38%;
     }
 
     .word,
@@ -215,8 +226,10 @@ function densitiesFor(renderWidth: number): number[] {
       font-size: var(--text-word-phone);
     }
 
+    /* The half-width column wraps the kicker to several lines; a smaller size keeps it short
+       of the artifact above it. */
     .kicker {
-      max-width: 100%;
+      font-size: var(--text-kicker-phone);
     }
 
     .caption {

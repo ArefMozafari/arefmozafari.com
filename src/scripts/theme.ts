@@ -66,10 +66,15 @@ function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
   }
 }
 
+/// Wires every switch on the page once; switches kept across in-page navigations are skipped.
 function wireSwitches(): void {
   const switches = [...document.querySelectorAll<HTMLElement>(SWITCH_SELECTOR)];
   reflect(switches, readStored());
   for (const switchElement of switches) {
+    if (switchElement.dataset.themeWired) {
+      continue;
+    }
+    switchElement.dataset.themeWired = 'true';
     for (const option of switchElement.querySelectorAll<HTMLElement>(OPTION_SELECTOR)) {
       option.addEventListener('click', () => {
         const setting = settingFromOption(option.dataset.themeOption);
@@ -82,5 +87,8 @@ function wireSwitches(): void {
 }
 
 if (typeof document !== 'undefined') {
-  wireSwitches();
+  document.addEventListener('astro:page-load', wireSwitches);
+  // An in-page navigation swaps the root element's attributes for the new page's, which
+  // never carry the stored choice; put it back before the new page paints.
+  document.addEventListener('astro:after-swap', () => applyToDocument(readStored()));
 }

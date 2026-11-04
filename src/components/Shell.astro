@@ -14,7 +14,8 @@ const { years, nameAsHeading = true } = Astro.props;
 
 <div class="shell" id="top">
   <MobileHeader sections={SECTIONS} />
-  <aside class="aside">
+  {/* Kept across in-page navigations, so the portrait and name never repaint between pages. */}
+  <aside class="aside" transition:persist="sidebar">
     <Sidebar years={years} sections={SECTIONS} nameAsHeading={nameAsHeading} />
   </aside>
   <main class="main">
