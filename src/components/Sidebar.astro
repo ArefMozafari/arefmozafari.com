@@ -46,10 +46,10 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     years shipping production apps, SDKs, tools and plugins.
   </p>
 
-  <p class="avail label">
-    <i aria-hidden="true"></i>
-    <span class="avail-text">Open to remote roles</span>
-  </p>
+  <dl class="file label">
+    <dt>Status</dt>
+    <dd>Open to remote roles</dd>
+  </dl>
 
   <nav class="nav" aria-label="Sections">
     {sections.map((section) => (
@@ -159,33 +159,25 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-body);
   }
 
-  /* An outlined tag in the section-label style, squared to the strip radius like the kickers;
-     the green dot carries the status. */
-  .avail {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    width: max-content;
-    margin-top: var(--space-5);
-    padding: var(--space-2) var(--space-3);
-    border: var(--rule-strong);
-    border-radius: var(--radius-strip);
-    /* Uppercase mono has no descenders, so a unit line-height centres the caps in the tag. */
-    line-height: 1;
+  /* The file header: key and value rows in the section-label style under a hairline, the
+     way a case file carries its status. Keys muted, values in ink. */
+  .file {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--space-4);
+    row-gap: var(--space-2);
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: var(--hairline);
+  }
+
+  .file dt,
+  .file dd {
+    margin: 0;
+  }
+
+  .file dd {
     color: var(--color-ink);
-  }
-
-  /* The dot sits on the centre line; the caps come down to meet it. */
-  .avail-text {
-    position: relative;
-    top: var(--cap-nudge);
-  }
-
-  .avail i {
-    width: var(--dot);
-    height: var(--dot);
-    border-radius: 50%;
-    background: var(--color-green);
   }
 
   .nav {
@@ -224,7 +216,7 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   }
 
   /* Below the desktop breakpoint the compact header carries the portrait, the menu and
-     the contact links, so the column keeps only the name, the role and the availability. */
+     the contact links, so the column keeps only the name, the role and the status row. */
   .scheme {
     margin-top: var(--space-3);
   }

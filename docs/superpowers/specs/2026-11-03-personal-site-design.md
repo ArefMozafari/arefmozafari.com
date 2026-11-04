@@ -56,7 +56,8 @@ sticky column has no good mobile collapse) are addressed below.
 Canvas `#EFE9DC` (warm cream). Ink `#15120C`. Muted ink `#5A5244`. Deep gold `#8A6F3C`
 (links, the only accent on cream). Block charcoal `#1A160F` with halftone dots in gold
 `rgba(224,185,92,.55)` or cream `rgba(245,241,232,.35)`, 9px grid. Block ink `#F5F1E8`,
-block kicker gold `#E0B95C`. Availability green `#3F8A4C`. Hairline `rgba(21,18,12,.2)`,
+block kicker gold `#E0B95C`. Success green `#3F8A4C` (the demo's rule ticks only, since the
+status row dropped its dot). Hairline `rgba(21,18,12,.2)`,
 strong rule `1.5px #15120C`. These come from the owner's LinkedIn brand system; the cream
 canvas is the inversion of its charcoal canvas, chosen so the site is not another dark page.
 
@@ -92,12 +93,12 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
 ### Layout
 
 Desktop (≥ 1024px): two columns. Left column 320px, sticky to the viewport: Latin name,
-Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, availability tag,
+Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, status row,
 vertical nav (Work, Open source, Posts, Contact), contact links pinned to the bottom. Right
 column scrolls. Active nav item follows the section in view.
 
 Phone (< 768px): the column collapses to a compact header (small square portrait, status
-text, menu), then the name large, role, availability tag, and the same sections stacked. A fixed bottom
+text, menu), then the name large, role, status row, and the same sections stacked. A fixed bottom
 bar holds "Email me" and "Résumé". Tablet between the two: single column, no bottom bar.
 
 ### Homepage sections, in order
@@ -187,9 +188,12 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 - Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
   apps, SDKs, tools and plugins." (Generalised from a list of domains on 2026-11-03 at the
   owner's request; "tools" added on 2026-11-04.)
-- Availability tag: "Open to remote roles", a green dot and section-label mono text in an
-  outlined tag with the strip radius (the rounded pill was dropped on 2026-11-04 as the one
-  chip on a page of strips and rules). The owner cannot relocate; never "open to relocation".
+- Status row: a one-row file header under the role line, "STATUS · Open to remote roles" in
+  section-label mono under a hairline, keys muted and values in ink. The green-dot badge was
+  dropped on 2026-11-04: a chip reading "open to work" is the most copied element on
+  portfolio sites, and a case file states its status as a field instead. More rows (based,
+  notice) can join it when the owner wants them public. The owner cannot relocate; never
+  "open to relocation".
 - Links open the real thing: store listings, pub.dev, GitHub, LinkedIn post. No dead
   controls. Anything unbuilt is hidden in production builds.
 

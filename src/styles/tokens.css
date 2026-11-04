@@ -23,7 +23,6 @@
   --color-block-ink: light-dark(#f5f1e8, #15120c);
   --color-block-ink-muted: light-dark(#a89f8d, #5a5244);
   --color-block-gold: light-dark(#e0b95c, #8a6f3c);
-  --color-green: #3f8a4c;
   --color-focus: rgba(224, 185, 92, 0.35);
   --shadow-poster: 0 12px 32px rgba(0, 0, 0, 0.35);
   /* How much gold sits over the grayscale portrait; 1 is the full duotone. */
@@ -75,9 +74,6 @@
   --leading-tight: 1.15;
   --leading-body: 1.5;
   --leading-kicker: 1.7;
-  /* The mono face leaves more room under its baseline than above its caps, so uppercase sits
-     this much above the centre of its line box; text set beside a dot moves down by it. */
-  --cap-nudge: 0.5px;
 
   /* Space. */
   --space-1: 4px;
