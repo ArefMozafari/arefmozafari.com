@@ -172,6 +172,11 @@ Almost none. Allowed: the live widget's own feedback as the visitor types; the a
 item colour change under 200ms; link underline colour on hover. Everything respects
 `prefers-reduced-motion`. Nothing animates on load or on scroll.
 
+Navigation between pages is in-page (Astro's ClientRouter, added 2026-11-04): the sidebar,
+the compact header and the bottom bar persist across pages, so the portrait and name never
+repaint when a post opens. The main column uses the router's default short cross-fade, which
+reduced-motion turns off. The page scripts run on every page load event and are idempotent.
+
 ## Content rules
 
 - Years of experience is computed, never typed: years since 2018-12-01, rounded to the

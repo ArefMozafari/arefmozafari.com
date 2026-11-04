@@ -1,5 +1,6 @@
 ---
 import { Font, getImage } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import portrait from '../assets/portrait.jpg';
 import { THEME_KEY } from '../scripts/theme';
@@ -125,6 +126,7 @@ const graph = {
     <meta name="twitter:image:alt" content={shareImage.alt} />
     <Font cssVariable="--font-display" preload />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    <ClientRouter />
   </head>
   <body>
     <slot />

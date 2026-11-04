@@ -12,7 +12,7 @@ interface Props {
 const { sections } = Astro.props;
 ---
 
-<header class="mobile-header">
+<header class="mobile-header" transition:persist="mobile-header">
   <a class="home" href="#top" aria-label="Top of page">
     <Image src={portrait} alt="" width={80} loading="eager" />
   </a>

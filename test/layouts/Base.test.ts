@@ -80,4 +80,13 @@ describe('Base', () => {
 
     expect(html.match(/<h1\b/g)?.length).toBe(1);
   });
+
+  it('should navigate in page and keep the sidebar, header and bottom bar across pages', async () => {
+    const html = await render(IndexPage);
+
+    expect(html).toContain('<meta name="astro-view-transitions-enabled" content="true"');
+    expect(html).toMatch(/<aside[^>]*data-astro-transition-persist="sidebar"/);
+    expect(html).toMatch(/<header[^>]*data-astro-transition-persist="mobile-header"/);
+    expect(html).toMatch(/<nav[^>]*data-astro-transition-persist="bottom-bar"/);
+  });
 });
