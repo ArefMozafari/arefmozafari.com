@@ -92,12 +92,12 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
 ### Layout
 
 Desktop (≥ 1024px): two columns. Left column 320px, sticky to the viewport: Latin name,
-Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, availability pill,
+Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, availability tag,
 vertical nav (Work, Open source, Posts, Contact), contact links pinned to the bottom. Right
 column scrolls. Active nav item follows the section in view.
 
 Phone (< 768px): the column collapses to a compact header (small square portrait, status
-text, menu), then the name large, role, pill, and the same sections stacked. A fixed bottom
+text, menu), then the name large, role, availability tag, and the same sections stacked. A fixed bottom
 bar holds "Email me" and "Résumé". Tablet between the two: single column, no bottom bar.
 
 ### Homepage sections, in order
@@ -187,8 +187,9 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 - Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
   apps, SDKs, tools and plugins." (Generalised from a list of domains on 2026-11-03 at the
   owner's request; "tools" added on 2026-11-04.)
-- Availability pill: "Open to remote roles". The owner cannot relocate; never "open to
-  relocation".
+- Availability tag: "Open to remote roles", a green dot and section-label mono text in an
+  outlined tag with the strip radius (the rounded pill was dropped on 2026-11-04 as the one
+  chip on a page of strips and rules). The owner cannot relocate; never "open to relocation".
 - Links open the real thing: store listings, pub.dev, GitHub, LinkedIn post. No dead
   controls. Anything unbuilt is hidden in production builds.
 

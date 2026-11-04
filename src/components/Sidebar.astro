@@ -46,7 +46,7 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     years shipping production apps, SDKs, tools and plugins.
   </p>
 
-  <p class="avail">
+  <p class="avail label">
     <i aria-hidden="true"></i>Open to remote roles
   </p>
 
@@ -158,6 +158,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     line-height: var(--leading-body);
   }
 
+  /* An outlined tag in the section-label style, squared to the strip radius like the kickers;
+     the green dot carries the status. */
   .avail {
     display: inline-flex;
     align-items: center;
@@ -166,8 +168,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     margin-top: var(--space-5);
     padding: var(--space-2) var(--space-3);
     border: var(--rule-strong);
-    border-radius: var(--radius-pill);
-    font-size: var(--text-note);
+    border-radius: var(--radius-strip);
+    color: var(--color-ink);
   }
 
   .avail i {
@@ -213,7 +215,7 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   }
 
   /* Below the desktop breakpoint the compact header carries the portrait, the menu and
-     the contact links, so the column keeps only the name, the role and the pill. */
+     the contact links, so the column keeps only the name, the role and the availability. */
   .scheme {
     margin-top: var(--space-3);
   }
