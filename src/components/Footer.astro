@@ -5,7 +5,10 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="footer mono muted">
-  <span>Aref Mozafari · {year}</span>
+  <span>
+    Aref Mozafari · {year} ·{' '}
+    <span lang="fa" dir="rtl">{SITE.nameFa}</span>
+  </span>
   <a href={SITE.repo} target="_blank" rel="noopener">
     Built by hand · source on GitHub ↗
   </a>
@@ -18,6 +21,11 @@ const year = new Date().getFullYear();
     gap: var(--space-4);
     margin-top: var(--space-8);
     font-size: var(--text-label);
+  }
+
+  /* The Persian name wraps as one unit, never split across lines. */
+  .footer [lang='fa'] {
+    white-space: nowrap;
   }
 
   .footer a {

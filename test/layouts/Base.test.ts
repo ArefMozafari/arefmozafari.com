@@ -89,6 +89,12 @@ describe('Base', () => {
     expect(html.match(/<h1\b/g)?.length).toBe(1);
   });
 
+  it('should carry the Persian name in the home title', async () => {
+    const html = await render(IndexPage);
+
+    expect(html).toContain(`<title>${SITE.name} · ${SITE.nameFa} · ${SITE.title} · `);
+  });
+
   it('should navigate in page and keep the sidebar, header and bottom bar across pages', async () => {
     const html = await render(IndexPage);
 

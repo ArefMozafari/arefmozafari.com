@@ -12,6 +12,12 @@ describe('Footer', () => {
     expect(await render(Footer)).toContain(`Aref Mozafari · ${new Date().getFullYear()}`);
   });
 
+  it('should show the Persian name as right-to-left Persian text', async () => {
+    const html = await render(Footer);
+
+    expect(html).toMatch(/<span lang="fa" dir="rtl"[^>]*>عارف مظفری<\/span>/);
+  });
+
   it('should carry no attribution to any tool', async () => {
     expect(await render(Footer)).not.toMatch(/claude|anthropic|generated/i);
   });
