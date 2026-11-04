@@ -134,7 +134,8 @@ function densitiesFor(renderWidth: number): number[] {
     left: var(--space-5);
     bottom: var(--space-4);
     z-index: var(--layer-label);
-    max-width: 48%;
+    /* Stops short of the wide poster's left edge, strip padding included. */
+    max-width: 45%;
   }
 
   .word {
