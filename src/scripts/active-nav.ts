@@ -13,6 +13,22 @@ function markActive(sectionId: string, links: HTMLAnchorElement[]): void {
   }
 }
 
+/// The scroll geometry the page-end rule reads, so the rule can be checked without a window.
+interface ScrollGeometry {
+  innerHeight: number;
+  scrollY: number;
+  scrollHeight: number;
+}
+
+// Browsers can stop a fraction of a pixel short of the bottom.
+const PAGE_END_TOLERANCE = 2;
+
+/// Whether the viewport has reached the bottom of the document, where the last section is the
+/// one being read however short it is.
+export function isAtPageEnd({ innerHeight, scrollY, scrollHeight }: ScrollGeometry): boolean {
+  return innerHeight + scrollY >= scrollHeight - PAGE_END_TOLERANCE;
+}
+
 let currentObserver: IntersectionObserver | undefined;
 
 /// Observes the homepage sections and keeps the sidebar nav in step with scrolling.
@@ -33,15 +49,18 @@ function watchSections(): void {
   }
   const visible = new Map<string, number>();
   const lastSection = sections[sections.length - 1];
-  // At the very end of the page the last section is the one being read, however short it is.
-  const isAtPageEnd = () =>
-    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  const atPageEnd = () =>
+    isAtPageEnd({
+      innerHeight: window.innerHeight,
+      scrollY: window.scrollY,
+      scrollHeight: document.documentElement.scrollHeight,
+    });
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         visible.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
       }
-      if (isAtPageEnd()) {
+      if (atPageEnd()) {
         markActive(lastSection.id, links);
         return;
       }
@@ -61,4 +80,6 @@ function watchSections(): void {
 }
 
 // Runs on the first load and after every in-page navigation; each page gets its own observer.
-document.addEventListener('astro:page-load', watchSections);
+if (typeof document !== 'undefined') {
+  document.addEventListener('astro:page-load', watchSections);
+}
