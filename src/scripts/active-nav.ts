@@ -30,6 +30,7 @@ export function isAtPageEnd({ innerHeight, scrollY, scrollHeight }: ScrollGeomet
 }
 
 let currentObserver: IntersectionObserver | undefined;
+let currentScrollWatch: AbortController | undefined;
 
 /// Observes the homepage sections and keeps the sidebar nav in step with scrolling.
 function watchSections(): void {
@@ -39,6 +40,7 @@ function watchSections(): void {
   // The previous page's observer would still report its removed sections as gone, and at the
   // end of a short page that reads as "last section", marking Contact on every post.
   currentObserver?.disconnect();
+  currentScrollWatch?.abort();
   const links = [...document.querySelectorAll<HTMLAnchorElement>(NAV_LINK_SELECTOR)];
   const sections = [...document.querySelectorAll<HTMLElement>(SECTION_SELECTOR)];
   if (sections.length === 0) {
@@ -55,28 +57,36 @@ function watchSections(): void {
       scrollY: window.scrollY,
       scrollHeight: document.documentElement.scrollHeight,
     });
+  const markCurrent = () => {
+    if (atPageEnd()) {
+      markActive(lastSection.id, links);
+      return;
+    }
+    const [topSection] = sections
+      .filter((section) => (visible.get(section.id) ?? 0) > 0)
+      .sort((first, second) => (visible.get(second.id) ?? 0) - (visible.get(first.id) ?? 0));
+    if (topSection) {
+      markActive(topSection.id, links);
+    }
+  };
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         visible.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
       }
-      if (atPageEnd()) {
-        markActive(lastSection.id, links);
-        return;
-      }
-      const [topSection] = sections
-        .filter((section) => (visible.get(section.id) ?? 0) > 0)
-        .sort((first, second) => (visible.get(second.id) ?? 0) - (visible.get(first.id) ?? 0));
-      if (topSection) {
-        markActive(topSection.id, links);
-      }
+      markCurrent();
     },
     { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 1] },
   );
   for (const section of sections) {
     observer.observe(section);
   }
+  // The last pixels of a scroll change no intersection, so the page-end rule would never run
+  // for a visitor who wheels down to the footer; every scroll re-checks it.
+  const scrollWatch = new AbortController();
+  window.addEventListener('scroll', markCurrent, { passive: true, signal: scrollWatch.signal });
   currentObserver = observer;
+  currentScrollWatch = scrollWatch;
 }
 
 // Runs on the first load and after every in-page navigation; each page gets its own observer.
