@@ -98,6 +98,8 @@
   /* Stacking inside a work block: labels sit above the artifact. */
   --layer-artifact: 1;
   --layer-label: 2;
+  /* Floating surfaces such as the phone menu sit above every block and label. */
+  --layer-overlay: 3;
 
   /* Shapes. */
   --radius-block: 10px;
