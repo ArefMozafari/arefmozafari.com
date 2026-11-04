@@ -76,8 +76,8 @@ deploys with `cloudflare/wrangler-action`.
    **Cloudflare Pages: Edit** on this account).
 3. In the Cloudflare dashboard open Workers & Pages → `arefmozafari-com` → Custom domains and
    add `arefmozafari.com` and `www.arefmozafari.com`. The nameservers are already on
-   Cloudflare, so the records are created in place. Do not touch the MX records; mail stays on
-   iCloud.
+   Cloudflare, so the records are created in place. `public/_redirects` sends `www` to the
+   apex permanently. Do not touch the MX records; mail stays on iCloud.
 4. Push `main`. The first run creates the production deployment; pull requests appear at
    `<branch>.arefmozafari-com.pages.dev`.
 

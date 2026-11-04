@@ -1,6 +1,7 @@
 # Builds the Flutter demo and the Astro site, verifies both, and deploys to Cloudflare Pages.
 # Pushes to main deploy production; pull requests deploy a preview under the branch alias;
-# the weekly run refreshes the GitHub and pub.dev counts without a code change.
+# the weekly run refreshes the upstream pull request's state and the years counter without a
+# code change.
 name: deploy
 
 on:
