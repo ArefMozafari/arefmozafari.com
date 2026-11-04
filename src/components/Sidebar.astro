@@ -169,6 +169,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     padding: var(--space-2) var(--space-3);
     border: var(--rule-strong);
     border-radius: var(--radius-strip);
+    /* Uppercase mono has no descenders, so a unit line-height centres the caps in the tag. */
+    line-height: 1;
     color: var(--color-ink);
   }
 
