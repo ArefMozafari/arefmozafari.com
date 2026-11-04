@@ -32,7 +32,7 @@ const openSourceRows = await buildOpenSourceRows(repos);
 const posts = await getCollection('posts');
 ---
 
-<Base title={`${SITE.name} · ${SITE.title} · ${SITE.stack}`} description={SITE.description}>
+<Base title={`${SITE.name} · ${SITE.nameFa} · ${SITE.title} · ${SITE.stack}`} description={SITE.description}>
   <Shell years={years}>
     <section id="work" aria-label="Work">
       <Lead />
