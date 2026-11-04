@@ -65,6 +65,7 @@
   --text-note: 13px;
   --text-label: 12px;
   --text-kicker: 14px;
+  --text-kicker-phone: 12px;
   --text-contact-link: 22px;
   --tracking-name: -0.04em;
   --tracking-word: -0.05em;
@@ -73,6 +74,7 @@
   --leading-name: 0.9;
   --leading-tight: 1.15;
   --leading-body: 1.5;
+  --leading-kicker: 1.7;
 
   /* Space. */
   --space-1: 4px;
@@ -108,7 +110,8 @@
   --poster-width: 300px;
   --poster-width-phone: 46%;
   --poster-width-wide: 400px;
-  --poster-width-wide-phone: 50%;
+  --poster-width-wide-tablet: 44%;
+  --poster-width-wide-phone: 46%;
   --block-height: 320px;
   --block-height-phone: 236px;
   --phone-width: 196px;
