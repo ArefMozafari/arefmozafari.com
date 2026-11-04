@@ -75,6 +75,9 @@
   --leading-tight: 1.15;
   --leading-body: 1.5;
   --leading-kicker: 1.7;
+  /* The mono face leaves more room under its baseline than above its caps, so uppercase sits
+     this much above the centre of its line box; text set beside a dot moves down by it. */
+  --cap-nudge: 0.5px;
 
   /* Space. */
   --space-1: 4px;

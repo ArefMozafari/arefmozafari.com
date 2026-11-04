@@ -47,7 +47,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
   </p>
 
   <p class="avail label">
-    <i aria-hidden="true"></i>Open to remote roles
+    <i aria-hidden="true"></i>
+    <span class="avail-text">Open to remote roles</span>
   </p>
 
   <nav class="nav" aria-label="Sections">
@@ -172,6 +173,12 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     /* Uppercase mono has no descenders, so a unit line-height centres the caps in the tag. */
     line-height: 1;
     color: var(--color-ink);
+  }
+
+  /* The dot sits on the centre line; the caps come down to meet it. */
+  .avail-text {
+    position: relative;
+    top: var(--cap-nudge);
   }
 
   .avail i {
