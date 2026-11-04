@@ -91,6 +91,8 @@
   --main-padding: 40px;
   --measure-lead: 560px;
   --measure-post: 640px;
+  /* A posts column never drops below this; wide screens add columns instead of stretching. */
+  --post-column-min: 480px;
   --caption-number-width: 44px;
   --caption-number-width-phone: 30px;
   --underline-offset-large: 4px;

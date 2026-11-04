@@ -42,6 +42,17 @@ describe('PostCard', () => {
     expect(html).not.toContain('aspect-ratio');
   });
 
+  it('should tell the browser the real column width and offer the full-size graphic', async () => {
+    const html = await render(PostCard, { post });
+    const sizes = html.match(/sizes="([^"]*)"/)?.[1] ?? '';
+
+    expect(sizes).toContain('(min-width: 2416px) calc(25vw - 124px)');
+    expect(sizes).toContain('(min-width: 1912px) calc(33.33vw - 158px)');
+    expect(sizes).toContain('(min-width: 1024px) calc(50vw - 212px)');
+    expect(sizes).toContain('(min-width: 768px) calc(50vw - 52px)');
+    expect(html).toMatch(/1200w|w=1200/);
+  });
+
   it('should name LinkedIn in the outbound link text', async () => {
     expect(await render(PostCard, { post })).toContain('On LinkedIn ↗');
   });

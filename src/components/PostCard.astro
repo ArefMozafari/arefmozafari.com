@@ -15,6 +15,21 @@ const { post } = Astro.props;
 const monthFormat = new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' });
 const month = monthFormat.format(post.data.date);
 const pagePath = `/posts/${post.id}/`;
+
+// The widths the browser can choose from; the last one is the graphics' native size.
+const GRAPHIC_WIDTHS = [480, 960, 1200];
+// One grid column, from the shell's layout and the posts grid: the viewport minus the sidebar
+// and the main padding (desktop) or the padding alone (tablet), minus the gaps, over the
+// column count, which grows at the grid's breakpoints. Phones get the full viewport. A
+// `sizes` value cannot read tokens, so the numbers are spelled out here and the test pins
+// them.
+const GRAPHIC_SIZES = [
+  '(min-width: 2416px) calc(25vw - 124px)',
+  '(min-width: 1912px) calc(33.33vw - 158px)',
+  '(min-width: 1024px) calc(50vw - 212px)',
+  '(min-width: 768px) calc(50vw - 52px)',
+  '100vw',
+].join(', ');
 ---
 
 <article class="post">
@@ -22,8 +37,8 @@ const pagePath = `/posts/${post.id}/`;
     <Image
       src={post.data.graphic}
       alt={post.data.alt}
-      widths={[480, 960]}
-      sizes="(min-width: 768px) 440px, 100vw"
+      widths={GRAPHIC_WIDTHS}
+      sizes={GRAPHIC_SIZES}
       loading="lazy"
     />
   </a>
