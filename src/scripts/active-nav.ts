@@ -13,14 +13,22 @@ function markActive(sectionId: string, links: HTMLAnchorElement[]): void {
   }
 }
 
+let currentObserver: IntersectionObserver | undefined;
+
 /// Observes the homepage sections and keeps the sidebar nav in step with scrolling.
 function watchSections(): void {
   if (typeof IntersectionObserver === 'undefined') {
     return;
   }
+  // The previous page's observer would still report its removed sections as gone, and at the
+  // end of a short page that reads as "last section", marking Contact on every post.
+  currentObserver?.disconnect();
   const links = [...document.querySelectorAll<HTMLAnchorElement>(NAV_LINK_SELECTOR)];
   const sections = [...document.querySelectorAll<HTMLElement>(SECTION_SELECTOR)];
-  if (links.length === 0 || sections.length === 0) {
+  if (sections.length === 0) {
+    // A page without sections, such as a post, marks nothing; the nav is kept from the
+    // previous page and would otherwise still show its last mark.
+    markActive('', links);
     return;
   }
   const visible = new Map<string, number>();
@@ -49,6 +57,8 @@ function watchSections(): void {
   for (const section of sections) {
     observer.observe(section);
   }
+  currentObserver = observer;
 }
 
-watchSections();
+// Runs on the first load and after every in-page navigation; each page gets its own observer.
+document.addEventListener('astro:page-load', watchSections);

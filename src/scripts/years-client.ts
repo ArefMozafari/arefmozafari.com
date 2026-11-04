@@ -28,5 +28,5 @@ function correctAllYears(): void {
 }
 
 if (typeof document !== 'undefined') {
-  correctAllYears();
+  document.addEventListener('astro:page-load', correctAllYears);
 }
