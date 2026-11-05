@@ -9,12 +9,11 @@ export const SITE = {
   linkedin: 'https://www.linkedin.com/in/aref-mozafari',
   github: 'https://github.com/ArefMozafari',
   repo: 'https://github.com/ArefMozafari/arefmozafari.com',
-  /// Other pages that are verifiably the same person, for the Person entity's sameAs.
-  profiles: [
-    'https://pub.dev/publishers/arefmozafari.com/packages',
-    'https://pub.dev/packages/flutter_pw_validator',
-    'https://pub.dev/packages/password_rules',
-  ],
+  /**
+   * Other pages that are verifiably the same person, for the Person entity's sameAs. Profile
+   * pages only: a package page is a thing made, not a page about the maker.
+   */
+  profiles: ['https://pub.dev/publishers/arefmozafari.com/packages'],
   knowsAbout: ['Flutter', 'Dart', 'iOS', 'Android', 'Rust', 'Go'],
   careerStart: new Date('2018-12-01'),
   /** The résumé opens in the browser; its file name says whose it is when it is saved. */
