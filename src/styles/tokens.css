@@ -141,9 +141,11 @@
   --demo-start-offset: 30%;
   --dot: 8px;
 
-  /* Motion: the only two transitions on the site. */
+  /* Motion: the only transitions on the site. */
   --motion-fast: 150ms;
   --motion-ease: ease-out;
+  /* The cross-fade between schemes when the visitor presses the switch. */
+  --motion-scheme: 250ms;
 
   /* Follows the system until the visitor picks a scheme with the switch. */
   color-scheme: light dark;

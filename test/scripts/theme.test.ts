@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  crossfade,
   resolveTheme,
   settingFromOption,
   THEME_KEY,
@@ -43,6 +44,43 @@ describe('themeColorMedia', () => {
   it('should apply the chosen scheme colour everywhere and silence the other', () => {
     expect(themeColorMedia('light', 'light')).toBe('all');
     expect(themeColorMedia('dark', 'light')).toBe('not all');
+  });
+});
+
+describe('crossfade', () => {
+  /** The root element as the fade sees it, recording the marker's comings and goings. */
+  function fakeRoot(order: string[]) {
+    return {
+      setAttribute: (name: string) => order.push(`mark ${name}`),
+      removeAttribute: (name: string) => order.push(`unmark ${name}`),
+    };
+  }
+
+  it('should mark the root, run the change inside the view transition, then unmark', async () => {
+    const order: string[] = [];
+    const startViewTransition = (update: () => void) => {
+      order.push('start');
+      update();
+      return { finished: Promise.resolve() };
+    };
+
+    crossfade(() => order.push('change'), startViewTransition, fakeRoot(order));
+    await Promise.resolve();
+
+    expect(order).toEqual([
+      'mark data-scheme-change',
+      'start',
+      'change',
+      'unmark data-scheme-change',
+    ]);
+  });
+
+  it('should run the change at once, unmarked, where the browser offers no view transition', () => {
+    const order: string[] = [];
+
+    crossfade(() => order.push('change'), undefined, fakeRoot(order));
+
+    expect(order).toEqual(['change']);
   });
 });
 
