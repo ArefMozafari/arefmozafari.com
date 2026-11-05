@@ -6,7 +6,7 @@ import portrait from '../assets/portrait.jpg';
 import { THEME_KEY } from '../scripts/theme';
 import { SITE } from '../site';
 
-/// A share image with the dimensions and alt text that card scrapers read.
+/** A share image with the dimensions and alt text that card scrapers read. */
 interface ShareImage {
   src: string;
   width: number;
@@ -14,7 +14,7 @@ interface ShareImage {
   alt: string;
 }
 
-/// A post page: adds the article tags and a BlogPosting node by the owner.
+/** A post page: adds the article tags and a BlogPosting node by the owner. */
 interface Article {
   title: string;
   date: Date;
@@ -25,7 +25,7 @@ interface Props {
   title: string;
   description: string;
   article?: Article;
-  /// Pages that must not be indexed, such as the 404, get the robots tag and no canonical.
+  /** Pages that must not be indexed, such as the 404, get the robots tag and no canonical. */
   noindex?: boolean;
 }
 

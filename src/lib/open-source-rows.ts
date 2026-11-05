@@ -10,7 +10,7 @@ export type RepoData = {
   note?: string;
 };
 
-/// How a pull request's state is fetched; injected so tests never reach the network.
+/** How a pull request's state is fetched; injected so tests never reach the network. */
 export type PullRequestStateFetcher = (
   fullName: string,
   number: number,
@@ -22,7 +22,7 @@ const PULL_REQUEST_STATE_TEXT: Record<PullRequestState, string> = {
   closed: 'closed',
 };
 
-/// Appends the live pull request state to the row's note when it is known.
+/** Appends the live pull request state to the row's note when it is known. */
 function noteWithState(
   note: string | undefined,
   state: PullRequestState | null,
@@ -33,7 +33,7 @@ function noteWithState(
   return note ? `${note} · ${PULL_REQUEST_STATE_TEXT[state]}` : PULL_REQUEST_STATE_TEXT[state];
 }
 
-/// Turns one repo entry into a row, fetching the pull request state when the entry names one.
+/** Turns one repo entry into a row, fetching the pull request state when the entry names one. */
 async function toRow(repo: RepoData, fetchState: PullRequestStateFetcher): Promise<OpenSourceRow> {
   const pullRequest = repo.pullRequest ? parsePullRequest(repo.pullRequest) : undefined;
   const state = pullRequest ? await fetchState(pullRequest.fullName, pullRequest.number) : null;
@@ -45,13 +45,15 @@ async function toRow(repo: RepoData, fetchState: PullRequestStateFetcher): Promi
   };
 }
 
-/// Under the test runner the pages render with the plain notes: a unit suite never waits on
-/// GitHub, and a stub cannot be passed through a page render.
+/**
+ * Under the test runner the pages render with the plain notes: a unit suite never waits on
+ * GitHub, and a stub cannot be passed through a page render.
+ */
 const defaultFetcher: PullRequestStateFetcher = process.env.VITEST
   ? () => Promise.resolve(null)
   : (fullName, number) => fetchPullRequestState(fullName, number);
 
-/// Builds the open-source rows for the homepage, in the order given.
+/** Builds the open-source rows for the homepage, in the order given. */
 export function buildOpenSourceRows(
   repos: RepoData[],
   fetchState: PullRequestStateFetcher = defaultFetcher,

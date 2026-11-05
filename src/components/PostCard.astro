@@ -5,8 +5,10 @@ import { linkedinUrl, type postSchema } from '../content/schemas';
 
 type PostData = z.infer<ReturnType<typeof postSchema>>;
 
-/// One post in the grid: the real graphic at its own aspect ratio, the hook line,
-/// the month, and a link to the LinkedIn original.
+/**
+ * One post in the grid: the real graphic at its own aspect ratio, the hook line,
+ * the month, and a link to the LinkedIn original.
+ */
 interface Props {
   post: { id: string; data: PostData };
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { closeOnNavigation } from '../../src/scripts/mobile-menu';
 
-/// A details element with its links, as plain objects: no DOM is needed to check the wiring.
+/** A details element with its links, as plain objects: no DOM is needed to check the wiring. */
 function fakeMenu(linkCount: number) {
   const handlers: Array<() => void> = [];
   const links = Array.from({ length: linkCount }, () => ({

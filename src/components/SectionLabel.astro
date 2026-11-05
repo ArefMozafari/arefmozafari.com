@@ -1,6 +1,9 @@
 ---
-/// A mono, uppercase section label with an optional quiet note on the right.
-/// `sign` puts this section's gold mark, a small dot, in front of the title.
+/**
+ * A mono, uppercase section label with an optional quiet note on the right. The note is a
+ * sibling of the heading, not part of it, so assistive readers announce the title alone.
+ * `sign` puts this section's gold mark, a small dot, in front of the title.
+ */
 interface Props {
   title: string;
   note?: string;

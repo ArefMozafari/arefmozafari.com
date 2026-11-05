@@ -6,8 +6,10 @@ export type OpenSourceRow = {
   note?: string;
 };
 
-/// A compact two-column grid of the open-source work: the name, one line on what it is,
-/// and a note where one applies (the live state of an upstream pull request).
+/**
+ * A compact two-column grid of the open-source work: the name, one line on what it is,
+ * and a note where one applies (the live state of an upstream pull request).
+ */
 interface Props {
   rows: OpenSourceRow[];
 }

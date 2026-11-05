@@ -2,8 +2,10 @@ import { yearsSince } from '../lib/years';
 
 const YEARS_SELECTOR = '[data-years][data-career-start]';
 
-/// Rewrites the rendered years when the build-time value has gone stale.
-/// Returns true only when the text changed.
+/**
+ * Rewrites the rendered years when the build-time value has gone stale.
+ * Returns true only when the text changed.
+ */
 export function correctYears(
   element: { textContent: string | null },
   start: Date,
@@ -17,7 +19,7 @@ export function correctYears(
   return true;
 }
 
-/// Corrects every years element on the page from its own start-date attribute.
+/** Corrects every years element on the page from its own start-date attribute. */
 function correctAllYears(): void {
   for (const element of document.querySelectorAll<HTMLElement>(YEARS_SELECTOR)) {
     const start = new Date(element.dataset.careerStart ?? '');

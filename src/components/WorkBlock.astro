@@ -9,9 +9,11 @@ import PosterFrame from './PosterFrame.astro';
 
 type Work = z.infer<ReturnType<typeof workSchema>>;
 
-/// One homepage block: halftone image with the product name as the big word (and the
-/// block's heading), one real artifact, then a caption row with the description
-/// (default slot) and the receipts.
+/**
+ * One homepage block: halftone image with the product name as the big word (and the
+ * block's heading), one real artifact, then a caption row with the description
+ * (default slot) and the receipts.
+ */
 interface Props {
   work: Work;
   index: number;
@@ -30,7 +32,7 @@ const POSTER_WIDTH = 940;
 const PHONE_WIDTH = 340;
 const DESKTOP_WIDTH = 840;
 
-/// A 2x candidate only when the source has the pixels; otherwise Astro would list the same file twice.
+/** A 2x candidate only when the source has the pixels; otherwise Astro would list the same file twice. */
 function densitiesFor(renderWidth: number): number[] {
   return image && image.width >= renderWidth * 2 ? [1, 2] : [1];
 }

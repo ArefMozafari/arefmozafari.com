@@ -4,12 +4,14 @@ import { describe, expect, it } from 'vitest';
 
 const COMPONENT_ROOTS = ['src/components', 'src/layouts', 'src/pages'];
 const RAW_COLOUR = /#[0-9a-fA-F]{3,8}\b|rgba?\(/;
-/// A type or stacking property set to anything but a token or a neutral keyword; a plain 0 is
-/// a reset, not a value.
+/**
+ * A type or stacking property set to anything but a token or a neutral keyword; a plain 0 is
+ * a reset, not a value.
+ */
 const RAW_TYPE_OR_LAYER =
   /^\s*(line-height|letter-spacing|z-index):(?!\s*(var\(|0;|inherit|normal))/;
 
-/// Every line of every .astro file under the component roots that matches the pattern.
+/** Every line of every .astro file under the component roots that matches the pattern. */
 function offendingLines(pattern: RegExp): string[] {
   return COMPONENT_ROOTS.flatMap(astroFiles).flatMap((file) =>
     readFileSync(file, 'utf8')
@@ -20,7 +22,7 @@ function offendingLines(pattern: RegExp): string[] {
   );
 }
 
-/// Lists every .astro file under the given roots.
+/** Lists every .astro file under the given roots. */
 function astroFiles(root: string): string[] {
   return readdirSync(root).flatMap((entry) => {
     const path = join(root, entry);
