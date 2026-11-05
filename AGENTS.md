@@ -7,12 +7,13 @@ visible: it holds the design decisions and the content rules.
 ## Project slots
 
 - **Verify command (the one that must pass):** `npm run verify`
-  (`astro check`, `vitest run`, `astro build`). The Flutter demo has its own:
+  (`astro check`, `prettier --check`, `vitest run`, `astro build`). The Flutter demo has its own:
   `cd demo && flutter analyze && flutter test`.
 - **Default branch:** `main`. **Merge style:** squash. Work on `feature/<kebab-description>`
   branches cut from `main`.
-- **Design system:** `src/styles/tokens.css`. Components never carry a raw colour, size, radius
-  or duration.
+- **Design system:** `src/styles/tokens.css`. Components never carry a raw colour, size, radius,
+  duration, line height, letter spacing or layer. `test/styles/tokens-only.test.ts` enforces the
+  colours, line heights, letter spacings and layers; the rest is held by review.
 - **Locales:** none. The site is English; the Persian name is the one `lang="fa"` element.
 - **Run target:** `GITHUB_TOKEN="$(gh auth token)" astro dev --background` (manage with
   `astro dev stop`, `astro dev status`, `astro dev logs`), then `http://localhost:4321`. The
@@ -36,7 +37,8 @@ visible: it holds the design decisions and the content rules.
 
 ## Conventions
 
-- Tests live under `test/` mirroring `src/`; one test file per source file; descriptions in
+- Tests live under `test/` mirroring `src/`; every module or component that carries logic or a
+  rule gets its own test file there (pure layout components and the pages do not); descriptions in
   the imperative (`should …`); every test inside a `describe` naming the function or
   component under test.
 - Full-word identifiers, comments above the line they describe, helpers defined above their

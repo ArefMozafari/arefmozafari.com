@@ -200,15 +200,18 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 ## How it is made
 
 - Astro, static output, zero client JavaScript except: the years correction, the active-nav
-  observer, and the embedded Flutter demo. Content collections for posts and case studies.
+  observer, the scheme switch, the demo start button, the phone menu, and the embedded Flutter
+  demo. Content collections for posts and case studies.
 - Build-time data: the upstream pull request's state from the GitHub REST API, fetched once
   per build; a failure leaves the plain note and must not fail the build. (Star and pub.dev
   counts were fetched too until 2026-11-03, when the owner dropped counts from the page.)
 - Flutter demo: a small Flutter web app in `demo/` depending on `flutter_pw_validator`
   (published 2.0.0), built with `flutter build web --release` and copied to `public/demo/`
-  in CI; the homepage embeds it in an `<iframe>` inside the phone frame, lazy-loaded, with a
-  static screenshot as the fallback when the iframe has not loaded or JS is off.
-- Fonts self-hosted under `public/fonts/`, preloaded, `font-display: swap`.
+  in CI; the homepage embeds it in an `<iframe>` inside the phone frame, started on approach
+  on desktop and by a button below desktop width (the bundle weighs several megabytes, so a
+  phone never loads it by scrolling past; changed 2026-11-05), with a static screenshot painted
+  under it until then and when JS is off.
+- Fonts through Astro's fonts API (`astro.config.mjs`), one preloaded variable woff2.
 - Hosting: Cloudflare Pages, connected to the GitHub repo `ArefMozafari/arefmozafari.com`,
   building on push to `main`, custom domain `arefmozafari.com` (nameservers are already on
   Cloudflare; mail stays on iCloud, do not touch MX). Preview deploys per branch.
@@ -231,7 +234,7 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 - Repository conventions follow the owner's global working agreement: feature branches
   from `main`, small bisectable commits, no AI attribution, tests first for logic (years
   computation, post loader, data fetch degradation), one combined verify command in
-  `package.json` (`npm run verify`: typecheck, lint, test, build).
+  `package.json` (`npm run verify`: typecheck, format check, test, build).
 
 ## Left to the builder
 
