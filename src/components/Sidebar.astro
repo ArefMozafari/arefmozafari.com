@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import NameFa from '../assets/name-fa.svg';
 import portrait from '../assets/portrait.jpg';
 import type { Section } from '../sections';
+import { isoDate } from '../lib/iso-date';
 import { SITE } from '../site';
 import ThemeSwitch from './ThemeSwitch.astro';
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const { years, sections, nameAsHeading = true } = Astro.props;
-const careerStart = SITE.careerStart.toISOString().slice(0, 10);
+const careerStart = isoDate(SITE.careerStart);
 const NameTag = nameAsHeading ? 'h1' : 'p';
 ---
 

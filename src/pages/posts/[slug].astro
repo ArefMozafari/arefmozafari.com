@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import Shell from '../../components/Shell.astro';
 import { linkedinUrl } from '../../content/schemas';
 import Base from '../../layouts/Base.astro';
+import { isoDate } from '../../lib/iso-date';
 import { describePost } from '../../lib/post-description';
 import { SITE } from '../../site';
 
@@ -50,7 +51,7 @@ const article = {
       </a>
       <h1 class="title">{post.data.title}</h1>
       <p class="meta mono muted">
-        <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
+        <time datetime={isoDate(post.data.date)}>{date}</time>
         {' · '}
         <a href={linkedinUrl(post.data.linkedinActivityId)} target="_blank" rel="noopener">
           First published on LinkedIn ↗

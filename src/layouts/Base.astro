@@ -3,6 +3,7 @@ import { Font, getImage } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import portrait from '../assets/portrait.jpg';
+import { isoDate } from '../lib/iso-date';
 import { THEME_KEY } from '../scripts/theme';
 import { SITE } from '../site';
 
@@ -37,7 +38,7 @@ const origin = Astro.site ?? SITE.domain;
 const canonical = new URL(Astro.url.pathname, origin).href;
 const shareImage = article?.image ?? SITE_CARD;
 const shareImageUrl = new URL(shareImage.src, origin).href;
-const publishedOn = article?.date.toISOString().slice(0, 10);
+const publishedOn = article && isoDate(article.date);
 
 const portraitImage = await getImage({ src: portrait, width: PORTRAIT_WIDTH, format: 'jpeg' });
 const personId = `${SITE.domain}/#person`;

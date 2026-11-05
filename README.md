@@ -43,7 +43,8 @@ cd demo && flutter analyze && flutter test
 - `src/content/` holds the content: works, posts, open-source rows, earlier work.
 - `src/styles/tokens.css` holds every visual value.
 - `src/lib/` holds the build-time logic: computed years, the pull request state, a per-process
-  memo so each remote is asked once per build, the post description and sitemap dates.
+  memo so each remote is asked once per build, the post description, calendar dates and
+  sitemap dates.
 - `src/scripts/` holds the little that runs in the browser: the years correction, the active
   section in the nav, the scheme switch, the demo start button, the phone menu.
 - `demo/` is the Flutter app behind the phone frame.
