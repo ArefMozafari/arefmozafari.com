@@ -78,6 +78,42 @@ function applyToDocument(setting: ThemeSetting): void {
   }
 }
 
+/** What the browser offers for a page-wide cross-fade; absent where unsupported. */
+export type StartViewTransition =
+  ((update: () => void) => { finished?: Promise<unknown> } | undefined | void) | undefined;
+
+/** The root element's part in the fade: it carries a marker while the fade runs. */
+interface MarkedRoot {
+  setAttribute(name: string, value: string): void;
+  removeAttribute(name: string): void;
+}
+
+const SCHEME_CHANGE_ATTRIBUTE = 'data-scheme-change';
+
+/**
+ * Runs a scheme change inside a view transition, so the old and new schemes cross-fade
+ * instead of snapping; without the API the change simply applies. The root carries a marker
+ * while the fade runs, which global.css uses to time this fade apart from page navigations.
+ */
+export function crossfade(
+  change: () => void,
+  startViewTransition: StartViewTransition,
+  root: MarkedRoot,
+): void {
+  if (!startViewTransition) {
+    change();
+    return;
+  }
+  root.setAttribute(SCHEME_CHANGE_ATTRIBUTE, '');
+  const done = () => root.removeAttribute(SCHEME_CHANGE_ATTRIBUTE);
+  const transition = startViewTransition(change);
+  if (transition?.finished) {
+    transition.finished.then(done, done);
+  } else {
+    done();
+  }
+}
+
 /** Presses the current option on every switch on the page. */
 function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
   const current = setting ?? 'system';
@@ -104,8 +140,14 @@ function wireSwitches(): void {
       option.addEventListener('click', () => {
         const setting = settingFromOption(option.dataset.themeOption);
         writeStored(setting);
-        applyToDocument(setting);
-        reflect(switches, setting);
+        crossfade(
+          () => {
+            applyToDocument(setting);
+            reflect(switches, setting);
+          },
+          document.startViewTransition?.bind(document),
+          document.documentElement,
+        );
       });
     }
   }

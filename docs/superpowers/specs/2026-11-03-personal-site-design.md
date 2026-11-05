@@ -171,7 +171,9 @@ block was removed on 2026-11-03 at the owner's request.
 ### Motion
 
 Almost none. Allowed: the live widget's own feedback as the visitor types; the active nav
-item colour change under 200ms; link underline colour on hover. Everything respects
+item colour change under 200ms; link underline colour on hover; a 250ms cross-fade of the
+whole page when the visitor presses the scheme switch (added 2026-11-05, through the View
+Transitions API, so browsers without it switch at once). Everything respects
 `prefers-reduced-motion`. Nothing animates on load or on scroll.
 
 Navigation between pages is in-page (Astro's ClientRouter, added 2026-11-04): the sidebar,

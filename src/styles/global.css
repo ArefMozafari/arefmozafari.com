@@ -96,10 +96,21 @@ img {
   vertical-align: 1px;
 }
 
+/* A scheme change cross-fades the whole page; the marker keeps this timing off the router's
+   page navigations, which share the same pseudo-elements. */
+:root[data-scheme-change]::view-transition-old(root),
+:root[data-scheme-change]::view-transition-new(root) {
+  animation-duration: var(--motion-scheme);
+  animation-timing-function: var(--motion-ease);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
-  *::after {
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
     transition: none !important;
     animation: none !important;
   }
