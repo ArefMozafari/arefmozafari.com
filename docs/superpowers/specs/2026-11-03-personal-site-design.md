@@ -220,7 +220,8 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   generated 1200×630 site card on the home page, the post's own graphic with `og:type`
   article on posts), JSON-LD graph with a `Person` (portrait, Persian `alternateName`,
   sameAs to LinkedIn, GitHub and pub.dev), a `WebSite`, and a `BlogPosting` by that person on
-  every post, sitemap with lastmod (post date from the slug, build date elsewhere), robots
+  every post, sitemap with lastmod (post date from the slug, the last commit's date
+  elsewhere, so the weekly rebuild claims no change), robots
   with `/demo/` disallowed, canonical URLs, the 404 and the `*.pages.dev` hosts noindexed,
   alt text on every graphic, each post its own URL. A post may carry `searchTitle` and
   `description` for the search snippet; the first paragraph stands in otherwise. Target
