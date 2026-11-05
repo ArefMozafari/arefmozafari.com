@@ -21,8 +21,9 @@ const { class: className, screenStyle } = Astro.props;
   .phone {
     position: absolute;
     right: var(--space-8);
-    /* Hangs off the bottom edge so its top clears the block's top edge by a few pixels. */
-    bottom: calc(var(--space-8) * -1);
+    /* Set from the block's top edge, so the gap above the phone is the one value; the phone is
+       taller than the block and hangs off the bottom, where the caption covers it. */
+    top: var(--phone-top);
     z-index: var(--layer-artifact);
     width: var(--phone-width);
     height: var(--phone-height);
@@ -55,8 +56,6 @@ const { class: className, screenStyle } = Astro.props;
   @media (max-width: 767px) {
     .phone {
       right: var(--space-4);
-      /* The phone block is short, so the frame hangs further off the bottom to keep its top in view. */
-      bottom: calc(var(--space-8) * -1);
       width: var(--phone-width-phone);
       height: var(--phone-height-phone);
     }

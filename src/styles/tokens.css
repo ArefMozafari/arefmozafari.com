@@ -128,6 +128,8 @@
   --phone-width: 196px;
   --phone-height: 372px;
   --phone-bezel: 6px;
+  /* The gap between the block's top edge and the phone's; the phone hangs off the bottom. */
+  --phone-top: var(--space-4);
   --window-max-width: 420px;
   --window-width: 60%;
   --window-width-phone: 46%;
