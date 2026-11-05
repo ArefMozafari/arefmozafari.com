@@ -13,10 +13,12 @@ interface Props {
 const { title, note, sign = false } = Astro.props;
 ---
 
-<h2 class="label section-label">
-  <span class:list={{ 'sign-dot': sign }}>{title}</span>
-  {note && <span class="note">{note}</span>}
-</h2>
+<div class="section-label">
+  <h2 class="label">
+    <span class:list={{ 'sign-dot': sign }}>{title}</span>
+  </h2>
+  {note && <p class="label note">{note}</p>}
+</div>
 
 <style>
   .section-label {
@@ -24,10 +26,15 @@ const { title, note, sign = false } = Astro.props;
     justify-content: space-between;
     gap: var(--space-4);
     margin: var(--space-9) 0 var(--space-3);
+  }
+
+  /* A label, not a display heading: the browser's bold for h2 is taken back. */
+  .section-label h2 {
     font-weight: 500;
   }
 
   .note {
+    margin: 0;
     font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
