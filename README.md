@@ -22,8 +22,9 @@ npm run build:demo
 ```
 
 The build step also prunes the renderers and symbol maps the demo never requests, which
-keeps the deploy small. The page starts the demo only once its block nears the viewport, so
-its bundle never competes with the first screens.
+keeps the deploy small. On desktop the page starts the demo once its block nears the
+viewport; narrower screens start it from a button, so its bundle never competes with the
+first screens.
 
 ## Verify
 
