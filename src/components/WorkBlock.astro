@@ -142,12 +142,12 @@ function densitiesFor(renderWidth: number): number[] {
     font-size: var(--text-word);
     font-weight: 800;
     letter-spacing: var(--tracking-word);
-    line-height: 1;
+    line-height: var(--leading-word);
   }
 
   .word--two {
     font-size: var(--text-word-two-lines);
-    line-height: 0.95;
+    line-height: var(--leading-display);
   }
 
   .kicker-row {
@@ -168,7 +168,7 @@ function densitiesFor(renderWidth: number): number[] {
     box-decoration-break: clone;
     font-size: var(--text-kicker);
     font-weight: 400;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-kicker);
     text-transform: uppercase;
     color: var(--color-block-gold);
   }
@@ -206,7 +206,7 @@ function densitiesFor(renderWidth: number): number[] {
     margin: 0;
     padding: 0;
     font-size: var(--text-note);
-    line-height: 1.7;
+    line-height: var(--leading-kicker);
     text-align: right;
   }
 

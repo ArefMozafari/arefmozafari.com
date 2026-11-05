@@ -45,11 +45,16 @@ async function toRow(repo: RepoData, fetchState: PullRequestStateFetcher): Promi
   };
 }
 
+/// Under the test runner the pages render with the plain notes: a unit suite never waits on
+/// GitHub, and a stub cannot be passed through a page render.
+const defaultFetcher: PullRequestStateFetcher = process.env.VITEST
+  ? () => Promise.resolve(null)
+  : (fullName, number) => fetchPullRequestState(fullName, number);
+
 /// Builds the open-source rows for the homepage, in the order given.
 export function buildOpenSourceRows(
   repos: RepoData[],
-  fetchState: PullRequestStateFetcher = (fullName, number) =>
-    fetchPullRequestState(fullName, number),
+  fetchState: PullRequestStateFetcher = defaultFetcher,
 ): Promise<OpenSourceRow[]> {
   return Promise.all(repos.map((repo) => toRow(repo, fetchState)));
 }

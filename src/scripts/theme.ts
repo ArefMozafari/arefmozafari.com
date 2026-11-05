@@ -9,6 +9,7 @@ export type ThemeSetting = ThemeChoice | null;
 
 const SWITCH_SELECTOR = '[data-theme-switch]';
 const OPTION_SELECTOR = '[data-theme-option]';
+const THEME_COLOR_SELECTOR = 'meta[name="theme-color"][data-scheme]';
 
 function isThemeChoice(value: string | null | undefined): value is ThemeChoice {
   return value === 'light' || value === 'dark';
@@ -47,12 +48,27 @@ function writeStored(setting: ThemeSetting): void {
   }
 }
 
-/// Puts the setting on the root element, where tokens.css reads it.
+/// The media query a browser-chrome colour tag for `scheme` should carry: the system query
+/// while nothing is chosen, otherwise only the chosen scheme's tag applies.
+export function themeColorMedia(scheme: ThemeChoice, setting: ThemeSetting): string {
+  if (setting === null) {
+    return `(prefers-color-scheme: ${scheme})`;
+  }
+  return scheme === setting ? 'all' : 'not all';
+}
+
+/// Puts the setting on the root element, where tokens.css reads it, and on the browser-chrome
+/// colour tags, which cannot read it.
 function applyToDocument(setting: ThemeSetting): void {
   if (setting === null) {
     delete document.documentElement.dataset.theme;
   } else {
     document.documentElement.dataset.theme = setting;
+  }
+  for (const meta of document.querySelectorAll<HTMLMetaElement>(THEME_COLOR_SELECTOR)) {
+    if (isThemeChoice(meta.dataset.scheme)) {
+      meta.media = themeColorMedia(meta.dataset.scheme, setting);
+    }
   }
 }
 
@@ -69,7 +85,10 @@ function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
 /// Wires every switch on the page once; switches kept across in-page navigations are skipped.
 function wireSwitches(): void {
   const switches = [...document.querySelectorAll<HTMLElement>(SWITCH_SELECTOR)];
-  reflect(switches, readStored());
+  const stored = readStored();
+  // The head script applied the root attribute before paint; the colour tags are synced here.
+  applyToDocument(stored);
+  reflect(switches, stored);
   for (const switchElement of switches) {
     if (switchElement.dataset.themeWired) {
       continue;

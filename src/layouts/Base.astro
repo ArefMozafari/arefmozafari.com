@@ -100,8 +100,14 @@ const graph = {
       name="theme-color"
       media="(prefers-color-scheme: light)"
       content={SITE.themeColor.light}
+      data-scheme="light"
     />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={SITE.themeColor.dark} />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content={SITE.themeColor.dark}
+      data-scheme="dark"
+    />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -137,6 +143,7 @@ const graph = {
       import '../scripts/active-nav';
       import '../scripts/theme';
       import '../scripts/demo-start';
+      import '../scripts/mobile-menu';
     </script>
   </body>
 </html>

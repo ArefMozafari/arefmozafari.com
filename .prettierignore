@@ -2,4 +2,5 @@ dist/
 .astro/
 public/demo/
 demo/build/
+demo/.dart_tool/
 package-lock.json
