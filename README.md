@@ -10,8 +10,9 @@ npm install
 GITHUB_TOKEN="$(gh auth token)" npm run dev
 ```
 
-The token is optional. Without it GitHub's anonymous rate limit can run out during a long dev
-session, and the upstream pull request's row loses its live state until the next build.
+The token is optional, and only matters while an open-source row names an upstream pull
+request (none does at present): without it GitHub's anonymous rate limit can run out during a
+long dev session, and that row loses its live state until the next build.
 
 The demo phone on the homepage embeds `public/demo/`, which is a Flutter web build. Build it
 once with Flutter 3.47.7 installed (the version CI pins; a newer one may lay the build out
@@ -56,14 +57,14 @@ cd demo && flutter analyze && flutter test
 ## What is live, and what is not
 
 Computed or fetched on every build, and refreshed by the weekly scheduled run: years of
-experience, the upstream pull request's state, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
+experience, the state of any upstream pull request a row names, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
 commit, or "Run workflow" on the Actions tab, turns the weekly refresh back on. Hand-maintained by design: the status row, the role line, the
 work descriptions, and new posts (one folder each under `src/content/posts/`).
 
 ## Deploy
 
 GitHub Actions (`.github/workflows/deploy.yml`) builds the demo and the site on every push to
-`main`, every pull request (preview), every Monday (fresh pull request state and years), and
+`main`, every pull request (preview), every Monday (fresh years and pull request state), and
 on demand, then deploys with `cloudflare/wrangler-action`.
 
 ### One-time hand-off
