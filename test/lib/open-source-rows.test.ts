@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { buildOpenSourceRows } from '../../src/lib/open-source-rows';
 
 const openState = async () => 'open' as const;
@@ -37,6 +37,24 @@ describe('buildOpenSourceRows', () => {
     );
 
     expect(row.note).toBe('PR #731');
+  });
+
+  it('should never reach the network under the test runner, even with the default fetcher', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+
+    const [row] = await buildOpenSourceRows([
+      {
+        name: 'n',
+        description: 'd',
+        url: 'https://x.y',
+        pullRequest: 'dart-lang/ai#731',
+        note: 'PR #731',
+      },
+    ]);
+
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(row.note).toBe('PR #731');
+    fetchSpy.mockRestore();
   });
 
   it('should leave rows without a pull request untouched, in the order given', async () => {
