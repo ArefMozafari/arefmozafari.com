@@ -17,8 +17,7 @@ export const SITE = {
   ],
   knowsAbout: ['Flutter', 'Dart', 'iOS', 'Android', 'Rust', 'Go'],
   careerStart: new Date('2018-12-01'),
-  /// The résumé is served and saved under a name that says whose it is.
-  resumeFileName: 'Aref-Mozafari-Senior-Mobile-Engineer.pdf',
+  /** The résumé opens in the browser; its file name says whose it is when it is saved. */
   resumePath: '/Aref-Mozafari-Senior-Mobile-Engineer.pdf',
   /**
    * Browser chrome colours per scheme; they mirror `--color-canvas` in tokens.css, which

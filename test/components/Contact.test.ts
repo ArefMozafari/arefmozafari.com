@@ -13,10 +13,10 @@ describe('Contact', () => {
     expect(html).toContain('href="/Aref-Mozafari-Senior-Mobile-Engineer.pdf"');
   });
 
-  it('should save the résumé under a name that says whose it is', async () => {
+  it('should open the résumé in the browser rather than force a save', async () => {
     const html = await render(Contact);
 
-    expect(html).toMatch(/download="Aref-Mozafari-Senior-Mobile-Engineer\.pdf"/);
+    expect(html).not.toMatch(/\sdownload[=\s>]/);
   });
 
   it('should open with the fixed heading', async () => {
