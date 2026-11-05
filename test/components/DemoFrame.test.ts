@@ -10,6 +10,14 @@ describe('DemoFrame', () => {
     expect(html).not.toMatch(/<iframe[^>]*\ssrc=/);
   });
 
+  it('should offer a button that starts the demo, over the fallback', async () => {
+    const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
+
+    expect(html).toMatch(
+      /<button[^>]*type="button"[^>]*data-demo-start[^>]*>\s*Run the live widget/,
+    );
+  });
+
   it('should keep a noscript image', async () => {
     const html = await render(DemoFrame, { fallbackAlt: 'The widget' });
 

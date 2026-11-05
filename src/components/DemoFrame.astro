@@ -4,7 +4,8 @@ import PhoneFrame from './PhoneFrame.astro';
 /// The real flutter_pw_validator widget, compiled to web, inside the phone chrome.
 /// A capture of the same widget is painted under the iframe, so the screen is never
 /// blank: it shows while Flutter loads and stays when scripts are off. The iframe carries
-/// its url in data-src; scripts/demo-start.ts starts it once the block is near the viewport.
+/// its url in data-src; scripts/demo-start.ts starts it on approach on desktop and from the
+/// button, shown only below desktop width, elsewhere.
 interface Props {
   fallbackAlt: string;
 }
@@ -17,6 +18,9 @@ const FALLBACK_PATH = '/demo-fallback.png';
 
 <PhoneFrame class="demo" screenStyle={`background-image: url('${FALLBACK_PATH}')`}>
   <iframe data-src={DEMO_PATH} title="Flutter Password Validator demo" data-demo></iframe>
+  <button class="start mono" type="button" data-demo-start>
+    Run the live widget
+  </button>
   <noscript>
     <img src={FALLBACK_PATH} alt={fallbackAlt} width="170" height="330" />
   </noscript>
@@ -27,9 +31,38 @@ const FALLBACK_PATH = '/demo-fallback.png';
     border-color: var(--color-ink);
   }
 
-  /* Without scripts the iframe would cover the painted fallback with a blank document. */
+  /* The start button sits over the screen, so the screen anchors it. */
+  :global(.demo .screen) {
+    position: relative;
+  }
+
+  .start {
+    position: absolute;
+    inset: auto var(--space-3) var(--demo-start-offset);
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    border-radius: var(--radius-strip);
+    background: var(--color-block);
+    color: var(--color-block-gold);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* Desktop starts the demo by itself; the button is for the widths that wait. */
+  @media (min-width: 1024px) {
+    .start {
+      display: none;
+    }
+  }
+
+  /* Without scripts the iframe would cover the painted fallback with a blank document, and
+     the button could start nothing. */
   @media (scripting: none) {
-    iframe {
+    iframe,
+    .start {
       display: none;
     }
   }

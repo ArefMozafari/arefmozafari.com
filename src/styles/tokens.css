@@ -127,6 +127,9 @@
   --portrait-small: 40px;
   /* The least height the sidebar portrait keeps when a short viewport squeezes the column. */
   --portrait-min-height: 180px;
+  /* Where the demo's start button sits up the phone screen: above the part that hangs under
+     the caption, below the rule list the fallback paints. */
+  --demo-start-offset: 30%;
   --dot: 8px;
 
   /* Motion: the only two transitions on the site. */
