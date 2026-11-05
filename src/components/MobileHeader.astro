@@ -17,7 +17,7 @@ const { sections } = Astro.props;
     <Image src={portrait} alt="" width={80} loading="eager" />
   </a>
   <span class="spacer" aria-hidden="true"></span>
-  <details class="menu">
+  <details class="menu" data-menu>
     <summary>Menu</summary>
     <nav aria-label="Sections">
       {sections.map((section) => (
