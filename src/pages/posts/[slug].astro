@@ -5,7 +5,6 @@ import Shell from '../../components/Shell.astro';
 import { linkedinUrl } from '../../content/schemas';
 import Base from '../../layouts/Base.astro';
 import { describePost } from '../../lib/post-description';
-import { yearsSince } from '../../lib/years';
 import { SITE } from '../../site';
 
 export async function getStaticPaths() {
@@ -18,7 +17,6 @@ const SHARE_IMAGE_WIDTH = 1200;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const years = yearsSince(SITE.careerStart, new Date());
 const dateFormat = new Intl.DateTimeFormat('en', {
   day: 'numeric',
   month: 'long',
@@ -45,7 +43,7 @@ const article = {
 ---
 
 <Base title={`${title} · ${SITE.name}`} description={description} article={article}>
-  <Shell years={years} nameAsHeading={false}>
+  <Shell nameAsHeading={false}>
     <article class="post">
       <a class="back mono muted" href="/#posts">
         ← Posts
