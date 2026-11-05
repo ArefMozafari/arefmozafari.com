@@ -1,6 +1,11 @@
-const MILLISECONDS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
-
-/// Returns whole years between two dates, rounded to the nearest year.
+/**
+ * Returns the whole years served between two dates: the count rises on each anniversary of
+ * the start and never before, so the page never claims a year that is not yet complete.
+ */
 export function yearsSince(start: Date, now: Date): number {
-  return Math.round((now.getTime() - start.getTime()) / MILLISECONDS_PER_YEAR);
+  const years = now.getUTCFullYear() - start.getUTCFullYear();
+  const beforeAnniversary =
+    now.getUTCMonth() < start.getUTCMonth() ||
+    (now.getUTCMonth() === start.getUTCMonth() && now.getUTCDate() < start.getUTCDate());
+  return beforeAnniversary ? years - 1 : years;
 }

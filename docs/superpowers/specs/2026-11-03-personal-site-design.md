@@ -180,9 +180,10 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 
 ## Content rules
 
-- Years of experience is computed, never typed: years since 2018-12-01, rounded to the
-  nearest whole year, computed at build with a one-line client correction so a stale build
-  still shows the right number.
+- Years of experience is computed, never typed: whole years served since 2018-12-01, rising
+  on each anniversary and never before (changed from nearest-year rounding on 2026-11-05),
+  computed at build with a one-line client correction so a stale build still shows the right
+  number.
 - Every number on the homepage is fetched or linked. If a source disappears, the row shows
   the link without the number rather than a stale number.
 - Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
