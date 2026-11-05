@@ -22,7 +22,14 @@
   --color-block: light-dark(#1a160f, #efe9dc);
   --color-block-ink: light-dark(#f5f1e8, #15120c);
   --color-block-gold: light-dark(#e0b95c, #8a6f3c);
-  --shadow-poster: 0 12px 32px rgba(0, 0, 0, 0.35);
+  /* The one shadow under every artifact in a block: poster, phone and browser window. On a
+     charcoal block (light scheme) a black shadow only shows where it sinks the halftone dots,
+     so it is full black with a faint cream ring at the edge; on a cream block (dark scheme) a
+     soft shadow is enough and the ring would show, so it is clear. */
+  --shadow-artifact:
+    0 0 0 1px var(--shadow-artifact-edge), 0 16px 36px var(--shadow-artifact-shade);
+  --shadow-artifact-edge: light-dark(rgba(245, 241, 232, 0.22), transparent);
+  --shadow-artifact-shade: light-dark(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.35));
   /* How much gold sits over the grayscale portrait; 1 is the full duotone. */
   --portrait-tint: 0.45;
 
