@@ -89,6 +89,13 @@ describe('Base', () => {
     expect(html.match(/<h1\b/g)?.length).toBe(1);
   });
 
+  it('should name the scheme on each browser-chrome colour so a stored choice can pick one', async () => {
+    const html = await render(Base, { title: 't', description: 'd' });
+
+    expect(html).toMatch(/<meta name="theme-color"[^>]*data-scheme="light"/);
+    expect(html).toMatch(/<meta name="theme-color"[^>]*data-scheme="dark"/);
+  });
+
   it('should carry the Persian name in the home title', async () => {
     const html = await render(IndexPage);
 

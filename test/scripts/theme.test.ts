@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { resolveTheme, settingFromOption, THEME_KEY } from '../../src/scripts/theme';
+import {
+  resolveTheme,
+  settingFromOption,
+  THEME_KEY,
+  themeColorMedia,
+} from '../../src/scripts/theme';
 
 describe('resolveTheme', () => {
   it('should follow the system when nothing is stored', () => {
@@ -26,6 +31,18 @@ describe('settingFromOption', () => {
 
   it('should treat an unknown option as system', () => {
     expect(settingFromOption('sepia')).toBeNull();
+  });
+});
+
+describe('themeColorMedia', () => {
+  it('should let each browser-chrome colour follow the system when nothing is chosen', () => {
+    expect(themeColorMedia('light', null)).toBe('(prefers-color-scheme: light)');
+    expect(themeColorMedia('dark', null)).toBe('(prefers-color-scheme: dark)');
+  });
+
+  it('should apply the chosen scheme colour everywhere and silence the other', () => {
+    expect(themeColorMedia('light', 'light')).toBe('all');
+    expect(themeColorMedia('dark', 'light')).toBe('not all');
   });
 });
 
