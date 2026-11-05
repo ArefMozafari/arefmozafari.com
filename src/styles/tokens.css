@@ -102,7 +102,9 @@
   --post-column-min: 480px;
   --caption-number-width: 44px;
   --caption-number-width-phone: 30px;
+  --underline-offset: 3px;
   --underline-offset-large: 4px;
+  --underline-thickness: 2px;
 
   /* Stacking inside a work block: labels sit above the artifact. */
   --layer-artifact: 1;

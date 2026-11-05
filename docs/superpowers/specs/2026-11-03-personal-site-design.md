@@ -229,7 +229,8 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   so the tile keeps its edge on dark tab bars. SVG first, 32px PNG and 180px touch icon as
   fallbacks. (Replaced the scaffold's framework logo on 2026-11-04.)
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
-  `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline, not body text),
+  `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline and for marks,
+  never for text on its own, the pressed scheme label included),
   reduced-motion honoured, Persian element marked `lang="fa" dir="rtl"`.
 - Repository conventions follow the owner's global working agreement: feature branches
   from `main`, small bisectable commits, no AI attribution, tests first for logic (years
