@@ -16,7 +16,7 @@ export const REQUIRED_ASSETS = [
   'public/demo/index.html',
 ];
 
-/// Returns the required paths that do not exist under the root directory.
+/** Returns the required paths that do not exist under the root directory. */
 export function missingAssets(rootDirectory, requiredPaths, existsImplementation = existsSync) {
   return requiredPaths.filter((path) => !existsImplementation(join(rootDirectory, path)));
 }

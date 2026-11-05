@@ -131,8 +131,9 @@ bar holds "Email me" and "Résumé". Tablet between the two: single column, no b
    numbers, no filler word.
 4. "Open source": a compact two-column grid of small cards, each the repo name, one line on
    what it is, and a link. No counts (owner's decision 2026-11-03: the numbers are not large
-   enough to carry weight). The upstream contribution row carries the pull request's live
-   state ("in review", "merged", "closed") fetched at build.
+   enough to carry weight). A row that names an upstream pull request carries its live state
+   ("in review", "merged", "closed") fetched at build; the dart-lang/ai row is held back until
+   its pull request merges (owner's decision 2026-11-05).
 5. "Posts": two-column grid of the posts that mattered, by reach or by concept: over a
    thousand impressions, or an own release (as of 2026-11-03: Ghost in the Droid, fpdart
    Either, the 700% hashing story, the pr-evidence release and its follow-up). Each card: the
@@ -180,9 +181,10 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 
 ## Content rules
 
-- Years of experience is computed, never typed: years since 2018-12-01, rounded to the
-  nearest whole year, computed at build with a one-line client correction so a stale build
-  still shows the right number.
+- Years of experience is computed, never typed: whole years served since 2018-12-01, rising
+  on each anniversary and never before (changed from nearest-year rounding on 2026-11-05),
+  computed at build with a one-line client correction so a stale build still shows the right
+  number.
 - Every number on the homepage is fetched or linked. If a source disappears, the row shows
   the link without the number rather than a stale number.
 - Role line: "Senior Mobile Engineer. Flutter, iOS & Android. {N} years shipping production
@@ -202,8 +204,8 @@ reduced-motion turns off. The page scripts run on every page load event and are 
 - Astro, static output, zero client JavaScript except: the years correction, the active-nav
   observer, the scheme switch, the demo start button, the phone menu, and the embedded Flutter
   demo. Content collections for posts and case studies.
-- Build-time data: the upstream pull request's state from the GitHub REST API, fetched once
-  per build; a failure leaves the plain note and must not fail the build. (Star and pub.dev
+- Build-time data: an upstream pull request's state from the GitHub REST API, fetched once
+  per build when a row names one; a failure leaves the plain note and must not fail the build. (Star and pub.dev
   counts were fetched too until 2026-11-03, when the owner dropped counts from the page.)
 - Flutter demo: a small Flutter web app in `demo/` depending on `flutter_pw_validator`
   (published 2.0.0), built with `flutter build web --release` and copied to `public/demo/`
@@ -219,7 +221,8 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   generated 1200×630 site card on the home page, the post's own graphic with `og:type`
   article on posts), JSON-LD graph with a `Person` (portrait, Persian `alternateName`,
   sameAs to LinkedIn, GitHub and pub.dev), a `WebSite`, and a `BlogPosting` by that person on
-  every post, sitemap with lastmod (post date from the slug, build date elsewhere), robots
+  every post, sitemap with lastmod (post date from the slug, the last commit's date
+  elsewhere, so the weekly rebuild claims no change), robots
   with `/demo/` disallowed, canonical URLs, the 404 and the `*.pages.dev` hosts noindexed,
   alt text on every graphic, each post its own URL. A post may carry `searchTitle` and
   `description` for the search snippet; the first paragraph stands in otherwise. Target
@@ -229,7 +232,8 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   so the tile keeps its edge on dark tab bars. SVG first, 32px PNG and 180px touch icon as
   fallbacks. (Replaced the scaffold's framework logo on 2026-11-04.)
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
-  `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline, not body text),
+  `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline and for marks,
+  never for text on its own, the pressed scheme label included),
   reduced-motion honoured, Persian element marked `lang="fa" dir="rtl"`.
 - Repository conventions follow the owner's global working agreement: feature branches
   from `main`, small bisectable commits, no AI attribution, tests first for logic (years
@@ -262,10 +266,10 @@ Settled by the author after the builder review; marked where the call is the aut
   `7479491437412409344`. URL form: `https://www.linkedin.com/feed/update/urn:li:activity:<id>`.
   September and October post URLs come from the owner.
 - **Open-source rows.** flutter_pw_validator, password_rules, pr-evidence, review-findings,
-  review-replies, post-merge-cleanup, and the upstream contribution
+  review-replies, post-merge-cleanup. The upstream contribution
   `https://github.com/dart-lang/ai/pull/731` ("[skills] Add a link command for local skill
-  directories", open and awaiting review as of 2026-11-03; the row says "in review" until it
-  merges). The earlier flutter/agent-plugins PR #258 was closed unmerged and is not shown. GitHub counts via the REST API,
+  directories", open and awaiting review as of 2026-11-03) returns as a row once it merges;
+  until then it is not shown. The earlier flutter/agent-plugins PR #258 was closed unmerged and is not shown. GitHub counts via the REST API,
   pub.dev counts via `https://pub.dev/api/packages/<name>/score` (grantedPoints, likeCount,
   downloadCount30Days; verified reachable 2026-11-03).
 - **Receipts verified live 2026-11-03.** CorePass: `apps.apple.com/app/corepass-id/id1644928641`,

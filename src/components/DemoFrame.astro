@@ -1,11 +1,13 @@
 ---
 import PhoneFrame from './PhoneFrame.astro';
 
-/// The real flutter_pw_validator widget, compiled to web, inside the phone chrome.
-/// A capture of the same widget is painted under the iframe, so the screen is never
-/// blank: it shows while Flutter loads and stays when scripts are off. The iframe carries
-/// its url in data-src; scripts/demo-start.ts starts it on approach on desktop and from the
-/// button, shown only below desktop width, elsewhere.
+/**
+ * The real flutter_pw_validator widget, compiled to web, inside the phone chrome.
+ * A capture of the same widget is painted under the iframe, so the screen is never
+ * blank: it shows while Flutter loads and stays when scripts are off. The iframe carries
+ * its url in data-src; scripts/demo-start.ts starts it on approach on desktop and from the
+ * button, shown only below desktop width, elsewhere.
+ */
 interface Props {
   fallbackAlt: string;
 }

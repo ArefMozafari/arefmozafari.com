@@ -1,7 +1,7 @@
 const SECTION_SELECTOR = 'main section[id]';
 const NAV_LINK_SELECTOR = 'aside nav a[href*="#"]';
 
-/// Marks the sidebar link of the section nearest the top of the viewport.
+/** Marks the sidebar link of the section nearest the top of the viewport. */
 function markActive(sectionId: string, links: HTMLAnchorElement[]): void {
   for (const link of links) {
     const isActive = (link.getAttribute('href') ?? '').endsWith(`#${sectionId}`);
@@ -13,7 +13,7 @@ function markActive(sectionId: string, links: HTMLAnchorElement[]): void {
   }
 }
 
-/// The scroll geometry the page-end rule reads, so the rule can be checked without a window.
+/** The scroll geometry the page-end rule reads, so the rule can be checked without a window. */
 interface ScrollGeometry {
   innerHeight: number;
   scrollY: number;
@@ -23,8 +23,10 @@ interface ScrollGeometry {
 // Browsers can stop a fraction of a pixel short of the bottom.
 const PAGE_END_TOLERANCE = 2;
 
-/// Whether the viewport has reached the bottom of the document, where the last section is the
-/// one being read however short it is.
+/**
+ * Whether the viewport has reached the bottom of the document, where the last section is the
+ * one being read however short it is.
+ */
 export function isAtPageEnd({ innerHeight, scrollY, scrollHeight }: ScrollGeometry): boolean {
   return innerHeight + scrollY >= scrollHeight - PAGE_END_TOLERANCE;
 }
@@ -32,7 +34,7 @@ export function isAtPageEnd({ innerHeight, scrollY, scrollHeight }: ScrollGeomet
 let currentObserver: IntersectionObserver | undefined;
 let currentScrollWatch: AbortController | undefined;
 
-/// Observes the homepage sections and keeps the sidebar nav in step with scrolling.
+/** Observes the homepage sections and keeps the sidebar nav in step with scrolling. */
 function watchSections(): void {
   if (typeof IntersectionObserver === 'undefined') {
     return;

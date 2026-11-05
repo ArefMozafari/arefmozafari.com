@@ -4,7 +4,7 @@ import type { alsoShippedSchema } from '../content/schemas';
 
 type Item = z.infer<typeof alsoShippedSchema>;
 
-/// Earlier work as a hairline index. A row links out when there is somewhere to link.
+/** Earlier work as a hairline index. A row links out when there is somewhere to link. */
 interface Props {
   items: Item[];
 }

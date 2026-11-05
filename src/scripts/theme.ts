@@ -1,6 +1,8 @@
-/// The colour-scheme switch. The choice lives in localStorage under THEME_KEY; nothing
-/// stored means "follow the system". A tiny inline script in the page head applies the
-/// stored choice before first paint; this module wires the switches and keeps them in step.
+/**
+ * The colour-scheme switch. The choice lives in localStorage under THEME_KEY; nothing
+ * stored means "follow the system". A tiny inline script in the page head applies the
+ * stored choice before first paint; this module wires the switches and keeps them in step.
+ */
 
 export const THEME_KEY = 'theme';
 
@@ -15,7 +17,7 @@ function isThemeChoice(value: string | null | undefined): value is ThemeChoice {
   return value === 'light' || value === 'dark';
 }
 
-/// The scheme to show for a stored value and the system preference.
+/** The scheme to show for a stored value and the system preference. */
 export function resolveTheme(stored: string | null, systemPrefersDark: boolean): ThemeChoice {
   if (isThemeChoice(stored)) {
     return stored;
@@ -23,7 +25,7 @@ export function resolveTheme(stored: string | null, systemPrefersDark: boolean):
   return systemPrefersDark ? 'dark' : 'light';
 }
 
-/// Each option sets the scheme directly; "system" and anything unknown clear the choice.
+/** Each option sets the scheme directly; "system" and anything unknown clear the choice. */
 export function settingFromOption(option: string | undefined): ThemeSetting {
   return isThemeChoice(option) ? option : null;
 }
@@ -48,8 +50,10 @@ function writeStored(setting: ThemeSetting): void {
   }
 }
 
-/// The media query a browser-chrome colour tag for `scheme` should carry: the system query
-/// while nothing is chosen, otherwise only the chosen scheme's tag applies.
+/**
+ * The media query a browser-chrome colour tag for `scheme` should carry: the system query
+ * while nothing is chosen, otherwise only the chosen scheme's tag applies.
+ */
 export function themeColorMedia(scheme: ThemeChoice, setting: ThemeSetting): string {
   if (setting === null) {
     return `(prefers-color-scheme: ${scheme})`;
@@ -57,8 +61,10 @@ export function themeColorMedia(scheme: ThemeChoice, setting: ThemeSetting): str
   return scheme === setting ? 'all' : 'not all';
 }
 
-/// Puts the setting on the root element, where tokens.css reads it, and on the browser-chrome
-/// colour tags, which cannot read it.
+/**
+ * Puts the setting on the root element, where tokens.css reads it, and on the browser-chrome
+ * colour tags, which cannot read it.
+ */
 function applyToDocument(setting: ThemeSetting): void {
   if (setting === null) {
     delete document.documentElement.dataset.theme;
@@ -72,7 +78,7 @@ function applyToDocument(setting: ThemeSetting): void {
   }
 }
 
-/// Presses the current option on every switch on the page.
+/** Presses the current option on every switch on the page. */
 function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
   const current = setting ?? 'system';
   for (const switchElement of switches) {
@@ -82,7 +88,7 @@ function reflect(switches: HTMLElement[], setting: ThemeSetting): void {
   }
 }
 
-/// Wires every switch on the page once; switches kept across in-page navigations are skipped.
+/** Wires every switch on the page once; switches kept across in-page navigations are skipped. */
 function wireSwitches(): void {
   const switches = [...document.querySelectorAll<HTMLElement>(SWITCH_SELECTOR)];
   const stored = readStored();

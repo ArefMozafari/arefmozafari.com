@@ -31,7 +31,7 @@ p {
 a {
   color: inherit;
   text-decoration-color: var(--color-gold-deep);
-  text-underline-offset: 3px;
+  text-underline-offset: var(--underline-offset);
   transition: text-decoration-color var(--motion-fast) var(--motion-ease);
 }
 
@@ -81,8 +81,8 @@ img {
 .sign-underline {
   text-decoration: underline;
   text-decoration-color: var(--color-gold-deep);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-decoration-thickness: var(--underline-thickness);
+  text-underline-offset: var(--underline-offset);
 }
 
 .sign-dot::before {

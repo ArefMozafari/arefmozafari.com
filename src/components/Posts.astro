@@ -2,8 +2,10 @@
 import type { CollectionEntry } from 'astro:content';
 import PostCard from './PostCard.astro';
 
-/// The posts grid, newest first: two columns from tablet width, then as many columns of at
-/// least the post column minimum as the main area fits.
+/**
+ * The posts grid, newest first: two columns from tablet width, then as many columns of at
+ * least the post column minimum as the main area fits.
+ */
 interface Props {
   posts: CollectionEntry<'posts'>[];
 }

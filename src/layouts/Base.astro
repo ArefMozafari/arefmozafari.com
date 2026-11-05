@@ -3,10 +3,11 @@ import { Font, getImage } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import portrait from '../assets/portrait.jpg';
+import { isoDate } from '../lib/iso-date';
 import { THEME_KEY } from '../scripts/theme';
 import { SITE } from '../site';
 
-/// A share image with the dimensions and alt text that card scrapers read.
+/** A share image with the dimensions and alt text that card scrapers read. */
 interface ShareImage {
   src: string;
   width: number;
@@ -14,7 +15,7 @@ interface ShareImage {
   alt: string;
 }
 
-/// A post page: adds the article tags and a BlogPosting node by the owner.
+/** A post page: adds the article tags and a BlogPosting node by the owner. */
 interface Article {
   title: string;
   date: Date;
@@ -25,7 +26,7 @@ interface Props {
   title: string;
   description: string;
   article?: Article;
-  /// Pages that must not be indexed, such as the 404, get the robots tag and no canonical.
+  /** Pages that must not be indexed, such as the 404, get the robots tag and no canonical. */
   noindex?: boolean;
 }
 
@@ -37,7 +38,7 @@ const origin = Astro.site ?? SITE.domain;
 const canonical = new URL(Astro.url.pathname, origin).href;
 const shareImage = article?.image ?? SITE_CARD;
 const shareImageUrl = new URL(shareImage.src, origin).href;
-const publishedOn = article?.date.toISOString().slice(0, 10);
+const publishedOn = article && isoDate(article.date);
 
 const portraitImage = await getImage({ src: portrait, width: PORTRAIT_WIDTH, format: 'jpeg' });
 const personId = `${SITE.domain}/#person`;

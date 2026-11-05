@@ -1,15 +1,17 @@
 ---
+import { yearsSince } from '../lib/years';
 import { SECTIONS } from '../sections';
+import { SITE } from '../site';
 import BottomBar from './BottomBar.astro';
 import MobileHeader from './MobileHeader.astro';
 import Sidebar from './Sidebar.astro';
 
 interface Props {
-  years: number;
   nameAsHeading?: boolean;
 }
 
-const { years, nameAsHeading = true } = Astro.props;
+const { nameAsHeading = true } = Astro.props;
+const years = yearsSince(SITE.careerStart, new Date());
 ---
 
 <div class="shell" id="top">

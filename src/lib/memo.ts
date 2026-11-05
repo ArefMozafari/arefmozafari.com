@@ -1,6 +1,8 @@
-/// Caches an async loader by its first argument for the life of the process, so a
-/// build (or a dev server re-rendering on every change) asks each remote once.
-/// A null answer is not kept, so a failed fetch is retried next time.
+/**
+ * Caches an async loader by its first argument for the life of the process, so a
+ * build (or a dev server re-rendering on every change) asks each remote once.
+ * A null answer is not kept, so a failed fetch is retried next time.
+ */
 export function memoizeAsync<Rest extends unknown[], Value>(
   load: (key: string, ...rest: Rest) => Promise<Value | null>,
 ): (key: string, ...rest: Rest) => Promise<Value | null> {

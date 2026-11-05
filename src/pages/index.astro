@@ -11,10 +11,7 @@ import Shell from '../components/Shell.astro';
 import WorkBlock from '../components/WorkBlock.astro';
 import Base from '../layouts/Base.astro';
 import { buildOpenSourceRows } from '../lib/open-source-rows';
-import { yearsSince } from '../lib/years';
 import { SITE } from '../site';
-
-const years = yearsSince(SITE.careerStart, new Date());
 
 const works = (await getCollection('works')).sort(
   (first, second) => first.data.order - second.data.order,
@@ -36,7 +33,7 @@ const posts = await getCollection('posts');
   title={`${SITE.name} · ${SITE.nameFa} · ${SITE.title} · ${SITE.stack}`}
   description={SITE.description}
 >
-  <Shell years={years}>
+  <Shell>
     <section id="work" aria-label="Work">
       <Lead />
       {worksWithContent.map(({ work, Content }, index) => (

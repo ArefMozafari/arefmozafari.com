@@ -1,7 +1,9 @@
 ---
-/// The colour-scheme switch: three buttons, system, light, dark, each setting its scheme
-/// directly. The pressed one is marked for sighted and assistive readers alike. Wired by
-/// scripts/theme.ts.
+/**
+ * The colour-scheme switch: three buttons, system, light, dark, each setting its scheme
+ * directly. The pressed one is marked for sighted and assistive readers alike. Wired by
+ * scripts/theme.ts.
+ */
 const OPTIONS = [
   { id: 'system', label: 'System' },
   { id: 'light', label: 'Light' },
@@ -44,8 +46,13 @@ const OPTIONS = [
     transition: color var(--motion-fast) var(--motion-ease);
   }
 
-  /* The pressed option is marked the way the nav marks the active section: gold ink, no box. */
+  /* The pressed option takes the ink and the gold underline of a link: at label size, gold
+     text alone on cream falls short of 4.5:1. */
   .switch button[aria-pressed='true'] {
-    color: var(--color-gold-deep);
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold-deep);
+    text-decoration-thickness: var(--underline-thickness);
+    text-underline-offset: var(--underline-offset);
   }
 </style>

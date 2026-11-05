@@ -40,14 +40,5 @@
     "name": "post-merge-cleanup",
     "description": "Agent skill: cleans up branches, worktrees and stale notes once your pull request has merged",
     "url": "https://github.com/ArefMozafari/post-merge-cleanup"
-  },
-  {
-    "id": "dart-lang-ai",
-    "order": 7,
-    "name": "dart-lang/ai",
-    "description": "Upstream contribution: a link command for local skill directories in the Dart skills tooling",
-    "url": "https://github.com/dart-lang/ai/pull/731",
-    "pullRequest": "dart-lang/ai#731",
-    "note": "PR #731"
   }
 ]

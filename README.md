@@ -10,19 +10,22 @@ npm install
 GITHUB_TOKEN="$(gh auth token)" npm run dev
 ```
 
-The token is optional. Without it GitHub's anonymous rate limit can run out during a long dev
-session, and the upstream pull request's row loses its live state until the next build.
+The token is optional, and only matters while an open-source row names an upstream pull
+request (none does at present): without it GitHub's anonymous rate limit can run out during a
+long dev session, and that row loses its live state until the next build.
 
 The demo phone on the homepage embeds `public/demo/`, which is a Flutter web build. Build it
-once with a Flutter SDK installed:
+once with Flutter 3.47.7 installed (the version CI pins; a newer one may lay the build out
+differently and defeat the prune step):
 
 ```sh
 npm run build:demo
 ```
 
 The build step also prunes the renderers and symbol maps the demo never requests, which
-keeps the deploy small. The page starts the demo only once its block nears the viewport, so
-its bundle never competes with the first screens.
+keeps the deploy small. On desktop the page starts the demo once its block nears the
+viewport; narrower screens start it from a button, so its bundle never competes with the
+first screens.
 
 ## Verify
 
@@ -43,7 +46,8 @@ cd demo && flutter analyze && flutter test
 - `src/content/` holds the content: works, posts, open-source rows, earlier work.
 - `src/styles/tokens.css` holds every visual value.
 - `src/lib/` holds the build-time logic: computed years, the pull request state, a per-process
-  memo so each remote is asked once per build, the post description and sitemap dates.
+  memo so each remote is asked once per build, the post description, calendar dates and
+  sitemap dates.
 - `src/scripts/` holds the little that runs in the browser: the years correction, the active
   section in the nav, the scheme switch, the demo start button, the phone menu.
 - `demo/` is the Flutter app behind the phone frame.
@@ -53,14 +57,14 @@ cd demo && flutter analyze && flutter test
 ## What is live, and what is not
 
 Computed or fetched on every build, and refreshed by the weekly scheduled run: years of
-experience, the upstream pull request's state, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
+experience, the state of any upstream pull request a row names, the footer year. GitHub pauses scheduled workflows after 60 days without a push; a
 commit, or "Run workflow" on the Actions tab, turns the weekly refresh back on. Hand-maintained by design: the status row, the role line, the
 work descriptions, and new posts (one folder each under `src/content/posts/`).
 
 ## Deploy
 
 GitHub Actions (`.github/workflows/deploy.yml`) builds the demo and the site on every push to
-`main`, every pull request (preview), every Monday (fresh pull request state and years), and
+`main`, every pull request (preview), every Monday (fresh years and pull request state), and
 on demand, then deploys with `cloudflare/wrangler-action`.
 
 ### One-time hand-off

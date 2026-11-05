@@ -1,3 +1,10 @@
+# Browser hardening on every response: no MIME sniffing, the origin alone as referrer across
+# sites, and the device features the site never asks for switched off.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
 # Preview and project hosts serve the same HTML as the domain; keep them out of the index.
 https://:project.pages.dev/*
   X-Robots-Tag: noindex

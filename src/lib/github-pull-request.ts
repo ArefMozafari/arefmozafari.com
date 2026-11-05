@@ -4,7 +4,7 @@ export type PullRequestState = 'open' | 'merged' | 'closed';
 
 const GITHUB_API = 'https://api.github.com/repos/';
 
-/// Headers GitHub expects; the token lifts the anonymous rate limit in CI.
+/** Headers GitHub expects; the token lifts the anonymous rate limit in CI. */
 function githubHeaders(token: string | undefined): Record<string, string> {
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
@@ -41,8 +41,10 @@ async function loadPullRequestState(
 
 const memoizedPullRequestState = memoizeAsync(loadPullRequestState);
 
-/// Fetches whether a pull request is open, merged or closed without merging, once per
-/// process. Returns null on any failure so the row keeps its link and loses only the state.
+/**
+ * Fetches whether a pull request is open, merged or closed without merging, once per
+ * process. Returns null on any failure so the row keeps its link and loses only the state.
+ */
 export function fetchPullRequestState(
   fullName: string,
   number: number,

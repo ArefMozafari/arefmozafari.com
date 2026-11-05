@@ -3,18 +3,19 @@ import { Image } from 'astro:assets';
 import NameFa from '../assets/name-fa.svg';
 import portrait from '../assets/portrait.jpg';
 import type { Section } from '../sections';
+import { isoDate } from '../lib/iso-date';
 import { SITE } from '../site';
 import ThemeSwitch from './ThemeSwitch.astro';
 
 interface Props {
   years: number;
   sections: readonly Section[];
-  /// The homepage owns the h1; inner pages render the name as plain text.
+  /** The homepage owns the h1; inner pages render the name as plain text. */
   nameAsHeading?: boolean;
 }
 
 const { years, sections, nameAsHeading = true } = Astro.props;
-const careerStart = SITE.careerStart.toISOString().slice(0, 10);
+const careerStart = isoDate(SITE.careerStart);
 const NameTag = nameAsHeading ? 'h1' : 'p';
 ---
 
@@ -68,9 +69,7 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
       LinkedIn
     </a>
     {' · '}
-    <a href={SITE.resumePath} download={SITE.resumeFileName}>
-      Résumé
-    </a>
+    <a href={SITE.resumePath}>Résumé</a>
   </address>
   <div class="scheme">
     <ThemeSwitch />

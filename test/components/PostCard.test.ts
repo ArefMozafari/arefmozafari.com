@@ -16,7 +16,7 @@ const post = {
 };
 
 const portraitPost = {
-  id: '2026-08-05-ai-era-glossary',
+  id: '2026-10-01-pr-evidence-proof-pr3',
   data: { ...post.data, graphic: portraitGraphic, linkedinActivityId: '7492512595346817024' },
 };
 

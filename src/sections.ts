@@ -1,4 +1,4 @@
-/// The homepage sections, in page order. Ids double as anchor targets.
+/** The homepage sections, in page order. Ids double as anchor targets. */
 export const SECTIONS = [
   { id: 'work', label: 'Work' },
   { id: 'open-source', label: 'Open source' },

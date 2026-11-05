@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 const POSTS_ROOT = 'src/content/posts';
 
-/// Splits a post file into its title and the first non-empty body line.
+/** Splits a post file into its title and the first non-empty body line. */
 function titleAndFirstLine(file: string): { title: string; firstLine: string } {
   const text = readFileSync(file, 'utf8');
   const [, frontmatter, body] = text.split(/^---\n/m);

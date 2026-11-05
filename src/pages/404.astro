@@ -1,10 +1,7 @@
 ---
 import Shell from '../components/Shell.astro';
 import Base from '../layouts/Base.astro';
-import { yearsSince } from '../lib/years';
 import { SITE } from '../site';
-
-const years = yearsSince(SITE.careerStart, new Date());
 ---
 
 <Base
@@ -12,7 +9,7 @@ const years = yearsSince(SITE.careerStart, new Date());
   description="There is no page at this address."
   noindex
 >
-  <Shell years={years} nameAsHeading={false}>
+  <Shell nameAsHeading={false}>
     <h1 class="title">Page not found.</h1>
     <p class="muted">There is no page at this address. The homepage has everything.</p>
     <a class="home" href="/">

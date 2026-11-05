@@ -10,9 +10,11 @@ describe('SectionLabel', () => {
     expect(html).not.toMatch(/<h2[^>]*class="[^"]*sign-dot/);
   });
 
-  it('should render the note after the title', async () => {
-    const html = await render(SectionLabel, { title: 'Open source', note: 'counts at build' });
+  it('should keep the note out of the heading, after it', async () => {
+    const html = await render(SectionLabel, { title: 'Also shipped', note: 'earlier work' });
 
-    expect(html.indexOf('Open source')).toBeLessThan(html.indexOf('counts at build'));
+    expect(html).toMatch(/<h2[^>]*>(?:(?!<\/h2>).)*Also shipped(?:(?!<\/h2>).)*<\/h2>/s);
+    expect(html).not.toMatch(/<h2[^>]*>(?:(?!<\/h2>).)*earlier work/s);
+    expect(html).toMatch(/<\/h2>\s*<p[^>]*class="[^"]*note[^"]*"[^>]*>earlier work<\/p>/);
   });
 });
