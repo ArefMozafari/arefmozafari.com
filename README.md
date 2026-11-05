@@ -14,7 +14,8 @@ The token is optional. Without it GitHub's anonymous rate limit can run out duri
 session, and the upstream pull request's row loses its live state until the next build.
 
 The demo phone on the homepage embeds `public/demo/`, which is a Flutter web build. Build it
-once with a Flutter SDK installed:
+once with Flutter 3.47.7 installed (the version CI pins; a newer one may lay the build out
+differently and defeat the prune step):
 
 ```sh
 npm run build:demo
