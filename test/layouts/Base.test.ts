@@ -73,6 +73,7 @@ describe('Base', () => {
 
     expect(html).toContain('href="/favicon.svg" type="image/svg+xml"');
     expect(html).toContain('href="/favicon-32.png" type="image/png" sizes="32x32"');
+    expect(html).toContain('href="/favicon.ico" sizes="16x16 32x32 48x48"');
     expect(html).toContain('rel="apple-touch-icon" href="/apple-touch-icon.png"');
   });
 
