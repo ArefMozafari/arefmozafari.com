@@ -64,8 +64,9 @@ canvas is the inversion of its charcoal canvas, chosen so the site is not anothe
 **Dark scheme (added 2026-11-03, owner's request).** The site follows the system
 (`prefers-color-scheme`), light first. Dark is an inversion of roles, not a darkening: canvas
 `#15120C`, ink `#F5F1E8`, muted ink `#A89F8D`, accent gold brightens to `#E0B95C`; the blocks
-flip to cream `#EFE9DC` with charcoal ink and deep-gold `#8A6F3C` labels, so they still read as
-objects on the page; halftone dots become deep gold on cream. Portrait duotone, post graphics,
+flip to cream `#EFE9DC` with charcoal ink and gold labels cut deeper still, `#7A6232`, so the
+12px kicker text clears 4.5:1 on cream (the link gold `#8A6F3C` reaches only 3.9:1; changed
+2026-11-09 after an audit); halftone dots become deep gold on cream. Portrait duotone, post graphics,
 the demo and the OG image are unchanged. Tokens are written once with `light-dark()`, and
 `color-scheme` on the root decides which side applies. A three-state switch (system, light,
 dark) sits under the sidebar contact links and in the phone menu; the choice is kept in

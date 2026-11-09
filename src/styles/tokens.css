@@ -21,7 +21,9 @@
   --color-gold-deep: light-dark(#8a6f3c, #e0b95c);
   --color-block: light-dark(#1a160f, #efe9dc);
   --color-block-ink: light-dark(#f5f1e8, #15120c);
-  --color-block-gold: light-dark(#e0b95c, #8a6f3c);
+  /* On the cream block the gold is cut deeper than the link gold, so 12px kicker text still
+     clears 4.5:1; test/styles/contrast.test.ts holds the line. */
+  --color-block-gold: light-dark(#e0b95c, #7a6232);
   /* The one shadow under every artifact in a block: poster, phone and browser window. On a
      charcoal block (light scheme) a black shadow only shows where it sinks the halftone dots,
      so it is full black with a faint cream ring at the edge; on a cream block (dark scheme) a
