@@ -77,6 +77,12 @@ describe('Base', () => {
     expect(html).toContain('rel="apple-touch-icon" href="/apple-touch-icon.png"');
   });
 
+  it('should declare the ico before the SVG, since Google reads no SVG favicon', async () => {
+    const html = await render(Base, { title: 't', description: 'd' });
+
+    expect(html.indexOf('href="/favicon.ico"')).toBeLessThan(html.indexOf('href="/favicon.svg"'));
+  });
+
   it('should mark a noindex page as such and give it no canonical', async () => {
     const html = await render(Base, { title: 't', description: 'd', noindex: true });
 
