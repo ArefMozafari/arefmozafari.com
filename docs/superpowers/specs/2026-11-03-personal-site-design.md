@@ -234,8 +234,10 @@ reduced-motion turns off. The page scripts run on every page load event and are 
   query is the owner's name. (Expanded on 2026-11-04 after the SEO review.)
 - Icon: a work block in miniature, charcoal tile with the card radius ratio, the initial "A"
   in the display face as outlines, and the gold dot that signs the page, with a faint cream rule
-  so the tile keeps its edge on dark tab bars. SVG first, 32px PNG and 180px touch icon as
-  fallbacks. (Replaced the scaffold's framework logo on 2026-11-04.)
+  so the tile keeps its edge on dark tab bars. Declared ico first (16, 32 and 48px frames),
+  then the 32px PNG, then the SVG, plus the 180px touch icon: Google Search reads no SVG
+  favicon and takes the first icon it can use, while browsers pick the SVG by its type whatever
+  the order (order set 2026-11-09; the scaffold's framework logo was replaced on 2026-11-04).
 - Accessibility: semantic landmarks, visible focus, 4.5:1 contrast on cream (muted ink
   `#5A5244` passes; deep gold `#8A6F3C` on cream is for links with underline and for marks,
   never for text on its own, the pressed scheme label included),
