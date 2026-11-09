@@ -194,6 +194,8 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     transition: color var(--motion-fast) var(--motion-ease);
   }
 
+  /* Hover shows the gold the current section already wears. */
+  .nav a:hover,
   .nav a[aria-current='true'] {
     color: var(--color-gold-deep);
   }
@@ -210,8 +212,9 @@ const NameTag = nameAsHeading ? 'h1' : 'p';
     text-decoration: none;
   }
 
+  /* The line only: the shorthand would reset the colour the global link rules set. */
   .contact a:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
   }
 
   /* Below the desktop breakpoint the compact header carries the portrait, the menu and

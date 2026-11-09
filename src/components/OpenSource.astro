@@ -56,8 +56,9 @@ const { rows } = Astro.props;
     text-decoration: none;
   }
 
+  /* The line only: the shorthand would reset the colour the global link rules set. */
   .name:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
   }
 
   .description {

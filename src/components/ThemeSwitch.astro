@@ -46,6 +46,10 @@ const OPTIONS = [
     transition: color var(--motion-fast) var(--motion-ease);
   }
 
+  .switch button:hover {
+    color: var(--color-ink);
+  }
+
   /* The pressed option takes the ink and the gold underline of a link: at label size, gold
      text alone on cream falls short of 4.5:1. */
   .switch button[aria-pressed='true'] {
