@@ -100,8 +100,11 @@
   --leading-compact: 1.45;
   --leading-body: 1.5;
   --leading-post: 1.55;
-  /* Kicker strips and the receipts list: room between wrapped lines. */
+  /* Kicker strips: room between wrapped lines. */
   --leading-kicker: 1.7;
+  /* The receipts list: each 13px link is its own target, and the rows must sit at least 24px
+     apart for a fingertip (WCAG 2.5.8). */
+  --leading-receipts: 1.9;
 
   /* Space. */
   --space-1: 4px;
@@ -119,6 +122,8 @@
   --main-padding: 40px;
   --measure-lead: 560px;
   --measure-post: 640px;
+  /* A work description at 15px: about 68 characters a line. */
+  --measure-caption: 520px;
   /* A posts column never drops below this; wide screens add columns instead of stretching. */
   --post-column-min: 480px;
   --caption-number-width: 44px;
