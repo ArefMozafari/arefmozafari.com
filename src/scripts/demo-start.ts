@@ -2,8 +2,20 @@
 interface DemoIframe {
   src: string;
   dataset: { src?: string };
+  addEventListener(type: 'load', listener: () => void): void;
 }
 
+/** The attributes the start button needs; typed loosely for the same reason. */
+interface DemoStartButton {
+  disabled: boolean;
+  /** The DOM types this as `boolean | string` for the until-found value. */
+  hidden: boolean | string;
+  textContent: string | null;
+  setAttribute(name: string, value: string): void;
+}
+
+/** What the start button says while the Flutter bundle, several megabytes, comes down. */
+export const LOADING_LABEL = 'Loading the widget…';
 const START_BUTTON_SELECTOR = 'button[data-demo-start]';
 const IFRAME_SELECTOR = 'iframe[data-src]';
 /**
@@ -23,13 +35,19 @@ export function startDemo(iframe: DemoIframe): void {
   }
 }
 
-/** Starts the demo next to a button and retires the button. */
-function startFromButton(button: HTMLButtonElement): void {
-  const iframe = button.parentElement?.querySelector<HTMLIFrameElement>(IFRAME_SELECTOR);
-  if (iframe) {
-    startDemo(iframe);
-  }
-  button.hidden = true;
+/**
+ * Starts the demo from its button. The button becomes the loading cue until the demo
+ * document has loaded, then retires; a tap into a multi-megabyte wait would otherwise look
+ * like nothing happened.
+ */
+export function startFromButton(button: DemoStartButton, iframe: DemoIframe): void {
+  startDemo(iframe);
+  button.disabled = true;
+  button.setAttribute('aria-busy', 'true');
+  button.textContent = LOADING_LABEL;
+  iframe.addEventListener('load', () => {
+    button.hidden = true;
+  });
 }
 
 /**
@@ -58,7 +76,14 @@ function startNearViewport(iframes: HTMLIFrameElement[]): void {
 /** The Flutter bundle weighs several megabytes: desktops get it on approach, phones on request. */
 function wireDemoStarts(): void {
   for (const button of document.querySelectorAll<HTMLButtonElement>(START_BUTTON_SELECTOR)) {
-    button.addEventListener('click', () => startFromButton(button));
+    button.addEventListener('click', () => {
+      const iframe = button.parentElement?.querySelector<HTMLIFrameElement>(IFRAME_SELECTOR);
+      if (iframe) {
+        startFromButton(button, iframe);
+      } else {
+        button.hidden = true;
+      }
+    });
   }
   if (window.matchMedia(AUTO_START_QUERY).matches) {
     startNearViewport([...document.querySelectorAll<HTMLIFrameElement>(IFRAME_SELECTOR)]);
