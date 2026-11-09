@@ -96,7 +96,9 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
 Desktop (≥ 1024px): two columns. Left column 320px, sticky to the viewport: Latin name,
 Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, status row,
 vertical nav (Work, Open source, Posts, Contact), contact links pinned to the bottom. Right
-column scrolls. Active nav item follows the section in view.
+column scrolls. Active nav item follows the section in view. The two columns together stop
+at 1680px and centre, with a hairline on each side (added 2026-11-09 for ultrawide screens,
+where the blocks had stretched to 3000px bands); below 1920px nothing changes.
 
 Phone (< 768px): the column collapses to a compact header (small square portrait, status
 text, menu), then the name large, role, status row, and the same sections stacked. A fixed bottom

@@ -118,6 +118,9 @@
   --space-9: 72px;
   --gutter: 16px;
   --sidebar-width: 320px;
+  /* Sidebar and content together stop here and centre, so an ultrawide screen gets one
+     sheet on the desk instead of blocks stretched to thin bands. */
+  --shell-max-width: 1680px;
   --sidebar-padding: 34px;
   --main-padding: 40px;
   --measure-lead: 560px;
