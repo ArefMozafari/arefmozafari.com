@@ -12,3 +12,6 @@ public/demo/
 # OS and editor
 .DS_Store
 *.log
+
+# Impeccable design hook runtime cache
+.impeccable/hook.cache.json

@@ -53,6 +53,11 @@ const FALLBACK_PATH = '/demo-fallback.png';
     cursor: pointer;
   }
 
+  /* While the bundle loads the button is the only sign that the tap worked. */
+  .start:disabled {
+    cursor: progress;
+  }
+
   /* Desktop starts the demo by itself; the button is for the widths that wait. */
   @media (min-width: 1024px) {
     .start {

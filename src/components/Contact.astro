@@ -35,7 +35,8 @@ import { SITE } from '../site';
     max-width: 100%;
     margin: var(--space-2) 0;
     font-size: var(--text-contact-link);
-    text-decoration: underline;
+    /* The line only: the shorthand would reset the gold the global link rules set. */
+    text-decoration-line: underline;
     text-underline-offset: var(--underline-offset-large);
     overflow-wrap: anywhere;
   }

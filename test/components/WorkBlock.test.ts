@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import corepassImage from '../../src/assets/works/corepass.png';
+import ringImage from '../../src/assets/works/ring.png';
 import WorkBlock from '../../src/components/WorkBlock.astro';
 import { render } from '../helpers/render';
 
@@ -53,11 +54,18 @@ describe('WorkBlock', () => {
     expect(second).not.toContain('fetchpriority="high"');
   });
 
-  it('should not offer a 2x poster the source cannot fill', async () => {
-    // The CorePass card is 1200px wide, under the 1880px a 2x candidate would need.
-    const html = await render(WorkBlock, { work: corepass, index: 0 }, { default: 'desc' });
+  it('should offer the poster at the widths its slots render, up to the source', async () => {
+    // The Ring card is 731px wide: the 800px candidate for a 2x wide slot is beyond it.
+    const ring = {
+      ...corepass,
+      artifact: { kind: 'poster', image: ringImage, alt: 'The Ring card' },
+    };
 
-    expect(html).not.toMatch(/\s2x"/);
+    const html = await render(WorkBlock, { work: ring, index: 1 }, { default: 'desc' });
+
+    expect(html).toMatch(/<img[^>]*srcset="[^"]*\s300w[^"]*\s600w/);
+    expect(html).not.toMatch(/\s800w/);
+    expect(html).toMatch(/<img[^>]*sizes="\(min-width: 1024px\) 400px, 46vw"/);
   });
 
   it('should render a poster artifact as a plain image, with no phone chrome', async () => {

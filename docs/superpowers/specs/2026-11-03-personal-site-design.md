@@ -64,8 +64,9 @@ canvas is the inversion of its charcoal canvas, chosen so the site is not anothe
 **Dark scheme (added 2026-11-03, owner's request).** The site follows the system
 (`prefers-color-scheme`), light first. Dark is an inversion of roles, not a darkening: canvas
 `#15120C`, ink `#F5F1E8`, muted ink `#A89F8D`, accent gold brightens to `#E0B95C`; the blocks
-flip to cream `#EFE9DC` with charcoal ink and deep-gold `#8A6F3C` labels, so they still read as
-objects on the page; halftone dots become deep gold on cream. Portrait duotone, post graphics,
+flip to cream `#EFE9DC` with charcoal ink and gold labels cut deeper still, `#7A6232`, so the
+12px kicker text clears 4.5:1 on cream (the link gold `#8A6F3C` reaches only 3.9:1; changed
+2026-11-09 after an audit); halftone dots become deep gold on cream. Portrait duotone, post graphics,
 the demo and the OG image are unchanged. Tokens are written once with `light-dark()`, and
 `color-scheme` on the root decides which side applies. A three-state switch (system, light,
 dark) sits under the sidebar contact links and in the phone menu; the choice is kept in
@@ -95,7 +96,9 @@ Every colour, size, radius and spacing lives in one token file. No raw values in
 Desktop (≥ 1024px): two columns. Left column 320px, sticky to the viewport: Latin name,
 Persian name (`lang="fa" dir="rtl"`, gold), portrait, role line, status row,
 vertical nav (Work, Open source, Posts, Contact), contact links pinned to the bottom. Right
-column scrolls. Active nav item follows the section in view.
+column scrolls. Active nav item follows the section in view. The two columns together stop
+at 1680px and centre, with a hairline on each side (added 2026-11-09 for ultrawide screens,
+where the blocks had stretched to 3000px bands); below 1920px nothing changes.
 
 Phone (< 768px): the column collapses to a compact header (small square portrait, status
 text, menu), then the name large, role, status row, and the same sections stacked. A fixed bottom

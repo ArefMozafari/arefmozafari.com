@@ -4,3 +4,6 @@ public/demo/
 demo/build/
 demo/.dart_tool/
 package-lock.json
+
+# Impeccable design hook runtime cache
+.impeccable/hook.cache.json

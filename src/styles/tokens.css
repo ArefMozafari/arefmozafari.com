@@ -21,7 +21,9 @@
   --color-gold-deep: light-dark(#8a6f3c, #e0b95c);
   --color-block: light-dark(#1a160f, #efe9dc);
   --color-block-ink: light-dark(#f5f1e8, #15120c);
-  --color-block-gold: light-dark(#e0b95c, #8a6f3c);
+  /* On the cream block the gold is cut deeper than the link gold, so 12px kicker text still
+     clears 4.5:1; test/styles/contrast.test.ts holds the line. */
+  --color-block-gold: light-dark(#e0b95c, #7a6232);
   /* The one shadow under every artifact in a block: poster, phone and browser window. On a
      charcoal block (light scheme) a black shadow only shows where it sinks the halftone dots,
      so it is full black with a faint cream ring at the edge; on a cream block (dark scheme) a
@@ -98,8 +100,11 @@
   --leading-compact: 1.45;
   --leading-body: 1.5;
   --leading-post: 1.55;
-  /* Kicker strips and the receipts list: room between wrapped lines. */
+  /* Kicker strips: room between wrapped lines. */
   --leading-kicker: 1.7;
+  /* The receipts list: each 13px link is its own target, and the rows must sit at least 24px
+     apart for a fingertip (WCAG 2.5.8). */
+  --leading-receipts: 1.9;
 
   /* Space. */
   --space-1: 4px;
@@ -113,10 +118,15 @@
   --space-9: 72px;
   --gutter: 16px;
   --sidebar-width: 320px;
+  /* Sidebar and content together stop here and centre, so an ultrawide screen gets one
+     sheet on the desk instead of blocks stretched to thin bands. */
+  --shell-max-width: 1680px;
   --sidebar-padding: 34px;
   --main-padding: 40px;
   --measure-lead: 560px;
   --measure-post: 640px;
+  /* A work description at 15px: about 68 characters a line. */
+  --measure-caption: 520px;
   /* A posts column never drops below this; wide screens add columns instead of stretching. */
   --post-column-min: 480px;
   --caption-number-width: 44px;

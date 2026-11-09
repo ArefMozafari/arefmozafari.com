@@ -54,8 +54,12 @@ const years = yearsSince(SITE.careerStart, new Date());
   }
 
   @media (min-width: 1024px) {
+    /* Past the cap the sheet centres and a hairline closes each side of it. */
     .shell {
       grid-template-columns: var(--sidebar-width) 1fr;
+      max-width: var(--shell-max-width);
+      margin: 0 auto;
+      border-right: var(--hairline);
     }
 
     .aside {
@@ -64,6 +68,7 @@ const years = yearsSince(SITE.careerStart, new Date());
       align-self: start;
       height: 100vh;
       padding: var(--space-7) var(--sidebar-padding);
+      border-left: var(--hairline);
       border-right: var(--hairline);
     }
 

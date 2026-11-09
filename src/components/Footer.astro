@@ -34,8 +34,9 @@ const year = new Date().getFullYear();
     text-decoration: none;
   }
 
+  /* The line only: the shorthand would reset the colour the global link rules set. */
   .footer a:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
   }
 
   @media (max-width: 767px) {
