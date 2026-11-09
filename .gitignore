@@ -9,6 +9,9 @@ public/demo/
 # Executor scratch
 .superpowers/
 
+# Impeccable: per-developer hook consent and overrides; the shared config is committed
+.impeccable/config.local.json
+
 # OS and editor
 .DS_Store
 *.log
